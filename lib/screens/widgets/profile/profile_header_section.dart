@@ -6,7 +6,6 @@ import 'package:sounds_good/screens/widgets/profile/shared/profile_mode_switch_b
 import 'package:sounds_good/screens/widgets/profile/shared/profile_modes.dart';
 import 'package:sounds_good/screens/widgets/profile/shared/profile_image.dart';
 import 'package:sounds_good/screens/widgets/profile/edit/profile_image.dart';
-import 'package:sounds_good/screens/widgets/profile/shared/header_button.dart';
 import 'package:sounds_good/screens/widgets/profile/own/header.dart';
 import 'package:sounds_good/screens/widgets/profile/edit/header.dart';
 

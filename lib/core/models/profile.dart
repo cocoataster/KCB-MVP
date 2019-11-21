@@ -3,11 +3,11 @@ import 'package:sounds_good/core/models/location.dart';
 
 class Profile {
   final String id;
-  final String name;
+  String name;
   final Location location;
   final ContactMethod contactMethod;
   final List<String> instruments;
-  final String friendlyLocation;
+  String friendlyLocation;
   final List<String> videos;
   final String description;
   final String photo;
