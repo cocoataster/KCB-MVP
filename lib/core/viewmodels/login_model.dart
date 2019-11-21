@@ -2,7 +2,7 @@ import 'package:sounds_good/core/services/api.dart';
 import 'base_model.dart';
 import 'package:sounds_good/locator.dart';
 
-class LoginModel extends BaseModel {
+class LoginModel extends BaseViewModel {
   final Api _api = locator<Api>();
 
   Future<bool> login(String email, String password) async {
