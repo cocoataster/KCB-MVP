@@ -25,8 +25,8 @@ class _EditInstrumentsListState extends State<EditInstrumentsList> {
         .instrumentsToRemove(instrumentsSelected: _instrumentsSelected);
   }
 
-  void _addInstrument(){
-    Provider.of<ProfileViewModel>(context, listen: false).addInstrument(instrument: 'otro instrumento');
+  void _addInstrument(newInstrument){
+    Provider.of<ProfileViewModel>(context, listen: false).addInstrument(instrument: newInstrument);
   }
 
   @override
@@ -43,7 +43,7 @@ class _EditInstrumentsListState extends State<EditInstrumentsList> {
           }).toList();
 
         List<Widget> _editableInstrumentsList = [
-          AddInstrument(onTap: _addInstrument),
+          AddInstrument(onSelectedInstrument: _addInstrument),
         ];
 
        _editableInstrumentsList.addAll(_instrumentsWidgetsList);

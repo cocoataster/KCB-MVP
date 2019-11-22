@@ -49,7 +49,7 @@ class _InstrumentsViewState extends State<InstrumentsView> {
                             ),
                             onPressed: () => {}))
                         .toList(),
-                    itemExtent: 50,
+                    itemExtent: 52,
                     looping: true,
                     onSelectedItemChanged: (index) => selectedItem = index,
                   ),
