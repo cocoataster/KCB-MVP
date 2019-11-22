@@ -1,9 +1,8 @@
-
-
-import '../../locator.dart';
-import '../models/profile.dart';
-import '../services/api.dart';
-import 'base_model.dart';
+import 'package:sounds_good/core/utils/enums.dart';
+import 'package:sounds_good/locator.dart';
+import 'package:sounds_good/core/models/profile.dart';
+import 'package:sounds_good/core/services/api.dart';
+import 'base_viewmodel.dart';
 
 
 class ProfileViewModel extends BaseViewModel {
@@ -12,9 +11,12 @@ class ProfileViewModel extends BaseViewModel {
   Profile profile;
   Set<String> instrumentsToRemoveList = {};
 
-  Future getProfile() async {
+  Future fetchProfile() async {
     setState(ViewState.Busy);
-    await Future.delayed(const Duration(seconds: 5), () {});
+    
+    // TODO Remove delay
+    //await Future.delayed(const Duration(seconds: 2), () {});
+    
     profile = await _api.getProfile();
     setState(ViewState.Idle);
   }
@@ -26,17 +28,14 @@ class ProfileViewModel extends BaseViewModel {
   }
 
   updateInstrumentsList() {
-    setState(ViewState.Busy);
     instrumentsToRemoveList
         .map((String instrument) => profile.instruments.remove(instrument))
         .toList();
     print(profile.instruments);
-    setState(ViewState.Idle);
   }
 
   updateProfileLocation({friendlyLocation}) {
     profile.friendlyLocation = friendlyLocation;
-
     print('Location: ' + friendlyLocation);
     notifyListeners();
   }
@@ -45,6 +44,16 @@ class ProfileViewModel extends BaseViewModel {
     profile.name = name;
 
     print('Name: ' + name);
+    notifyListeners();
+  }
+
+  ProfileMode _profileMode = ProfileMode.Own;
+
+  ProfileMode get getMode => _profileMode;
+
+  void setMode(ProfileMode profileMode) {
+    _profileMode = profileMode;
+    print(_profileMode);
     notifyListeners();
   }
 }

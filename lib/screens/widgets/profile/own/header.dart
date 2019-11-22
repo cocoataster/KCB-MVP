@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:sounds_good/core/viewmodels/profile_viewmodel.dart';
 
 class UserProfileHeader extends StatelessWidget {
-  
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -11,7 +10,7 @@ class UserProfileHeader extends StatelessWidget {
         children: <Widget>[
           Expanded(
             flex: 9, // 90%
-            child: _headerContent(),
+            child: _headerContent(context),
           ),
         ],
       ),
@@ -19,26 +18,26 @@ class UserProfileHeader extends StatelessWidget {
   }
 }
 
-Widget _headerContent() {
-  return Consumer<ProfileViewModel>(
-    builder: (context, model, child) => Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          model.profile.name,
-          style: TextStyle(
-            fontSize: 22,
-            fontWeight: FontWeight.w700,
-          ),
+Widget _headerContent(context) {
+  var model = Provider.of<ProfileViewModel>(context);
+
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        model.profile.name,
+        style: TextStyle(
+          fontSize: 22,
+          fontWeight: FontWeight.w700,
         ),
-        Text(
-          model.profile.friendlyLocation,
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w400,
-          ),
+      ),
+      Text(
+        model.profile.friendlyLocation,
+        style: TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.w400,
         ),
-      ],
-    ),
+      ),
+    ],
   );
 }

@@ -1,10 +1,4 @@
-enum StatusCode {
-  informational,
-  success,
-  redirection,
-  clientError,
-  serverError
-}
+import 'package:sounds_good/core/utils/enums.dart';
 
 StatusCode getStatusCode(int code) {
   if (code >= 100 && code < 200) {

@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:sounds_good/core/models/instruments.dart';
 import 'package:sounds_good/core/models/profile.dart';
 import 'package:sounds_good/core/services/storage.dart';
+import 'package:sounds_good/core/utils/enums.dart';
 import 'package:sounds_good/core/utils/status_code.dart';
 
 class Api {

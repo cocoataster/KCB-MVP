@@ -1,6 +1,5 @@
 import 'package:flutter/widgets.dart';
-
-enum ViewState { Idle, Busy }
+import 'package:sounds_good/core/utils/enums.dart';
 
 class BaseViewModel extends ChangeNotifier {
   ViewState _state = ViewState.Idle;

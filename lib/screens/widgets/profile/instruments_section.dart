@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:sounds_good/core/utils/enums.dart';
 import 'package:sounds_good/screens/widgets/profile/edit/instruments_list.dart';
-import 'package:sounds_good/screens/widgets/profile/shared/profile_modes.dart';
 import 'package:sounds_good/screens/widgets/profile/shared/section_title.dart';
 import 'package:sounds_good/screens/widgets/profile/shared/instruments_list.dart';
 
@@ -27,7 +27,7 @@ class InstrumentsSection extends StatelessWidget {
 
   Widget _modeSwitchHelper() {
     switch (profileMode) {
-      case ProfileMode.edit:
+      case ProfileMode.Edit:
         return _editModeWidgetsList();
         break;
 

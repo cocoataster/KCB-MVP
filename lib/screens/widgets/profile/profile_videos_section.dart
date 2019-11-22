@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:sounds_good/core/utils/enums.dart';
 import 'package:sounds_good/screens/widgets/profile/shared/videos.dart';
-import 'package:sounds_good/screens/widgets/profile/shared/profile_modes.dart';
 import 'package:sounds_good/screens/widgets/profile/shared/section_title.dart';
 
 class ProfileVideosSection extends StatelessWidget {

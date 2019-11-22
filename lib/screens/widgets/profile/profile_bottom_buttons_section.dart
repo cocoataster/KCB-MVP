@@ -1,10 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sounds_good/core/viewmodels/profile_mode_viewmodel.dart';
+import 'package:sounds_good/core/utils/enums.dart';
 import 'package:sounds_good/core/viewmodels/profile_viewmodel.dart';
+import 'package:sounds_good/screens/widgets/profile/edit/edit_profile_cta_buttons.dart';
+import 'package:sounds_good/screens/widgets/profile/own/own_profile_cta_buttons.dart';
 import 'package:sounds_good/screens/widgets/profile/shared/profile_close_button.dart';
-import 'package:sounds_good/screens/widgets/profile/shared/profile_modes.dart';
+import 'package:sounds_good/screens/widgets/profile/user/user_profile_cta_buttons.dart';
 
+class ProfileCTAButtons extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final _profileMode = Provider.of<ProfileViewModel>(context).getMode;
+
+    Widget ctaButtons;
+
+    switch (_profileMode) {
+      case ProfileMode.Own:
+        ctaButtons = OwnProfileCTAButtons();
+        break;
+
+      case ProfileMode.Edit:
+        ctaButtons = EditProfileCTAButtons();
+        break;
+
+      case ProfileMode.User:
+        ctaButtons = UserProfileCTAButtons();
+        break;
+    }
+
+    return ctaButtons;
+  }
+}
+
+/*
 // TODO Esto hay que rehacerlo entero
 
 class ProfileBottomButtonsSection extends StatefulWidget {
@@ -26,28 +54,23 @@ class _ProfileBottomButtonsSectionState
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ProfileModeViewModel>(
-      builder: (context, mode, child) => Container(
-        child: Consumer<ProfileViewModel>(
-          builder: (context, model, child) =>
-              _modeSwitchHelper(context, mode, model),
-        ),
-      ),
+    return Consumer<ProfileViewModel>(
+      builder: (context, model, child) => _modeSwitchHelper(context, model),
     );
   }
 
-  Widget _modeSwitchHelper(context, mode, model) {
+  Widget _modeSwitchHelper(context, model) {
     Widget buttons;
-    switch (mode.getMode) {
-      case ProfileMode.user:
+    switch (model.getMode) {
+      case ProfileMode.User:
         buttons = _userModeButtons();
         break;
 
-      case ProfileMode.own:
+      case ProfileMode.Own:
         buttons = _ownModeButtons();
         break;
 
-      case ProfileMode.edit:
+      case ProfileMode.Edit:
         buttons = _editModeButtons(context, model);
         break;
     }
@@ -79,7 +102,8 @@ class _ProfileBottomButtonsSectionState
           children: <Widget>[
             SizedBox(
               width: MediaQuery.of(context).size.width - 50.0,
-              child: ProfileCloseButton(value: 'Cancel', onPressed: _dismiss),
+              child: ProfileCloseButton(
+                  value: 'Cancel', onPressed: model.setMode(ProfileMode.Own)),
             ),
           ],
         ),
@@ -98,3 +122,4 @@ class _ProfileBottomButtonsSectionState
     return Container();
   }
 }
+*/

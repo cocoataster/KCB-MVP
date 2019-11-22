@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sounds_good/locator.dart';
-import 'package:sounds_good/core/viewmodels/login_model.dart';
+import 'package:sounds_good/core/viewmodels/login_viewmodel.dart';
 import 'package:sounds_good/screens/widgets/login_header.dart';
 
 class LoginView extends StatefulWidget {
@@ -14,12 +14,12 @@ class _LoginViewState extends State<LoginView> {
   final TextEditingController passwordController =
       TextEditingController(text: "soundsgood");
 
-  _handleLogin(LoginModel model) async {
+  _handleLogin(LoginViewModel model) async {
     var loginSuccess =
         await model.login(emailController.text, passwordController.text);
 
     if (loginSuccess) {
-      //Navigator.pushNamed(context, '');
+      Navigator.pushNamed(context, 'profile');
     }
 
     return;
@@ -27,9 +27,9 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<LoginModel>(
-      builder: (context) => locator<LoginModel>(),
-      child: Consumer<LoginModel>(
+    return ChangeNotifierProvider<LoginViewModel>(
+      builder: (context) => locator<LoginViewModel>(),
+      child: Consumer<LoginViewModel>(
         builder: (context, model, child) => Scaffold(
           body: Column(
             mainAxisAlignment: MainAxisAlignment.center,

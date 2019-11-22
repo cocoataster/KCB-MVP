@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sounds_good/core/viewmodels/profile_mode_viewmodel.dart';
+import 'package:sounds_good/core/utils/enums.dart';
+import 'package:sounds_good/core/viewmodels/profile_viewmodel.dart';
 import 'package:sounds_good/screens/widgets/profile/edit/how_to_reach_me.dart';
 import 'package:sounds_good/screens/widgets/profile/shared/profile_mode_switch_button.dart';
-import 'package:sounds_good/screens/widgets/profile/shared/profile_modes.dart';
 import 'package:sounds_good/screens/widgets/profile/shared/profile_image.dart';
 import 'package:sounds_good/screens/widgets/profile/edit/profile_image.dart';
 import 'package:sounds_good/screens/widgets/profile/own/header.dart';
@@ -21,7 +21,7 @@ class ProfileHeaderSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ProfileModeViewModel>(
+    return Consumer<ProfileViewModel>(
       builder: (context, mode, child) => Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -33,15 +33,15 @@ class ProfileHeaderSection extends StatelessWidget {
   List<Widget> _modeSwitchHelper(profileMode) {
     List<Widget> widgetsList = [];
     switch (profileMode) {
-      case ProfileMode.user:
+      case ProfileMode.User:
         widgetsList = _userModeWidgetsList();
         break;
 
-      case ProfileMode.own:
+      case ProfileMode.Own:
         widgetsList = _ownModeWidgetsList();
         break;
 
-      case ProfileMode.edit:
+      case ProfileMode.Edit:
         widgetsList = _editModeWidgetsList();
         break;
     }
