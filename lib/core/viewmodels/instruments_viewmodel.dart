@@ -15,4 +15,7 @@ class InstrumentsViewModel extends BaseViewModel {
     print(instruments);
     setState(ViewState.Idle);
   }
+
+  String getInstrument(pos) => instruments.items[pos];
+  
 }

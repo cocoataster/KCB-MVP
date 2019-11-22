@@ -4,9 +4,9 @@ class Instruments {
   Instruments({this.items});
 
   factory Instruments.fromJson(Map<String, dynamic> json) {
-      List<String> instrumentsList = List<String>();
- 
-     if (json['items'] != []) {
+    List<String> instrumentsList = List<String>();
+
+    if (json['items'] != []) {
       var items = json['items'];
       instrumentsList = List<String>.from(items);
     } else {
