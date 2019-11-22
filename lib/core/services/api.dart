@@ -132,6 +132,8 @@ class Api {
     }
   }
 
+
+
   /// Get Instruments
   ///
   /// Returns a list of instruments available
@@ -149,6 +151,7 @@ class Api {
     switch (statusCode) {
       case StatusCode.success:
         var json = jsonDecode(response.body);
+        print(json);
         return Instruments.fromJson(json);
       case StatusCode.clientError:
         var json = jsonDecode(response.body);
@@ -163,3 +166,5 @@ class Api {
     }
   }
 }
+
+

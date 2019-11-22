@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:sounds_good/screens/views/instruments_view.dart';
 import 'package:sounds_good/screens/views/profile_view.dart';
 import 'views/login_view.dart';
 
@@ -14,6 +15,8 @@ class Router {
         return MaterialPageRoute(builder: (context) => LoginView());
       case 'profile':
         return MaterialPageRoute(builder: (context) => ProfileView());
+        case 'instruments':
+        return MaterialPageRoute(builder: (context) => InstrumentsView());
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(

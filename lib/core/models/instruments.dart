@@ -4,7 +4,16 @@ class Instruments {
   Instruments({this.items});
 
   factory Instruments.fromJson(Map<String, dynamic> json) {
-    return Instruments(items: json['items']);
+      List<String> instrumentsList = List<String>();
+ 
+     if (json['items'] != []) {
+      var items = json['items'];
+      instrumentsList = List<String>.from(items);
+    } else {
+      instrumentsList = null;
+    }
+
+    return Instruments(items: instrumentsList);
   }
 
   Map<String, dynamic> toJson() {
