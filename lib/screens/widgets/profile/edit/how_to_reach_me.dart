@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sounds_good/core/utils/enums.dart';
+import 'package:sounds_good/core/viewmodels/profile_viewmodel.dart';
 
 class HowToReachMeSelector extends StatefulWidget {
   @override
@@ -7,12 +10,14 @@ class HowToReachMeSelector extends StatefulWidget {
 }
 
 class _HowToReachMeSelectorState extends State<HowToReachMeSelector> {
-  final Map<int, Widget> logoWidgets = const <int, Widget>{
-    0: Text('Mail'),
-    1: Text('WhatsApp'),
+  final Map<ContactMethodType, Widget> logoWidgets =
+      const <ContactMethodType, Widget>{
+    ContactMethodType.Email: Text('Mail'),
+    ContactMethodType.Phone: Text('WhatsApp'),
   };
 
-  int sharedValue = 0;
+  ContactMethodType typeSelected = ContactMethodType.Email;
+  String textFieldValue;
 
   @override
   Widget build(BuildContext context) {
@@ -24,33 +29,46 @@ class _HowToReachMeSelectorState extends State<HowToReachMeSelector> {
           SizedBox(
             height: 50.0,
             width: 180.0,
-            child: CupertinoSegmentedControl<int>(
+            child: CupertinoSegmentedControl<ContactMethodType>(
               padding: EdgeInsets.all(0.0),
               borderColor: Colors.blueGrey,
               selectedColor: Colors.blueGrey,
               children: logoWidgets,
-              onValueChanged: (int val) {
+              onValueChanged: (selection) {
                 setState(() {
-                  sharedValue = val;
+                  typeSelected = selection;
+                  Provider.of<ProfileViewModel>(context, listen: false)
+                      .updateContactMethod(type: selection, data: textFieldValue );
                 });
               },
-              groupValue: sharedValue,
+              groupValue: typeSelected,
             ),
           ),
           SizedBox(
-            width: 180.0,
+            width: 240.0,
             height: 32.0,
             child: TextField(
               decoration: InputDecoration(
-                contentPadding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 0),
-               hintText: 'Add your email address:',
-               hintStyle: TextStyle(fontSize: 14.0),
+                contentPadding:
+                    EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
+                hintText: typeSelected == ContactMethodType.Phone
+                    ? 'Insert your Phone Number'
+                    : 'Insert your Email Address',
+                hintStyle: TextStyle(
+                  fontSize: 14.0,
+                  color: Colors.blueGrey.shade200,
+                ),
                 border: new OutlineInputBorder(
                   borderRadius: const BorderRadius.all(
                     const Radius.circular(5.0),
                   ),
                 ),
               ),
+              onChanged: (fieldContent) => {
+                setState(() {
+                  textFieldValue = fieldContent;
+                })
+              },
             ),
           ),
         ],

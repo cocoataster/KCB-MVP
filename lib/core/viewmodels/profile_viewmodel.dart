@@ -1,6 +1,7 @@
 import 'package:sounds_good/core/utils/enums.dart';
 import 'package:sounds_good/locator.dart';
 import 'package:sounds_good/core/models/profile.dart';
+import 'package:sounds_good/core/models/contact_method.dart';
 import 'package:sounds_good/core/services/api.dart';
 import 'base_viewmodel.dart';
 
@@ -9,6 +10,7 @@ class ProfileViewModel extends BaseViewModel {
   Api _api = locator<Api>();
 
   Profile profile;
+
   Set<String> instrumentsToRemoveList = {};
 
   Future fetchProfile() async {
@@ -34,16 +36,9 @@ class ProfileViewModel extends BaseViewModel {
     print(profile.instruments);
   }
 
-  updateProfileLocation({friendlyLocation}) {
-    profile.friendlyLocation = friendlyLocation;
-    print('Location: ' + friendlyLocation);
-    notifyListeners();
-  }
-
-  updateProfileName({name}) {
-    profile.name = name;
-
-    print('Name: ' + name);
+  void addInstrument({instrument}) {
+    profile.instruments.add(instrument);
+    print(instrument);
     notifyListeners();
   }
 
@@ -54,6 +49,30 @@ class ProfileViewModel extends BaseViewModel {
   void setMode(ProfileMode profileMode) {
     _profileMode = profileMode;
     print(_profileMode);
+    notifyListeners();
+  }
+
+  // TODO Meter todos los métodos en un único Map
+
+  updateProfileLocation({friendlyLocation}) {
+    profile.friendlyLocation = friendlyLocation;
+    notifyListeners();
+  }
+
+  updateProfileName({name}) {
+    profile.name = name;
+    notifyListeners();
+  }
+
+  updateDescription({description}) {
+    profile.description = description;
+    print(description);
+    notifyListeners();
+  }
+
+  updateContactMethod({ContactMethodType type, String data}) {
+    profile.contactMethod = ContactMethod(type: type.toString(), data: data);
+    print(profile.contactMethod);
     notifyListeners();
   }
 }

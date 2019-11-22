@@ -13,11 +13,14 @@ import 'dart:io';
 
 import 'package:sounds_good/screens/widgets/profile/shared/section_title.dart';
 
-class ProfileHeaderSection extends StatelessWidget {
-  final File image;
+class ProfileHeaderSection extends StatefulWidget {
+  
+  @override
+  _ProfileHeaderSectionState createState() => _ProfileHeaderSectionState();
+}
 
-  ProfileHeaderSection(
-      {this.image});
+class _ProfileHeaderSectionState extends State<ProfileHeaderSection> {
+  File image;
 
   @override
   Widget build(BuildContext context) {

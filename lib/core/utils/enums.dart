@@ -9,3 +9,5 @@ enum StatusCode {
   clientError,
   serverError
 }
+
+enum ContactMethodType { Email, Phone }

@@ -1,5 +1,5 @@
 class Instruments {
-  final List<String> items;
+  List<String> items;
 
   Instruments({this.items});
 

@@ -1,6 +1,6 @@
 class ContactMethod {
-  final String type;
-  final String data;
+  String type;
+  String data;
 
   ContactMethod({this.type, this.data});
 
