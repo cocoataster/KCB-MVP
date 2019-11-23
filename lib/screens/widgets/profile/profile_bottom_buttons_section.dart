@@ -4,7 +4,6 @@ import 'package:sounds_good/core/utils/enums.dart';
 import 'package:sounds_good/core/viewmodels/profile_viewmodel.dart';
 import 'package:sounds_good/screens/widgets/profile/edit/edit_profile_cta_buttons.dart';
 import 'package:sounds_good/screens/widgets/profile/own/own_profile_cta_buttons.dart';
-import 'package:sounds_good/screens/widgets/profile/shared/profile_close_button.dart';
 import 'package:sounds_good/screens/widgets/profile/user/user_profile_cta_buttons.dart';
 
 class ProfileCTAButtons extends StatelessWidget {

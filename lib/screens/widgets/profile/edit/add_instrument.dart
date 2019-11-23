@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sounds_good/core/viewmodels/instruments_viewmodel.dart';
-import 'package:sounds_good/screens/views/base_view.dart';
 
 class AddInstrument extends StatefulWidget {
   final onSelectedInstrument;

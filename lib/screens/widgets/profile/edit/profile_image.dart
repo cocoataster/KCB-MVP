@@ -3,7 +3,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 
-
+// TODO Images
 class EditProfileImage extends StatefulWidget {
   File _pickedImage;
   EditProfileImage(this._pickedImage);

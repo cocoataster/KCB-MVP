@@ -14,10 +14,6 @@ class ProfileViewModel extends BaseViewModel {
 
   Future fetchProfile() async {
     setState(ViewState.Busy);
-
-    // TODO Remove delay
-    //await Future.delayed(const Duration(seconds: 2), () {});
-
     profile = await _api.getProfile();
     setState(ViewState.Idle);
   }
@@ -54,7 +50,6 @@ class ProfileViewModel extends BaseViewModel {
   }
 
   // TODO Meter todos los métodos en un único Map
-
   updateProfileLocation({friendlyLocation}) {
     profile.friendlyLocation = friendlyLocation;
     notifyListeners();

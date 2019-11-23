@@ -7,7 +7,6 @@ import 'package:sounds_good/screens/widgets/profile/profile_bottom_buttons_secti
 import 'package:sounds_good/screens/widgets/profile/profile_description_section.dart';
 import 'package:sounds_good/screens/widgets/profile/profile_header_section.dart';
 import 'package:sounds_good/screens/widgets/profile/profile_videos_section.dart';
-import '../../locator.dart';
 import 'base_view.dart';
 
 class ProfileView extends StatefulWidget {

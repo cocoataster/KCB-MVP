@@ -22,15 +22,6 @@ class ProfileVideosSection extends StatelessWidget {
     );
   }
 
-// TODO Edit mode for videos
-  List<Widget> _modeSwitchHelper() {
-    switch (profileMode) {
-      default:
-        return _plainWidgetsList();
-        break;
-    }
-  }
-
   List<Widget> _plainWidgetsList() {
     return <Widget>[
       ProfileSectionTitle(sectionTitle: 'How do I play?'),
