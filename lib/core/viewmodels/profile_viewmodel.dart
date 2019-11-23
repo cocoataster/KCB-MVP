@@ -1,4 +1,3 @@
-import 'package:sounds_good/core/models/videos_model.dart';
 import 'package:sounds_good/core/utils/enums.dart';
 import 'package:sounds_good/locator.dart';
 import 'package:sounds_good/core/models/profile.dart';

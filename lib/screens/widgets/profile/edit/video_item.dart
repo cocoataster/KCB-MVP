@@ -24,7 +24,6 @@ class VideoItem extends StatelessWidget {
             right: 0.0,
             child: _iconButton(context),
           ),
-          Positioned(child: _playIcon(context), top: 50.0, left: 50.0)
         ],
       ),
     );
