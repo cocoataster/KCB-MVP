@@ -72,7 +72,7 @@ class Profile {
     data['contactMethod'] = this.contactMethod;
     //data['instruments'] = this.instruments;
     data['friendlyLocation'] = this.friendlyLocation;
-    //data['videos'] = this.videos;
+    data['videos'] = this.videos;
     data['description'] = this.description;
     data['photo'] = this.photo;
 

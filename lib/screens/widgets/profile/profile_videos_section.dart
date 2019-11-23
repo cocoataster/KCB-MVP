@@ -24,10 +24,11 @@ class ProfileVideosSection extends StatelessWidget {
 
   List<Widget> _plainWidgetsList(model) {
     //model.getVideos().map((video) => video).toList()
+    List<String> videosList = model.getVideos().map<String>((String video) => video).toList();
     return <Widget>[
       ProfileSectionTitle(sectionTitle: 'How do I play?'),
-     // ProfileVideos(),
-   //  model.getVideos().map((video) => Text(video)).toList()
+      ProfileVideos(videos: videosList),
+   
     ];
   }
 }
