@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:sounds_good/core/viewmodels/instruments_viewmodel.dart';
 import 'package:sounds_good/screens/views/base_view.dart';
 
+//TODO esto era de pruebas, hay que borrarlo
+
 class InstrumentsView extends StatefulWidget {
   @override
   _InstrumentsViewState createState() => _InstrumentsViewState();

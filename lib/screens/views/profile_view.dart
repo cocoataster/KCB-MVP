@@ -35,7 +35,11 @@ class _ProfileViewState extends State<ProfileView> {
       onModelReady: (model) {
         model.fetchProfile();
       },
-      builder: (context, model, child) => WillPopScope(
+      builder: (context, model, child) => BaseView<InstrumentsViewModel>(
+      onModelReady: (modelInstruments) {
+        modelInstruments.fetchInstruments();
+      },
+      builder: (context, modelInstruments, child) => WillPopScope(
         child: Scaffold(
             body: model.state == ViewState.Idle
                 ? SafeArea(
@@ -55,6 +59,6 @@ class _ProfileViewState extends State<ProfileView> {
                   )),
         onWillPop: () => _captureAndroidBackButton(model.getMode),
       ),
-    );
+    ),);
   }
 }

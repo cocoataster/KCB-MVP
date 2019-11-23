@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sounds_good/core/viewmodels/instruments_viewmodel.dart';
 import 'package:sounds_good/screens/views/base_view.dart';
 
@@ -14,16 +15,14 @@ class AddInstrument extends StatefulWidget {
 class _AddInstrumentState extends State<AddInstrument> {
   @override
   Widget build(BuildContext context) {
-    return BaseView<InstrumentsViewModel>(
-      onModelReady: (modelInstruments) {
-        modelInstruments.fetchInstruments();
-      },
-      builder: (context, modelInstruments, child) => GestureDetector(
-        onTap: () =>
-            _popUp(context, modelInstruments, widget.onSelectedInstrument),
-        child: _pill(context),
-      ),
-    );
+    return Consumer<InstrumentsViewModel>(
+      builder: (context, instrumentsViewmodel, child) =>
+
+    GestureDetector(
+      onTap: () =>
+          _popUp(context, instrumentsViewmodel, widget.onSelectedInstrument),
+      child: _pill(context),
+    ),);
   }
 }
 
