@@ -8,7 +8,7 @@ class Profile {
   ContactMethod contactMethod;
   List<String> instruments;
   String friendlyLocation;
-  List<String> videos;
+  List<dynamic> videos;
   String description;
   String photo;
 
@@ -43,7 +43,14 @@ class Profile {
         : null;
 
     var videos = json['videos'];
-    List<String> videosList = List<String>.from(videos);
+    List<dynamic> videosList = List<dynamic>.from(videos);
+
+     if (json['videos'] != []) {
+      var videos = json['videos'];
+      videosList = List<dynamic>.from(videos);
+    } else {
+      videosList = null;
+    }
 
     return Profile(
         id: json['cuid'],

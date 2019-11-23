@@ -17,15 +17,17 @@ class ProfileVideosSection extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children:
-            _plainWidgetsList(), //Directly to _plainWidgetsList by the moment
+            _plainWidgetsList(model), //Directly to _plainWidgetsList by the moment
       ),
     );
   }
 
-  List<Widget> _plainWidgetsList() {
+  List<Widget> _plainWidgetsList(model) {
+    //model.getVideos().map((video) => video).toList()
     return <Widget>[
       ProfileSectionTitle(sectionTitle: 'How do I play?'),
-      ProfileVideos(),
+     // ProfileVideos(),
+   //  model.getVideos().map((video) => Text(video)).toList()
     ];
   }
 }
