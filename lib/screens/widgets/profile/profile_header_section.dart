@@ -53,7 +53,6 @@ class _ProfileHeaderSectionState extends State<ProfileHeaderSection> {
   }
 
   List<Widget> _userModeWidgetsList() {
-    print('Edit Helper');
     return <Widget>[
       _headerHelper(
         buttonHeader: ProfileModeSwitchButton(),

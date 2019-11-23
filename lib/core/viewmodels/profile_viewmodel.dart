@@ -11,6 +11,7 @@ class ProfileViewModel extends BaseViewModel {
 
   Profile profile;
   Set<String> instrumentsToRemoveList = {};
+  Set<String> videosToRemoveList = {};
 
   Future fetchProfile() async {
     setState(ViewState.Busy);
@@ -18,36 +19,45 @@ class ProfileViewModel extends BaseViewModel {
     setState(ViewState.Idle);
   }
 
-  List<String> getVideos() =>
-    profile.videos.map((video) => video['thumbnail'].toString()).toList();
+  ProfileMode _profileMode = ProfileMode.Own;
+  ProfileMode get getMode => _profileMode;
 
-  instrumentsToRemove({instrumentsSelected}) {
-    setState(ViewState.Busy);
-    instrumentsToRemoveList = instrumentsSelected;
-    setState(ViewState.Idle);
+  void setMode(ProfileMode profileMode) {
+    _profileMode = profileMode;
+    notifyListeners();
   }
+
+  instrumentsToRemove({instrumentsSelected}) =>
+      instrumentsToRemoveList = instrumentsSelected;
 
   updateInstrumentsList() {
     instrumentsToRemoveList
         .map((String instrument) => profile.instruments.remove(instrument))
         .toList();
-    print(profile.instruments);
   }
 
   void addInstrument({instrument}) {
     profile.instruments.add(instrument);
-    print(instrument);
     notifyListeners();
   }
 
-  ProfileMode _profileMode = ProfileMode.Own;
+  List<String> getVideos() =>
+      profile.videos.map((video) => video['thumbnail'].toString()).toList();
 
-  ProfileMode get getMode => _profileMode;
+  videosToRemove({videosSelected}) {
+    videosToRemoveList = videosSelected;
+  }
 
-  void setMode(ProfileMode profileMode) {
-    _profileMode = profileMode;
-    print(_profileMode);
-    notifyListeners();
+  updateVideosList() {
+    videosToRemoveList.map(
+      (String thumbnail) {
+        profile.videos.map((video) {
+          if (video['thumbnail'].contains(thumbnail)) {
+            profile.videos.remove(video);
+          }
+        }).toList();
+      },
+    ).toList();
   }
 
   // TODO Meter todos los métodos en un único Map
@@ -63,13 +73,11 @@ class ProfileViewModel extends BaseViewModel {
 
   updateDescription({description}) {
     profile.description = description;
-    print(description);
     notifyListeners();
   }
 
   updateContactMethod({ContactMethodType type, String data}) {
     profile.contactMethod = ContactMethod(type: type.toString(), data: data);
-    print(profile.contactMethod);
     notifyListeners();
   }
 }

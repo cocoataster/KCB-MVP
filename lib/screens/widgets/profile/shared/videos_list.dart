@@ -1,30 +1,23 @@
 import 'package:flutter/material.dart';
 
 class ProfileVideos extends StatelessWidget {
+  final List<String> videos;
 
-    final List<String> videos;
-    //final List<int> numbers = [1,2,3,4];
-
-    ProfileVideos({this.videos});
+  ProfileVideos({this.videos});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 0.0, vertical: 0.0),
-      height: MediaQuery.of(context).size.height * 0.20,
+      height: MediaQuery.of(context).size.height * 0.23,
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
           itemCount: videos.length,
           itemBuilder: (context, index) {
             return Container(
-              width: MediaQuery.of(context).size.width * 0.45,
-              child: Card(
-                child: Container(
-                  child: Center(
-                      child: Image.network(videos[index]),
-                  ),
-                ),
-              ),
+              margin: EdgeInsets.only(right: 15.0),
+              width: MediaQuery.of(context).size.width * 0.50,
+              child: Image.network(videos[index]),
             );
           }),
     );

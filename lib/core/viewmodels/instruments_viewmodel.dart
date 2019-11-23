@@ -12,7 +12,6 @@ class InstrumentsViewModel extends BaseViewModel {
   Future fetchInstruments() async {
     setState(ViewState.Busy);
     instruments = await _api.getInstruments();
-    print(instruments);
     setState(ViewState.Idle);
   }
 

@@ -23,7 +23,7 @@ class EditInstrumentItem extends StatelessWidget {
           Positioned(
             top: 0,
             right: 0,
-            child: _iconClose(context),
+            child: _iconButton(context),
           ),
         ],
       ),
@@ -33,7 +33,7 @@ class EditInstrumentItem extends StatelessWidget {
   Container _pill(String name, BuildContext context) {
     return Container(
       margin: EdgeInsets.only(right: 3.0, top: 3.0),
-      decoration: _getPillBoxDecoration(context),
+      decoration: _getPillBoxDecoration(context, isSelected),
       child: Padding(
         padding: const EdgeInsets.fromLTRB(12.0, 5.0, 12.0, 5.0),
         child: Text(
@@ -44,16 +44,7 @@ class EditInstrumentItem extends StatelessWidget {
     );
   }
 
-  Container _iconClose(BuildContext context) {
-    return Container(
-      width: 15.0,
-      height: 15.0,
-      child: _getIcon(context),
-      decoration: _getIconDecoration(context),
-    );
-  }
-
-  BoxDecoration _getPillBoxDecoration(BuildContext context) {
+  BoxDecoration _getPillBoxDecoration(BuildContext context, bool isSelected) {
     var _boxColor =
         isSelected ? Colors.blueGrey.shade100 : Colors.indigo.shade200;
 
@@ -63,22 +54,25 @@ class EditInstrumentItem extends StatelessWidget {
     );
   }
 
-  Icon _getIcon(BuildContext context) {
-    var _iconImage = isSelected ? Icons.check : Icons.close;
-
-    return Icon(
-      _iconImage,
-      color: Colors.white,
-      size: 10.0,
+  Container _iconButton(context) {
+    return Container(
+      width: 14.0,
+      height: 14.0,
+      child: FloatingActionButton(
+          backgroundColor: Colors.red,
+          elevation: 3,
+          shape: CircleBorder(),
+          child: _icon(context),
+          onPressed: () => {}),
     );
   }
 
-  BoxDecoration _getIconDecoration(BuildContext context) {
-    var _iconColor = isSelected ? Colors.red.shade200 : Colors.red;
-
-    return BoxDecoration(
-      borderRadius: BorderRadius.all(const Radius.circular(50.0)),
-      color: _iconColor,
+  Icon _icon(BuildContext context) {
+    var _iconImage = isSelected ? Icons.check : Icons.close;
+    return Icon(
+      _iconImage,
+      color: Colors.white,
+      size: 10,
     );
   }
 }

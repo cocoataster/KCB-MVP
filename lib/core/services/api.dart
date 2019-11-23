@@ -132,8 +132,6 @@ class Api {
     }
   }
 
-
-
   /// Get Instruments
   ///
   /// Returns a list of instruments available
@@ -142,16 +140,13 @@ class Api {
     String token = await Storage.getToken();
 
     var headers = {"Authorization": token};
-
     var response = await client.get('$endpoint/profile/tags', headers: headers);
-    print('Instruments Response: ${response.body}');
 
     StatusCode statusCode = getStatusCode(response.statusCode);
 
     switch (statusCode) {
       case StatusCode.success:
         var json = jsonDecode(response.body);
-        print(json);
         return Instruments.fromJson(json);
       case StatusCode.clientError:
         var json = jsonDecode(response.body);
@@ -166,5 +161,3 @@ class Api {
     }
   }
 }
-
-

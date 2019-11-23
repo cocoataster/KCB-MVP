@@ -19,6 +19,7 @@ class EditProfileCTAButtons extends StatelessWidget {
                 child: RaisedButton(
                   onPressed: () {
                     model.updateInstrumentsList();
+                    model.updateVideosList();
                     model.setMode(ProfileMode.Own);
                   },
                   color: Colors.red.shade400,
