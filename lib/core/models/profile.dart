@@ -1,5 +1,6 @@
 import 'package:sounds_good/core/models/contact_method.dart';
 import 'package:sounds_good/core/models/location.dart';
+import 'package:sounds_good/core/models/videos_model.dart';
 
 class Profile {
   final String id;
@@ -8,7 +9,7 @@ class Profile {
   ContactMethod contactMethod;
   List<String> instruments;
   String friendlyLocation;
-  List<String> videos;
+  List<Videos> videos;
   String description;
   String photo;
 
@@ -33,6 +34,16 @@ class Profile {
       instrumentsList = null;
     }
 
+    List<Videos> videosList = List<Videos>();
+
+    if (json['videos'] != []) {
+      var videos = json['videos'] as List;
+      videosList =
+          videos.map((jsonVideo) => Videos.fromJson(jsonVideo)).toList();
+    } else {
+      videosList = null;
+    }
+
     // Location and Contact Method can be null
 
     Location location =
@@ -41,9 +52,6 @@ class Profile {
     ContactMethod contactMethod = json['contactMethod'] != null
         ? ContactMethod.fromJson(json['contactMethod'])
         : null;
-
-    var videos = json['videos'];
-    List<String> videosList = List<String>.from(videos);
 
     return Profile(
         id: json['cuid'],

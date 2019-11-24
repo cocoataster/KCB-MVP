@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:sounds_good/core/models/instruments.dart';
 import 'package:sounds_good/core/models/profile.dart';
+import 'package:sounds_good/core/models/search_request.dart';
+import 'package:sounds_good/core/models/search_response.dart';
 import 'package:sounds_good/core/services/storage.dart';
 import 'package:sounds_good/core/utils/enums.dart';
 import 'package:sounds_good/core/utils/status_code.dart';
@@ -132,8 +134,6 @@ class Api {
     }
   }
 
-
-
   /// Get Instruments
   ///
   /// Returns a list of instruments available
@@ -165,6 +165,59 @@ class Api {
         return Instruments();
     }
   }
+
+  Future<SearchResponse> getSearchProfiles(SearchRequest searchRequest) async {
+    String token = await Storage.getToken();
+
+    var headers = {"Authorization": token};
+    var parameters = '?';
+
+    bool isFirstParameter = true;
+
+    var name = searchRequest.getName();
+    if (name != "") {
+      parameters += isFirstParameter ? 'name=$name' : '&name=$name';
+      isFirstParameter = false;
+    }
+
+    var instruments = searchRequest.getInstrumentsString();
+    if (instruments != "") {
+      parameters += isFirstParameter
+          ? 'instruments=$instruments'
+          : '&instruments=$instruments';
+      isFirstParameter = false;
+    }
+
+    var maxDistance = searchRequest.getMaxDistance();
+    if (maxDistance != "") {
+      parameters += isFirstParameter
+          ? 'maxDistance=$maxDistance'
+          : '&maxDistance=$maxDistance';
+      isFirstParameter = false;
+    }
+
+    var request = '$endpoint/search/profile$parameters';
+
+    var response = await client.get(request, headers: headers);
+    print('Search Response: ${response.body}');
+
+    StatusCode statusCode = getStatusCode(response.statusCode);
+
+    switch (statusCode) {
+      case StatusCode.success:
+        var json = jsonDecode(response.body);
+        print(json);
+        return SearchResponse.fromJson(json);
+      case StatusCode.clientError:
+        var json = jsonDecode(response.body);
+        var error = json["message"];
+        return Future.error('Error', StackTrace.fromString(error));
+      case StatusCode.serverError:
+        var json = jsonDecode(response.body);
+        var error = json["message"];
+        return Future.error('Error', StackTrace.fromString(error));
+      default:
+        return SearchResponse();
+    }
+  }
 }
-
-
