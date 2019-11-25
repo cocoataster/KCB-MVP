@@ -60,6 +60,4 @@ class VideoItem extends StatelessWidget {
       size: 14.0,
     );
   }
-
-  Icon _playIcon(context) => Icon(Icons.play_arrow, color: Colors.white);
 }

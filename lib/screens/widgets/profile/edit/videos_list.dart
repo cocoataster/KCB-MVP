@@ -16,18 +16,18 @@ class EditProfileVideos extends StatefulWidget {
 class _EditProfileVideosState extends State<EditProfileVideos> {
   Set<String> _videosSelected = Set<String>();
 
-  void _handleVideoChanged(String instrument, bool isSelected) {
+  void _handleVideoChanged(String video, bool isSelected) {
     setState(() {
       isSelected
-          ? _videosSelected.remove(instrument)
-          : _videosSelected.add(instrument);
+          ? _videosSelected.remove(video)
+          : _videosSelected.add(video);
     });
     Provider.of<ProfileViewModel>(context, listen: false)
         .videosToRemove(videosSelected: _videosSelected);
   }
 
-  void _addVideo(newVideo) {
-    //Provider.of<ProfileViewModel>(context, listen: false).addInstrument(instrument: newInstrument);
+  void onVideoAdded(String videoURL){
+    Provider.of<ProfileViewModel>(context, listen: false).addNewVideo( videoURL); 
   }
 
   @override
@@ -40,7 +40,7 @@ class _EditProfileVideosState extends State<EditProfileVideos> {
               onListChanged: _handleVideoChanged);
         })
         .toList();
-      List<Widget> items = [AddVideo()];
+      List<Widget> items = [AddVideo(onVideoAdded: onVideoAdded,)];
       items.addAll(videoItems);
 
     return Container(

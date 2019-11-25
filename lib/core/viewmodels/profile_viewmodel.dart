@@ -18,6 +18,7 @@ class ProfileViewModel extends BaseViewModel {
     setState(ViewState.Idle);
   }
 
+
   ProfileMode _profileMode = ProfileMode.Own;
   ProfileMode get getMode => _profileMode;
 
@@ -40,8 +41,7 @@ class ProfileViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  List<String> getVideos() =>
-      profile.videos.map((video) => video['thumbnail'].toString()).toList();
+  List<String> getVideos() => profile.videos.map((video) => video['thumbnail'].toString()).toList();
 
   videosToRemove({videosSelected}) {
     videosToRemoveList = videosSelected;
@@ -59,7 +59,23 @@ class ProfileViewModel extends BaseViewModel {
     ).toList();
   }
 
+ addNewVideo(videoURL) {
+    String videoId = videoURL.split('?v=')[1];  
+    Map<String, dynamic> videoURLtoJson() {
+      final data = Map<String, dynamic>();
+          data['id'] = videoId;
+          data['video'] = videoURL;
+          data['embedVideo'] = 'https://www.youtube.com/embed/$videoId?ecver=1&amp;iv_load_policy=1&amp;yt:stretch=16:9&amp;autohide=1&amp;color=red&amp;';
+          data['thumbnail'] = 'https://img.youtube.com/vi/$videoId/hqdefault.jpg';
+        return data;
+    }
+
+    var newVideoItem = videoURLtoJson();
+    profile.videos.add(newVideoItem);
+  }
+
   // TODO Meter todos los métodos en un único Map
+
   updateProfileLocation({friendlyLocation}) {
     profile.friendlyLocation = friendlyLocation;
     notifyListeners();
