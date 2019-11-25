@@ -94,10 +94,14 @@ class Api {
     String token = await Storage.getToken();
 
     var body = profile.toJson();
+    
+    print('Body to send: $body');
+
     var headers = {"Authorization": token};
 
-    var response =
-        await client.patch('$endpoint/profile', body: body, headers: headers);
+   /* final response =
+        await client.patch('$endpoint/profile', headers: headers, body: body);
+
     print('Profile Update Response: ${response.body}');
 
     switch (response.statusCode) {
@@ -106,7 +110,7 @@ class Api {
         return Profile.fromJson(json);
       default:
         return Profile();
-    }
+    }*/
   }
 
   /// Update Avatar

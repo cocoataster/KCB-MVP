@@ -66,16 +66,17 @@ class Profile {
 
   Map<String, dynamic> toJson() {
     final data = Map<String, dynamic>();
-    data['cuid'] = this.id;
+    
     data['name'] = this.name;
-    //data['location'] = this.location;
-    data['contactMethod'] = this.contactMethod;
-    //data['instruments'] = this.instruments;
+    data['location'] = this.location.toJson();
+    data['contactMethod'] = this.contactMethod.toJson();
+    data['instruments'] = this.instruments.map((instrument) => instrument).toList();
     data['friendlyLocation'] = this.friendlyLocation;
-    data['videos'] = this.videos;
+    data['videos'] = this.videos.map((video) => video['id']).toList();
     data['description'] = this.description;
     data['photo'] = this.photo;
 
     return data;
   }
+
 }

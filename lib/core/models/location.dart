@@ -1,6 +1,6 @@
 class Location {
-  final double lat;
-  final double long;
+  double lat;
+  double long;
 
   Location({this.lat, this.long});
 
@@ -12,7 +12,6 @@ class Location {
     final Map<String, dynamic> data = Map<String, dynamic>();
     data['lat'] = this.lat;
     data['long'] = this.long;
-
     return data;
   }
 }

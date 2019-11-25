@@ -1,3 +1,4 @@
+import 'package:sounds_good/core/models/location.dart';
 import 'package:sounds_good/core/utils/enums.dart';
 import 'package:sounds_good/locator.dart';
 import 'package:sounds_good/core/models/profile.dart';
@@ -12,9 +13,17 @@ class ProfileViewModel extends BaseViewModel {
   Set<String> instrumentsToRemoveList = {};
   Set<String> videosToRemoveList = {};
 
+
   Future fetchProfile() async {
     setState(ViewState.Busy);
     profile = await _api.getProfile();
+    setState(ViewState.Idle);
+  }
+
+  updateProfile() async{
+    setState(ViewState.Busy);
+    await _api.updateProfile(profile);
+    print('Contact Method: $profile.contactMethod');
     setState(ViewState.Idle);
   }
 
@@ -90,9 +99,19 @@ class ProfileViewModel extends BaseViewModel {
     profile.description = description;
     notifyListeners();
   }
-
+  
   updateContactMethod({ContactMethodType type, String data}) {
-    profile.contactMethod = ContactMethod(type: type.toString(), data: data);
+    String contactType;
+    String contactData;
+    
+    type == ContactMethodType.Email ? contactType = 'email' : contactType = 'phone';
+    data.isEmpty ? contactData = 'user@gmail.cmo' : contactData = data;
+    
+    profile.contactMethod = ContactMethod(type: contactType, data: contactData);
     notifyListeners();
+  }
+
+  updateLocation({double lat, double long}) {
+    profile.location = Location(lat: lat, long: long);
   }
 }

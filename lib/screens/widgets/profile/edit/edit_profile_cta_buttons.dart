@@ -20,7 +20,9 @@ class EditProfileCTAButtons extends StatelessWidget {
                   onPressed: () {
                     model.updateInstrumentsList();
                     model.updateVideosList();
+                    model.updateLocation(long: 0.0, lat: 0.0);
                     model.setMode(ProfileMode.Own);
+                    model.updateProfile();
                   },
                   color: Colors.red.shade400,
                   child: Text('Accept', style: TextStyle(fontSize: 18)),

@@ -12,7 +12,6 @@ class ContactMethod {
     final Map<String, dynamic> data = Map<String, dynamic>();
     data['type'] = this.type;
     data['data'] = this.data;
-
     return data;
   }
 }
