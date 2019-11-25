@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:http_parser/http_parser.dart';
 import 'package:http/http.dart' as http;
 import 'package:sounds_good/core/models/instruments.dart';
 import 'package:sounds_good/core/models/profile.dart';
@@ -97,7 +98,6 @@ class Api {
 
     var body = profile.toJson();
     var headers = {"Authorization": token};
-
     var response =
         await client.patch('$endpoint/profile', body: body, headers: headers);
     print('Profile Update Response: ${response.body}');
@@ -115,14 +115,8 @@ class Api {
   ///
   /// Updates your profile picture
 
-  Future<Profile> updateAvatar(String photo) async {
-    String token = await Storage.getToken();
-
-    var body = {"photo": photo};
-    var headers = {"Authorization": token};
-
-    var response =
-        await client.patch('$endpoint/profile', body: body, headers: headers);
+  Future<Profile> updateAvatar(String filePath) async {
+    var response = await uploadPhoto('$endpoint/profile', filePath);
     print('Profile Update Avatar Response: ${response.body}');
 
     switch (response.statusCode) {
@@ -132,6 +126,21 @@ class Api {
       default:
         return Profile();
     }
+  }
+
+  Future uploadPhoto(String url, String filePath) async {
+    var uri = Uri.parse(url);
+    String token = await Storage.getToken();
+    final mediaType = MediaType('application', 'x-tar');
+
+    var request = http.MultipartRequest('POST', uri);
+    request.headers['Authorization'] = token;
+    request.files.add(await http.MultipartFile.fromPath('photo', filePath,
+        contentType: mediaType));
+
+    var response = await request.send();
+
+    return response;
   }
 
   /// Get Instruments

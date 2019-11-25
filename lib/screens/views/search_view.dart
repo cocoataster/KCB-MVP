@@ -38,7 +38,12 @@ class _SearchViewState extends State<SearchView> {
     print("Get List Data. After async call");
 
     for (var profile in profiles) {
-      widgets.add(MemberCell());
+      var url = 'https://picsum.photos/250?image=9';
+      if (profile.photo != null) {
+        url = 'http://ec2-52-87-34-66.compute-1.amazonaws.com/' + profile.photo;
+      }
+      print(url);
+      widgets.add(MemberCell(url));
     }
 
     return widgets;
