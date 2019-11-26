@@ -12,10 +12,8 @@ class ProfileSectionTitle extends StatelessWidget {
         child: Row(
           children: <Widget>[
             Text(sectionTitle,
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.w700,
-                )),
+                style: Theme.of(context).textTheme.headline
+                ),
           ],
         ));
   }

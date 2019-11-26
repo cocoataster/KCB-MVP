@@ -23,7 +23,7 @@ class ProfileViewModel extends BaseViewModel {
   updateProfile() async{
     setState(ViewState.Busy);
     await _api.updateProfile(profile);
-    print('Contact Method: $profile.contactMethod');
+    
     setState(ViewState.Idle);
   }
 
@@ -43,6 +43,7 @@ class ProfileViewModel extends BaseViewModel {
     instrumentsToRemoveList
         .map((String instrument) => profile.instruments.remove(instrument))
         .toList();
+      print('Instruments: ${profile.instruments}');
   }
 
   void addInstrument({instrument}) {
@@ -50,7 +51,15 @@ class ProfileViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  List<String> getVideos() => profile.videos.map((video) => video['thumbnail'].toString()).toList();
+  List<String> getVideos() { 
+    
+    var list = profile.videos.map((video) => video['thumbnail'].toString()).toList(); 
+    var thumbnailsList = profile.videos.map<String>((video) => video['thumbnail']).toList();
+    print("Profile list: ${profile.videos}");
+    print("List $thumbnailsList");
+    
+    return thumbnailsList;   
+    }
 
   videosToRemove({videosSelected}) {
     videosToRemoveList = videosSelected;
@@ -79,8 +88,8 @@ class ProfileViewModel extends BaseViewModel {
         return data;
     }
 
-    var newVideoItem = videoURLtoJson();
-    profile.videos.add(newVideoItem);
+  var newVideoItem = videoURLtoJson();
+  profile.videos.add(newVideoItem);
   }
 
   // TODO Meter todos los métodos en un único Map

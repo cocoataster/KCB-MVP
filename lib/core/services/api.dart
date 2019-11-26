@@ -52,9 +52,8 @@ class Api {
     String token = await Storage.getToken();
 
     var headers = {"Authorization": token};
-
     final response = await client.patch('$endpoint/profile', headers: headers);
-    print('Profile Response: ${response.body}');
+   // print('Profile Response: ${response.body}');
 
     switch (response.statusCode) {
       case 200:
@@ -75,7 +74,7 @@ class Api {
     var headers = {"Authorization": token};
 
     var response = await client.post('$endpoint/profile/$id', headers: headers);
-    print('Profile ID Response: ${response.body}');
+   // print('Profile ID Response: ${response.body}');
 
     switch (response.statusCode) {
       case 200:
@@ -93,24 +92,30 @@ class Api {
   Future<Profile> updateProfile(Profile profile) async {
     String token = await Storage.getToken();
 
-    var body = profile.toJson();
-    
-    print('Body to send: $body');
+    var body = json.encode(profile.toJson());
 
-    var headers = {"Authorization": token};
+     Map<String, String> headers = {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': token
+    };
 
-   /* final response =
+    final response =
         await client.patch('$endpoint/profile', headers: headers, body: body);
 
-    print('Profile Update Response: ${response.body}');
+    //print('Profile Update Response: ${response.body}');
+
+    
 
     switch (response.statusCode) {
       case 200:
+        print('200');
         var json = jsonDecode(response.body);
         return Profile.fromJson(json);
       default:
+        print('NO');
         return Profile();
-    }*/
+    }
   }
 
   /// Update Avatar

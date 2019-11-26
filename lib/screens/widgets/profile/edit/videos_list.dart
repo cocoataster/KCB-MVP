@@ -27,7 +27,7 @@ class _EditProfileVideosState extends State<EditProfileVideos> {
   }
 
   void onVideoAdded(String videoURL){
-    Provider.of<ProfileViewModel>(context, listen: false).addNewVideo( videoURL); 
+    Provider.of<ProfileViewModel>(context, listen: false).addNewVideo(videoURL); 
   }
 
   @override

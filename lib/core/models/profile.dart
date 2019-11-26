@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:sounds_good/core/models/contact_method.dart';
 import 'package:sounds_good/core/models/location.dart';
+
+
 
 class Profile {
   final String id;
@@ -24,6 +28,7 @@ class Profile {
       this.photo});
 
   factory Profile.fromJson(Map<String, dynamic> json) {
+    
     List<String> instrumentsList = List<String>();
 
     if (json['instruments'] != []) {
@@ -44,7 +49,7 @@ class Profile {
 
     var videos = json['videos'];
     List<dynamic> videosList = List<dynamic>.from(videos);
-
+    List<String> thumbnailsList;
      if (json['videos'] != []) {
       var videos = json['videos'];
       videosList = List<dynamic>.from(videos);
@@ -68,15 +73,15 @@ class Profile {
     final data = Map<String, dynamic>();
     
     data['name'] = this.name;
-    data['location'] = this.location.toJson();
-    data['contactMethod'] = this.contactMethod.toJson();
-    data['instruments'] = this.instruments.map((instrument) => instrument).toList();
+    //data['location'] = this.location.toJson();
+    //data['contactMethod'] = this.contactMethod.toJson();
+    data['instruments'] = this.instruments;
     data['friendlyLocation'] = this.friendlyLocation;
-    data['videos'] = this.videos.map((video) => video['id']).toList();
+    data['videos'] = this.videos.map<String>((video) => video['id'].toString()).toList();
     data['description'] = this.description;
-    data['photo'] = this.photo;
+    //data['photo'] = this.photo;
 
     return data;
   }
-
+  
 }

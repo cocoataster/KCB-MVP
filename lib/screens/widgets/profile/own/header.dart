@@ -26,17 +26,11 @@ Widget _headerContent(context) {
     children: [
       Text(
         model.profile.name,
-        style: TextStyle(
-          fontSize: 22,
-          fontWeight: FontWeight.w700,
-        ),
+        style: Theme.of(context).textTheme.headline,
       ),
       Text(
         model.profile.friendlyLocation,
-        style: TextStyle(
-          fontSize: 14,
-          fontWeight: FontWeight.w400,
-        ),
+        style: Theme.of(context).textTheme.display1,
       ),
     ],
   );

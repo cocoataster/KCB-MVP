@@ -23,7 +23,6 @@ class _HowToReachMeSelectorState extends State<HowToReachMeSelector> {
   Widget build(BuildContext context) {
     return Consumer<ProfileViewModel>(
       builder: (context, model, child){ 
-        print('Contact Method: ${model.profile.contactMethod}');
         return Container(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,

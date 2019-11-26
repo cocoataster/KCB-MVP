@@ -24,7 +24,7 @@ class EditProfileCTAButtons extends StatelessWidget {
                     model.setMode(ProfileMode.Own);
                     model.updateProfile();
                   },
-                  color: Colors.red.shade400,
+                  color: Theme.of(context).accentColor,
                   child: Text('Accept', style: TextStyle(fontSize: 18)),
                   shape: RoundedRectangleBorder(
                     borderRadius: new BorderRadius.circular(10.0),
