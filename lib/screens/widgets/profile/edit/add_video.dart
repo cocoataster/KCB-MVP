@@ -113,7 +113,6 @@ class _VideoDialogState extends State<VideoDialog> {
                       )),
                   onChanged: (String value) {
                     youtubeURL(value);
-                    print(validate);
                   },
                 ),
               ),

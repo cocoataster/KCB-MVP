@@ -15,15 +15,42 @@ class _HowToReachMeSelectorState extends State<HowToReachMeSelector> {
     ContactMethodType.Email: Text('Mail'),
     ContactMethodType.Phone: Text('WhatsApp'),
   };
-
-  String textFieldValue = '';
+  
+  
+  String hintContent;
+  String textFieldValue;
   ContactMethodType typeSelected;
+  String phoneHint = 'Insert your Phone Number';
+  String emailHint = 'Insert your Email Address';
+
+  @override
+  void initState() {
+    
+    setState(() {
+    hintContent = 'Hola';  
+    });
+    
+    
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ProfileViewModel>(
-      builder: (context, model, child){ 
-        return Container(
+    return Consumer<ProfileViewModel>(builder: (context, model, child) {
+     textFieldValue = model.getContactMethodData();
+    typeSelected =  model.getContactMethodType();
+switch(typeSelected){
+      case ContactMethodType.Email:
+      textFieldValue == '' ? hintContent = emailHint : hintContent = textFieldValue;
+      break;
+      case ContactMethodType.Phone:
+      textFieldValue == '' ? hintContent = phoneHint : hintContent = textFieldValue;
+      break;
+   
+      
+          }
+
+      return Container(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -39,9 +66,7 @@ class _HowToReachMeSelectorState extends State<HowToReachMeSelector> {
                 onValueChanged: (selection) {
                   setState(() {
                     typeSelected = selection;
-
-                    model.updateContactMethod(
-                            type: selection, data: textFieldValue);
+                    model.updateContactMethodType(selection);
                   });
                 },
                 groupValue: typeSelected,
@@ -54,12 +79,10 @@ class _HowToReachMeSelectorState extends State<HowToReachMeSelector> {
                 decoration: InputDecoration(
                   contentPadding:
                       EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
-                  hintText: typeSelected == ContactMethodType.Phone
-                      ? 'Insert your Phone Number'
-                      : 'Insert your Email Address',
+                  hintText: hintContent,
                   hintStyle: TextStyle(
                     fontSize: 14.0,
-                    color: Colors.blueGrey.shade200,
+                    color: Colors.blueGrey,
                   ),
                   border: new OutlineInputBorder(
                     borderRadius: const BorderRadius.all(
@@ -70,13 +93,14 @@ class _HowToReachMeSelectorState extends State<HowToReachMeSelector> {
                 onChanged: (fieldContent) => {
                   setState(() {
                     textFieldValue = fieldContent;
+                    model.updateContactMethodData(fieldContent);
                   })
                 },
               ),
             ),
           ],
         ),
-      );}
-    );
+      );
+    });
   }
 }

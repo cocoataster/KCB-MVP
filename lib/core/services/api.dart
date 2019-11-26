@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:http_parser/http_parser.dart';
 import 'package:http/http.dart' as http;
 import 'package:sounds_good/core/models/instruments.dart';
 import 'package:sounds_good/core/models/profile.dart';
@@ -14,27 +14,28 @@ class Api {
 
   Future createUser(String email, String password) async {
     var body = {"email": email, "password": password};
-
     var response = await client.post('$endpoint/users/create', body: body);
+    
     print('Create User Response: ${response.body}');
   }
 
+
   Future<bool> login(String email, String password) async {
     var body = {"email": email, "password": password};
-
     var response = await client.post('$endpoint/users/login', body: body);
+    
     print('Login Response: ${response.body}');
 
     switch (response.statusCode) {
       case 200:
         Storage.saveUserId(response.headers["id"]);
         Storage.saveToken(response.headers["authorization"]);
-
         return true;
       default:
         return false;
     }
   }
+
 
   Future<Profile> getProfile() async {
     String token = await Storage.getToken();
@@ -57,6 +58,7 @@ class Api {
     }
   }
 
+
   Future<Profile> getProfileWithId(String id) async {
     String token = await Storage.getToken();
 
@@ -78,6 +80,7 @@ class Api {
     }
   }
 
+
   Future<Profile> updateProfile(Profile profile) async {
     String token = await Storage.getToken();
 
@@ -89,34 +92,31 @@ class Api {
       'Authorization': token
     };
 
+    print('_');
+    print('Body to send: $body');
+
     final response =
         await client.patch('$endpoint/profile', headers: headers, body: body);
 
+    print('_');
     print('Profile Update Response: ${response.body}');
+    
 
     switch (response.statusCode) {
       case 200:
-        print('200');
         var json = jsonDecode(response.body);
         return Profile.fromJson(json);
       default:
-        print('NO');
         return Profile();
     }
   }
 
-  Future<Profile> updateAvatar(String photo) async {
-    String token = await Storage.getToken();
+ /// Update Avatar
+  ///
+  /// Updates your profile picture
 
-    var body = {"photo": photo};
-    Map<String, String> headers = {
-      'Content-type': 'application/json',
-      'Accept': 'application/json',
-      'Authorization': token
-    };
-
-    var response =
-        await client.patch('$endpoint/profile', body: body, headers: headers);
+  Future<Profile> updateAvatar(String filePath) async {
+    var response = await uploadPhoto('$endpoint/profile', filePath);
     print('Profile Update Avatar Response: ${response.body}');
 
     switch (response.statusCode) {
@@ -128,10 +128,22 @@ class Api {
     }
   }
 
-  /// Get Instruments
-  ///
-  /// Returns a list of instruments available
+  Future uploadPhoto(String url, String filePath) async {
+    var uri = Uri.parse(url);
+    String token = await Storage.getToken();
+    final mediaType = MediaType('application', 'x-tar');
 
+    var request = http.MultipartRequest('POST', uri);
+    request.headers['Authorization'] = token;
+    request.files.add(await http.MultipartFile.fromPath('photo', filePath,
+        contentType: mediaType));
+
+    var response = await request.send();
+
+    return response;
+  }
+
+  // Get the available instruments list from server
   Future<Instruments> getInstruments() async {
     String token = await Storage.getToken();
 

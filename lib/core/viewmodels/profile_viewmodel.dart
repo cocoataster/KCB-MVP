@@ -10,6 +10,7 @@ class ProfileViewModel extends BaseViewModel {
   Api _api = locator<Api>();
 
   Profile profile;
+  ContactMethod contactMethod;
   Set<String> instrumentsToRemoveList = {};
   Set<String> videosToRemoveList = {};
 
@@ -27,7 +28,6 @@ class ProfileViewModel extends BaseViewModel {
     setState(ViewState.Idle);
   }
 
-
   ProfileMode _profileMode = ProfileMode.Own;
   ProfileMode get getMode => _profileMode;
 
@@ -43,7 +43,6 @@ class ProfileViewModel extends BaseViewModel {
     instrumentsToRemoveList
         .map((String instrument) => profile.instruments.remove(instrument))
         .toList();
-      print('Instruments: ${profile.instruments}');
   }
 
   void addInstrument({instrument}) {
@@ -52,12 +51,7 @@ class ProfileViewModel extends BaseViewModel {
   }
 
   List<String> getVideos() { 
-    
-    var list = profile.videos.map((video) => video['thumbnail'].toString()).toList(); 
     var thumbnailsList = profile.videos.map<String>((video) => video['thumbnail']).toList();
-    print("Profile list: ${profile.videos}");
-    print("List $thumbnailsList");
-    
     return thumbnailsList;   
     }
 
@@ -92,8 +86,6 @@ class ProfileViewModel extends BaseViewModel {
   profile.videos.add(newVideoItem);
   }
 
-  // TODO Meter todos los métodos en un único Map
-
   updateProfileLocation({friendlyLocation}) {
     profile.friendlyLocation = friendlyLocation;
     notifyListeners();
@@ -109,16 +101,10 @@ class ProfileViewModel extends BaseViewModel {
     notifyListeners();
   }
   
-  updateContactMethod({ContactMethodType type, String data}) {
-    String contactType;
-    String contactData;
-    
-    type == ContactMethodType.Email ? contactType = 'email' : contactType = 'phone';
-    data.isEmpty ? contactData = 'user@gmail.cmo' : contactData = data;
-    
-    profile.contactMethod = ContactMethod(type: contactType, data: contactData);
-    notifyListeners();
-  }
+  ContactMethodType getContactMethodType() => profile.contactMethod.type;
+  String getContactMethodData() => profile.contactMethod.data;
+  updateContactMethodType(ContactMethodType type) => profile.contactMethod.type = type;
+  updateContactMethodData(String data) => profile.contactMethod.data = data;
 
   updateLocation({double lat, double long}) {
     profile.location = Location(lat: lat, long: long);

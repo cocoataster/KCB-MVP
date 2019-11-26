@@ -43,13 +43,12 @@ class Profile {
     Location location =
         json['location'] != null ? Location.fromJson(json['location']) : null;
 
-    ContactMethod contactMethod = json['contactMethod'] != null
-        ? ContactMethod.fromJson(json['contactMethod'])
+    ContactMethod contactMethod = json['contact'] != null
+        ? ContactMethod.fromJson(json['contact'])
         : null;
 
     var videos = json['videos'];
     List<dynamic> videosList = List<dynamic>.from(videos);
-    List<String> thumbnailsList;
      if (json['videos'] != []) {
       var videos = json['videos'];
       videosList = List<dynamic>.from(videos);
@@ -74,7 +73,7 @@ class Profile {
     
     data['name'] = this.name;
     //data['location'] = this.location.toJson();
-    //data['contactMethod'] = this.contactMethod.toJson();
+    data['contact'] = this.contactMethod.toJson();
     data['instruments'] = this.instruments;
     data['friendlyLocation'] = this.friendlyLocation;
     data['videos'] = this.videos.map<String>((video) => video['id'].toString()).toList();
