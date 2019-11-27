@@ -16,5 +16,4 @@ class InstrumentsViewModel extends BaseViewModel {
   }
 
   String getInstrument(pos) => instruments.items[pos];
-  
 }

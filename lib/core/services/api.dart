@@ -92,14 +92,14 @@ class Api {
       'Authorization': token
     };
 
-    print('_');
-    print('Body to send: $body');
+  
+    print('**** Body to send ****: $body');
 
     final response =
         await client.patch('$endpoint/profile', headers: headers, body: body);
 
-    print('_');
-    print('Profile Update Response: ${response.body}');
+   
+    print('**** Profile Update Response ****: ${response.body}');
     
 
     switch (response.statusCode) {

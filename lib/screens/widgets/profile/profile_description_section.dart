@@ -17,7 +17,7 @@ class ProfileDescriptionSection extends StatelessWidget {
               children: <Widget>[
                 ProfileSectionTitle(sectionTitle: 'About me'),
                 model.getMode == ProfileMode.Edit
-                    ? _editModeWidget(model)
+                    ? _editModeWidget(model, context)
                     : _plainWidget(model),
               ],
             ),
@@ -27,11 +27,18 @@ class ProfileDescriptionSection extends StatelessWidget {
     );
   }
 
-  Widget _editModeWidget(model) {
-    return TextField(
+  Widget _editModeWidget(model, context) {
+    return TextFormField(
       maxLines: null,
-      decoration: InputDecoration.collapsed(
-        hintText: model.profile.description,
+      style: TextStyle(color: Colors.blueGrey.shade300),
+      initialValue: model.profile.description,
+      decoration: InputDecoration(
+                    contentPadding: EdgeInsets.all(0),
+                      focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Theme.of(context).accentColor,
+                              width: 1.0)),
+                      border: InputBorder.none
       ),
       onChanged: (String value) => model.updateDescription(description: value),
     );

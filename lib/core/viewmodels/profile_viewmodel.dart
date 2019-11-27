@@ -13,6 +13,7 @@ class ProfileViewModel extends BaseViewModel {
   ContactMethod contactMethod;
   Set<String> instrumentsToRemoveList = {};
   Set<String> videosToRemoveList = {};
+  Map<String, dynamic> updatedProfile = Map<String, dynamic>();
 
 
   Future fetchProfile() async {
@@ -23,9 +24,8 @@ class ProfileViewModel extends BaseViewModel {
 
   updateProfile() async{
     setState(ViewState.Busy);
-    await _api.updateProfile(profile);
-    
-    setState(ViewState.Idle);
+    await _api.updateProfile(profile);  
+    setState(ViewState.Idle);   
   }
 
   ProfileMode _profileMode = ProfileMode.Own;
@@ -36,6 +36,10 @@ class ProfileViewModel extends BaseViewModel {
     notifyListeners();
   }
 
+  void updateProfileField({String key, dynamic value}){
+    updatedProfile[key] = value;
+  }
+
   instrumentsToRemove({instrumentsSelected}) =>
       instrumentsToRemoveList = instrumentsSelected;
 
@@ -43,6 +47,7 @@ class ProfileViewModel extends BaseViewModel {
     instrumentsToRemoveList
         .map((String instrument) => profile.instruments.remove(instrument))
         .toList();
+        updateProfileField(key: 'instruments', value: profile.instruments);
   }
 
   void addInstrument({instrument}) {
@@ -69,6 +74,7 @@ class ProfileViewModel extends BaseViewModel {
         }).toList();
       },
     ).toList();
+    updateProfileField(key: 'videos', value: profile.videos);
   }
 
  addNewVideo(videoURL) {
@@ -88,16 +94,19 @@ class ProfileViewModel extends BaseViewModel {
 
   updateProfileLocation({friendlyLocation}) {
     profile.friendlyLocation = friendlyLocation;
+    updateProfileField(key: 'fiendlyLocation', value: profile.friendlyLocation);
     notifyListeners();
   }
 
   updateProfileName({name}) {
     profile.name = name;
+    updateProfileField(key: 'name', value: profile.name);
     notifyListeners();
   }
 
   updateDescription({description}) {
     profile.description = description;
+    updateProfileField(key: 'description', value: profile.description);
     notifyListeners();
   }
   
@@ -107,6 +116,6 @@ class ProfileViewModel extends BaseViewModel {
   updateContactMethodData(String data) => profile.contactMethod.data = data;
 
   updateLocation({double lat, double long}) {
-    profile.location = Location(lat: lat, long: long);
+      profile.location = Location(lat: lat, long: long);
   }
 }

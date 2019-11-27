@@ -16,40 +16,38 @@ class _HowToReachMeSelectorState extends State<HowToReachMeSelector> {
     ContactMethodType.Phone: Text('WhatsApp'),
   };
   
-  
-  String hintContent;
   String textFieldValue;
   ContactMethodType typeSelected;
   String phoneHint = 'Insert your Phone Number';
   String emailHint = 'Insert your Email Address';
+  TextEditingController _textFieldController;
+
+  String getfieldValue(String data) {
+    String value;
+    
+    if(textFieldValue == ''){
+        typeSelected == ContactMethodType.Email ? value = emailHint : value = phoneHint; 
+    } else {
+      value = textFieldValue;
+    }
+
+    return value;
+  }
 
   @override
   void initState() {
-    
-    setState(() {
-    hintContent = 'Hola';  
-    });
-    
-    
+    typeSelected = Provider.of<ProfileViewModel>(context, listen: false).profile.contactMethod.type;
+    _textFieldController = TextEditingController(text: Provider.of<ProfileViewModel>(context, listen: false).profile.contactMethod.data);
     super.initState();
+  }
+
+  _clearTextField() {
+    _textFieldController = TextEditingController(text: ''); 
   }
 
   @override
   Widget build(BuildContext context) {
     return Consumer<ProfileViewModel>(builder: (context, model, child) {
-     textFieldValue = model.getContactMethodData();
-    typeSelected =  model.getContactMethodType();
-switch(typeSelected){
-      case ContactMethodType.Email:
-      textFieldValue == '' ? hintContent = emailHint : hintContent = textFieldValue;
-      break;
-      case ContactMethodType.Phone:
-      textFieldValue == '' ? hintContent = phoneHint : hintContent = textFieldValue;
-      break;
-   
-      
-          }
-
       return Container(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -66,6 +64,7 @@ switch(typeSelected){
                 onValueChanged: (selection) {
                   setState(() {
                     typeSelected = selection;
+                    _clearTextField();
                     model.updateContactMethodType(selection);
                   });
                 },
@@ -75,21 +74,20 @@ switch(typeSelected){
             SizedBox(
               width: 240.0,
               height: 32.0,
-              child: TextField(
+              
+              child: TextFormField(
+                controller: _textFieldController,
                 decoration: InputDecoration(
                   contentPadding:
                       EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
-                  hintText: hintContent,
-                  hintStyle: TextStyle(
-                    fontSize: 14.0,
-                    color: Colors.blueGrey,
-                  ),
+                
                   border: new OutlineInputBorder(
                     borderRadius: const BorderRadius.all(
                       const Radius.circular(5.0),
                     ),
                   ),
                 ),
+                style: TextStyle(color: Colors.blueGrey.shade300),
                 onChanged: (fieldContent) => {
                   setState(() {
                     textFieldValue = fieldContent;

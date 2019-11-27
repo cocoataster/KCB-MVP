@@ -10,7 +10,7 @@ class ContactMethod {
     ContactMethodType type; 
     json['type'] == 'email' ? type = ContactMethodType.Email : type = ContactMethodType.Phone;
 
-    return ContactMethod(type: type, data: json['long']);
+    return ContactMethod(type: type, data: json['data']);
   }
 
   Map<String, dynamic> toJson() {
