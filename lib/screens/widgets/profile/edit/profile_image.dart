@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
+import 'package:sounds_good/core/viewmodels/profile_viewmodel.dart';
 
 // TODO Images
 class EditProfileImage extends StatefulWidget {
@@ -34,6 +36,7 @@ class _EditProfileImageState extends State<EditProfileImage> {
       if (file != null) {
         setState(() => widget._pickedImage = file);
       }
+      Provider.of<ProfileViewModel>(context, listen: false).updatePhoto(file.path);
     }
   }
 

@@ -47,6 +47,7 @@ class Api {
     };
 
     final response = await client.get('$endpoint/profile', headers: headers);
+    print(response);
     print('Profile Response: ${response.body}');
 
     switch (response.statusCode) {
@@ -92,17 +93,9 @@ class Api {
       'Authorization': token
     };
 
-  
-    print('**** Body to send ****: $body');
-
     final response =
         await client.patch('$endpoint/profile', headers: headers, body: body);
-
-   
-    print('**** Profile Update Response ****: ${response.body}');
-    
-
-    switch (response.statusCode) {
+ switch (response.statusCode) {
       case 200:
         var json = jsonDecode(response.body);
         return Profile.fromJson(json);
@@ -115,16 +108,18 @@ class Api {
   ///
   /// Updates your profile picture
 
-  Future<Profile> updateAvatar(String filePath) async {
-    var response = await uploadPhoto('$endpoint/profile', filePath);
-    print('Profile Update Avatar Response: ${response.body}');
-
+  updateAvatar(String filePath) async {
+    var response = await uploadPhoto('$endpoint/profile/avatar', filePath);
+    
     switch (response.statusCode) {
       case 200:
-        var json = jsonDecode(response.body);
-        return Profile.fromJson(json);
+        print(response.statusCode);
+        print(response.reasonPhrase);
+        break;
       default:
-        return Profile();
+        print(response.statusCode);
+        print(response.reasonPhrase);
+        break;
     }
   }
 
@@ -139,7 +134,7 @@ class Api {
         contentType: mediaType));
 
     var response = await request.send();
-
+   
     return response;
   }
 
