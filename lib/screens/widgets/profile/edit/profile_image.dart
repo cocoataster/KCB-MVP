@@ -32,23 +32,22 @@ class _EditProfileImageState extends State<EditProfileImage> {
     File croppedImage = await ImageCropper.cropImage(
         sourcePath: pickedImage.path,
         aspectRatioPresets: [
-        CropAspectRatioPreset.square,
-       
-      ],
-      androidUiSettings: AndroidUiSettings(
+          CropAspectRatioPreset.square,
+        ],
+        androidUiSettings: AndroidUiSettings(
           toolbarTitle: 'Edit your image',
           toolbarColor: Colors.blueGrey,
           toolbarWidgetColor: Colors.white,
           initAspectRatio: CropAspectRatioPreset.square,
-          lockAspectRatio: false,),
-      iosUiSettings: IOSUiSettings(
-        minimumAspectRatio: 1.0,
-      )
-      );
+          lockAspectRatio: false,
+        ),
+        iosUiSettings: IOSUiSettings(
+          minimumAspectRatio: 1.0,
+        ));
 
     setState(() {
-       Provider.of<ProfileViewModel>(context, listen: false)
-                .avatarToUpdate(imageFile: croppedImage);
+      Provider.of<ProfileViewModel>(context, listen: false)
+          .avatarToUpdate(imageFile: croppedImage);
       _avatarImageProvider = FileImage(croppedImage);
     });
   }
@@ -59,14 +58,30 @@ class _EditProfileImageState extends State<EditProfileImage> {
         builder: (context) => AlertDialog(
               title: Text("Select the image source"),
               actions: <Widget>[
-                MaterialButton(
-                  child: Text("Camera"),
+                RaisedButton.icon(
                   onPressed: () => Navigator.pop(context, ImageSource.camera),
+                  color: Theme.of(context).accentColor,
+                  icon: Icon(Icons.camera, color: Colors.white70),
+                  label: const Text(
+                    'Camera',
+                    style: TextStyle(fontSize: 16, color: Colors.white),
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
                 ),
-                MaterialButton(
-                  child: Text("Gallery"),
+                RaisedButton.icon(
                   onPressed: () => Navigator.pop(context, ImageSource.gallery),
-                )
+                  color: Theme.of(context).accentColor,
+                  icon: Icon(Icons.collections, color: Colors.white70),
+                  label: Text(
+                    'Gallery',
+                    style: TextStyle(fontSize: 16, color: Colors.white),
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                ),
               ],
             ));
 

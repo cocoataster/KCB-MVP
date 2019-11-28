@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:sounds_good/core/models/contact_method.dart';
 import 'package:sounds_good/core/models/location.dart';
 
@@ -78,8 +76,7 @@ class Profile {
     data['friendlyLocation'] = this.friendlyLocation;
     data['videos'] = this.videos.map<String>((video) => video['id'].toString()).toList();
     data['description'] = this.description;
-    //data['photo'] = this.photo;
-
+    
     return data;
   }
   
