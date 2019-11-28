@@ -22,7 +22,7 @@ class ProfileImage extends StatelessWidget {
                 image: model.getAvatar(),
                 fit: BoxFit.fill,
                 width: MediaQuery.of(context).size.width - 68.0,
-                height: MediaQuery.of(context).size.width - 68.0,
+                height: MediaQuery.of(context).size.width - 88.0,
               ),
             ),
           ],

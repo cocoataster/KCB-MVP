@@ -1,10 +1,9 @@
-import 'package:flutter/gestures.dart';
-import 'package:flutter/material.dart';
-import 'dart:async';
 import 'dart:io';
+import 'package:flutter/material.dart';
+import 'package:image_cropper/image_cropper.dart';
+import 'dart:async';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:sounds_good/core/services/api.dart';
 import 'package:sounds_good/core/viewmodels/profile_viewmodel.dart';
 
 class EditProfileImage extends StatefulWidget {
@@ -17,9 +16,6 @@ class _EditProfileImageState extends State<EditProfileImage> {
   bool _profileHasAvatar = false;
 
   @override
-
-  // https://stackoverflow.com/questions/49835623/how-to-load-images-with-image-file
-
   initState() {
     if (Provider.of<ProfileViewModel>(context, listen: false).getAvatar !=
         null) {
@@ -30,6 +26,31 @@ class _EditProfileImageState extends State<EditProfileImage> {
       _avatarImageProvider = AssetImage('assets/images/avatarPlaceholder.png');
     }
     super.initState();
+  }
+
+  Future<void> cropImage({File pickedImage}) async {
+    File croppedImage = await ImageCropper.cropImage(
+        sourcePath: pickedImage.path,
+        aspectRatioPresets: [
+        CropAspectRatioPreset.square,
+       
+      ],
+      androidUiSettings: AndroidUiSettings(
+          toolbarTitle: 'Edit your image',
+          toolbarColor: Colors.blueGrey,
+          toolbarWidgetColor: Colors.white,
+          initAspectRatio: CropAspectRatioPreset.square,
+          lockAspectRatio: false,),
+      iosUiSettings: IOSUiSettings(
+        minimumAspectRatio: 1.0,
+      )
+      );
+
+    setState(() {
+       Provider.of<ProfileViewModel>(context, listen: false)
+                .avatarToUpdate(imageFile: croppedImage);
+      _avatarImageProvider = FileImage(croppedImage);
+    });
   }
 
   Future getImage() async {
@@ -52,13 +73,7 @@ class _EditProfileImageState extends State<EditProfileImage> {
     if (imageSource != null) {
       final file = await ImagePicker.pickImage(source: imageSource);
       if (file != null) {
-        setState(
-          () {
-            Provider.of<ProfileViewModel>(context, listen: false)
-                .avatarToUpdate(imageFile: file);
-            _avatarImageProvider = FileImage(file);
-          },
-        );
+        cropImage(pickedImage: file);
       }
     }
   }
@@ -89,7 +104,7 @@ class _EditProfileImageState extends State<EditProfileImage> {
                         image: _avatarImageProvider,
                         fit: BoxFit.fill,
                         width: MediaQuery.of(context).size.width - 68.0,
-                        height: MediaQuery.of(context).size.width - 68.0,
+                        height: MediaQuery.of(context).size.width - 88.0,
                       ),
                       Container(
                         width: 200,
@@ -124,7 +139,7 @@ class _EditProfileImageState extends State<EditProfileImage> {
                                         style: TextStyle(
                                           color: Colors.blueGrey.shade300,
                                         ),
-                                      )
+                                      ),
                               ],
                             ),
                           ),
