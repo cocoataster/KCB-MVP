@@ -15,15 +15,14 @@ class Api {
   Future createUser(String email, String password) async {
     var body = {"email": email, "password": password};
     var response = await client.post('$endpoint/users/create', body: body);
-    
+
     print('Create User Response: ${response.body}');
   }
-
 
   Future<bool> login(String email, String password) async {
     var body = {"email": email, "password": password};
     var response = await client.post('$endpoint/users/login', body: body);
-    
+
     print('Login Response: ${response.body}');
 
     switch (response.statusCode) {
@@ -35,7 +34,6 @@ class Api {
         return false;
     }
   }
-
 
   Future<Profile> getProfile() async {
     String token = await Storage.getToken();
@@ -59,7 +57,6 @@ class Api {
     }
   }
 
-
   Future<Profile> getProfileWithId(String id) async {
     String token = await Storage.getToken();
 
@@ -81,7 +78,6 @@ class Api {
     }
   }
 
-
   Future<Profile> updateProfile(Profile profile) async {
     String token = await Storage.getToken();
 
@@ -95,7 +91,7 @@ class Api {
 
     final response =
         await client.patch('$endpoint/profile', headers: headers, body: body);
- switch (response.statusCode) {
+    switch (response.statusCode) {
       case 200:
         var json = jsonDecode(response.body);
         return Profile.fromJson(json);
@@ -104,17 +100,20 @@ class Api {
     }
   }
 
- /// Update Avatar
+  /// Update Avatar
   ///
   /// Updates your profile picture
 
   updateAvatar(String filePath) async {
     var response = await uploadPhoto('$endpoint/profile/avatar', filePath);
-    
+    final respStr = await response.stream.bytesToString();
     switch (response.statusCode) {
       case 200:
+        print('Response Upload');
         print(response.statusCode);
         print(response.reasonPhrase);
+        print(respStr);
+
         break;
       default:
         print(response.statusCode);
@@ -134,7 +133,7 @@ class Api {
         contentType: mediaType));
 
     var response = await request.send();
-   
+
     return response;
   }
 

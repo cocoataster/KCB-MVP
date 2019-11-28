@@ -15,13 +15,14 @@ class EditProfileCTAButtons extends StatelessWidget {
           Row(
             children: <Widget>[
               SizedBox(
-                width: MediaQuery.of(context).size.width - 50.0,
+                width: MediaQuery.of(context).size.width - 48.0,
                 child: RaisedButton(
                   onPressed: () {
                     model.updateInstrumentsList();
                     model.updateVideosList();
                     model.updateLocation(long: 0.0, lat: 0.0);
                     model.setMode(ProfileMode.Own);
+                    model.updateAvatar();
                     model.updateProfile();
                   },
                   color: Theme.of(context).accentColor,
@@ -36,7 +37,7 @@ class EditProfileCTAButtons extends StatelessWidget {
           Row(
             children: <Widget>[
               SizedBox(
-                width: MediaQuery.of(context).size.width - 50.0,
+                width: MediaQuery.of(context).size.width - 48.0,
                 child: ProfileCloseButton(
                     value: 'Cancel',
                     onPressed: () => model.setMode(ProfileMode.Own)),

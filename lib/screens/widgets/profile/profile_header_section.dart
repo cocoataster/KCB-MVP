@@ -20,7 +20,6 @@ class ProfileHeaderSection extends StatefulWidget {
 }
 
 class _ProfileHeaderSectionState extends State<ProfileHeaderSection> {
-  File image;
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +77,7 @@ class _ProfileHeaderSectionState extends State<ProfileHeaderSection> {
         buttonHeader: Container(),
         headerContent: EditProfileHeader(),
       ),
-      EditProfileImage(image),
+      EditProfileImage(),
       ProfileSectionTitle(sectionTitle: 'How to reach me'),
       HowToReachMeSelector(),
     ];
