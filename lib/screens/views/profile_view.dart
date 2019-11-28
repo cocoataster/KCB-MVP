@@ -15,9 +15,8 @@ class ProfileView extends StatefulWidget {
 }
 
 class _ProfileViewState extends State<ProfileView> {
-
   Future<bool> _captureAndroidBackButton(profileMode) {
-        if (profileMode == ProfileMode.Edit) {
+    if (profileMode == ProfileMode.Edit) {
       setState(() {
         profileMode = ProfileMode.Own;
       });
@@ -27,7 +26,6 @@ class _ProfileViewState extends State<ProfileView> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return BaseView<ProfileViewModel>(
@@ -35,29 +33,31 @@ class _ProfileViewState extends State<ProfileView> {
         model.fetchProfile();
       },
       builder: (context, model, child) => BaseView<InstrumentsViewModel>(
-      onModelReady: (modelInstruments) {
-        modelInstruments.fetchInstruments();
-      },
-      builder: (context, modelInstruments, child) => WillPopScope(
-        child: Scaffold(
-            body: model.state == ViewState.Idle
-                ? SafeArea(
-                    child: ListView(
-                      padding: const EdgeInsets.all(24),
-                      children: <Widget>[
-                        ProfileHeaderSection(),
-                        InstrumentsSection(),
-                        ProfileVideosSection(),
-                        ProfileDescriptionSection(),
-                        ProfileCTAButtons(),
-                      ],
-                    ),
-                  )
-                : Center(
-                    child: CircularProgressIndicator(),
-                  )),
-        onWillPop: () => _captureAndroidBackButton(model.getMode),
+        onModelReady: (modelInstruments) {
+          modelInstruments.fetchInstruments();
+        },
+        builder: (context, modelInstruments, child) => WillPopScope(
+          child: Scaffold(
+              body: model.state == ViewState.Idle
+                  ? SafeArea(
+                      child: ListView(
+                        padding: const EdgeInsets.all(24),
+                        children: <Widget>[
+                          ProfileHeaderSection(),
+                          InstrumentsSection(),
+                          ProfileVideosSection(),
+                          ProfileDescriptionSection(),
+                          ProfileCTAButtons(),
+                          
+                        ],
+                      ),
+                    )
+                  : Center(
+                      child: CircularProgressIndicator(),
+                    )),
+          onWillPop: () => _captureAndroidBackButton(model.getMode),
+        ),
       ),
-    ),);
+    );
   }
 }

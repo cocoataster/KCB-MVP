@@ -15,12 +15,16 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         accentColor: Colors.red[400],
         textTheme: TextTheme(
-          headline: TextStyle(fontSize: 22.0, fontWeight: FontWeight.w700, color: Colors.black87),
-          display1: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w400, color: Colors.black87),
-          display2: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
+          headline: TextStyle(
+              fontSize: 22.0,
+              fontWeight: FontWeight.w700,
+              color: Colors.black87),
+          display1: TextStyle(
+              fontSize: 14.0,
+              fontWeight: FontWeight.w400,
+              color: Colors.black87),
           title: TextStyle(fontSize: 18.0),
           button: TextStyle(fontSize: 16.0),
-          body1: TextStyle(fontSize: 14.0, fontFamily: 'Hind'),
         ),
       ),
       initialRoute: 'profile',

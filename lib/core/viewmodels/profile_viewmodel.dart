@@ -41,18 +41,18 @@ class ProfileViewModel extends BaseViewModel {
   }
 
   ImageProvider<dynamic> getAvatar() => profileAvatar;
-  
-  avatarToUpdate({File imageFile}){
+
+  avatarToUpdate({File imageFile}) {
     profileAvatarToUpdate = imageFile;
   }
 
-  updateAvatar(){
-    profileAvatar = FileImage(profileAvatarToUpdate);
-    notifyListeners();
-    _api.updateAvatar(profileAvatarToUpdate.path);
+  updateAvatar() {
+    if (profileAvatarToUpdate != null) {
+      profileAvatar = FileImage(profileAvatarToUpdate);
+      notifyListeners();
+      _api.updateAvatar(profileAvatarToUpdate.path);
+    }
   }
-
-  
 
   instrumentsToRemove({instrumentsSelected}) =>
       instrumentsToRemoveList = instrumentsSelected;
@@ -68,9 +68,8 @@ class ProfileViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  List<String> getVideos() {
-    var thumbnailsList =
-        profile.videos.map<String>((video) => video['thumbnail']).toList();
+  List<dynamic> getVideos() {
+    var thumbnailsList = profile.videos.map((video) => video).toList();
     return thumbnailsList;
   }
 
@@ -130,6 +129,4 @@ class ProfileViewModel extends BaseViewModel {
   updateLocation({double lat, double long}) {
     profile.location = Location(lat: lat, long: long);
   }
-
-  
 }

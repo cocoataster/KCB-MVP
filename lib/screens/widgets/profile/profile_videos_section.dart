@@ -10,8 +10,10 @@ class ProfileVideosSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<ProfileViewModel>(builder: (context, model, child) {
-      List<String> videos =
-          model.getVideos().map<String>((String video) => video).toList();
+      print('Videos: ${model.getVideos()}');
+      List<String> thumbnails =
+          model.getVideos().map<String>((video) => video['thumbnail']).toList();
+      List<String> urls = model.getVideos().map<String>((video) => video['video']).toList();
 
       return Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -19,8 +21,8 @@ class ProfileVideosSection extends StatelessWidget {
           children: <Widget>[
             ProfileSectionTitle(sectionTitle: 'How do I play?'),
             model.getMode == ProfileMode.Edit
-                ? EditProfileVideos(videos: videos)
-                : ProfileVideos(videos: videos),
+                ? EditProfileVideos(videos: thumbnails)
+                : ProfileVideos(thumbnails: thumbnails, urls: urls),
           ]);
     });
   }
