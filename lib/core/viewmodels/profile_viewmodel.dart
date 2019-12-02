@@ -129,4 +129,6 @@ class ProfileViewModel extends BaseViewModel {
   updateLocation({double lat, double long}) {
     profile.location = Location(lat: lat, long: long);
   }
+
+  
 }

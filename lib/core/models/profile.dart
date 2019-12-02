@@ -70,7 +70,7 @@ class Profile {
     final data = Map<String, dynamic>();
     
     data['name'] = this.name;
-    //data['location'] = this.location.toJson();
+    data['location'] = this.location.toJson();
     data['contact'] = this.contactMethod.toJson();
     data['instruments'] = this.instruments;
     data['friendlyLocation'] = this.friendlyLocation;

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:sounds_good/core/utils/enums.dart';
 import 'package:sounds_good/core/viewmodels/instruments_viewmodel.dart';
 import 'package:sounds_good/core/viewmodels/profile_viewmodel.dart';
@@ -15,6 +16,24 @@ class ProfileView extends StatefulWidget {
 }
 
 class _ProfileViewState extends State<ProfileView> {
+
+  /* Para meter en la página de inicio y hacer llamada cada vez que haga falta */
+   Position _currentPosition;
+   
+  _getCurrentLocation() {
+    final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;    
+
+    geolocator
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.best)
+        .then((Position position) {
+        print('Current position: $position');
+        
+    }).catchError((e) {
+      print(e);
+    });
+  }
+
+
   Future<bool> _captureAndroidBackButton(profileMode) {
     if (profileMode == ProfileMode.Edit) {
       setState(() {
@@ -28,6 +47,7 @@ class _ProfileViewState extends State<ProfileView> {
 
   @override
   Widget build(BuildContext context) {
+    _getCurrentLocation();
     return BaseView<ProfileViewModel>(
       onModelReady: (model) {
         model.fetchProfile();

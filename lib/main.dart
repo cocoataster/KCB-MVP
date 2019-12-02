@@ -8,6 +8,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
           button: TextStyle(fontSize: 16.0),
         ),
       ),
-      initialRoute: 'profile',
+      initialRoute: 'login',
       onGenerateRoute: Router.generateRouter,
     );
   }

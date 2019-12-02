@@ -153,9 +153,11 @@ class Api {
     switch (statusCode) {
       case StatusCode.success:
         var json = jsonDecode(response.body);
+        print('Instruments ${response.body}');
         return Instruments.fromJson(json);
       case StatusCode.clientError:
         var json = jsonDecode(response.body);
+        print('Instruments ${response.body} | ${json["message"]}');
         var error = json["message"];
         return Future.error('Error', StackTrace.fromString(error));
       case StatusCode.serverError:

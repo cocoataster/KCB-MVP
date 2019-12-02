@@ -4,9 +4,10 @@ class Location {
 
   Location({this.lat, this.long});
 
-  factory Location.fromJson(Map<String, dynamic> json) {
-    return Location(lat: json['lat'], long: json['long']);
-  }
+   factory Location.fromJson(Map<String, dynamic> json) {
+    
+    return Location(lat: json['lat'].toDouble(), long: json['long'].toDouble());
+  } 
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = Map<String, dynamic>();
