@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:sounds_good/core/models/instruments.dart';
 import 'package:sounds_good/core/models/location.dart';
 import 'package:sounds_good/core/utils/enums.dart';
 import 'package:sounds_good/locator.dart';
@@ -18,6 +19,8 @@ class ProfileViewModel extends BaseViewModel {
   Set<String> videosToRemoveList = {};
   ImageProvider<dynamic> profileAvatar;
   File profileAvatarToUpdate;
+  Instruments availableInstruments;
+  Set<String> disabledAvailableInstruments = {};
 
   Future fetchProfile() async {
     setState(ViewState.Busy);
@@ -54,19 +57,52 @@ class ProfileViewModel extends BaseViewModel {
     }
   }
 
-  instrumentsToRemove({instrumentsSelected}) =>
-      instrumentsToRemoveList = instrumentsSelected;
+  instrumentsToRemove({instrumentsSelected}) {
+    instrumentsToRemoveList = instrumentsSelected;
+  }
 
   updateInstrumentsList() {
-    instrumentsToRemoveList
-        .map((String instrument) => profile.instruments.remove(instrument))
-        .toList();
+    instrumentsToRemoveList.map((String instrument) {
+      profile.instruments.remove(instrument);
+      enableAvailableInstrument(instrument);
+    }).toList();
+    notifyListeners();
   }
 
   void addInstrument({instrument}) {
     profile.instruments.add(instrument);
+    disableAvailableInstrument(instrument);
     notifyListeners();
+    print('Add instrument: $instrument');
   }
+
+  Future fetchAvailableInstruments() async {
+    setState(ViewState.Busy);
+    availableInstruments = await _api.getInstruments();
+    setState(ViewState.Idle);
+
+    profile.instruments
+        .map((instrument) => disableAvailableInstrument(instrument))
+        .toList();
+  }
+
+  List<String> getAvailableInstruments() {
+    List<String> finalList = [];
+
+    availableInstruments.items.map((instrument) {
+      if (!disabledAvailableInstruments.contains(instrument)) {
+        finalList.add(instrument);
+      }
+    }).toList();
+
+    return finalList;
+  }
+
+  enableAvailableInstrument(instrument) =>
+      disabledAvailableInstruments.remove(instrument);
+
+  disableAvailableInstrument(instrument) =>
+      disabledAvailableInstruments.add(instrument);
 
   List<dynamic> getVideos() {
     var thumbnailsList = profile.videos.map((video) => video).toList();
@@ -129,6 +165,4 @@ class ProfileViewModel extends BaseViewModel {
   updateLocation({double lat, double long}) {
     profile.location = Location(lat: lat, long: long);
   }
-
-  
 }

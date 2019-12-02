@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:sounds_good/core/utils/enums.dart';
-import 'package:sounds_good/core/viewmodels/instruments_viewmodel.dart';
 import 'package:sounds_good/core/viewmodels/profile_viewmodel.dart';
 import 'package:sounds_good/screens/widgets/profile/instruments_section.dart';
 import 'package:sounds_good/screens/widgets/profile/profile_bottom_buttons_section.dart';
@@ -26,7 +25,7 @@ class _ProfileViewState extends State<ProfileView> {
     geolocator
         .getCurrentPosition(desiredAccuracy: LocationAccuracy.best)
         .then((Position position) {
-        print('Current position: $position');
+       // print('Current position: $position');
         
     }).catchError((e) {
       print(e);
@@ -51,12 +50,9 @@ class _ProfileViewState extends State<ProfileView> {
     return BaseView<ProfileViewModel>(
       onModelReady: (model) {
         model.fetchProfile();
+        model.fetchAvailableInstruments();
       },
-      builder: (context, model, child) => BaseView<InstrumentsViewModel>(
-        onModelReady: (modelInstruments) {
-          modelInstruments.fetchInstruments();
-        },
-        builder: (context, modelInstruments, child) => WillPopScope(
+        builder: (context, model, child) => WillPopScope(
           child: Scaffold(
               body: model.state == ViewState.Idle
                   ? SafeArea(
@@ -77,7 +73,6 @@ class _ProfileViewState extends State<ProfileView> {
                     )),
           onWillPop: () => _captureAndroidBackButton(model.getMode),
         ),
-      ),
     );
   }
 }

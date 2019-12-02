@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sounds_good/core/viewmodels/instruments_viewmodel.dart';
+import 'package:sounds_good/core/viewmodels/profile_viewmodel.dart';
 
 class AddInstrument extends StatefulWidget {
   final onSelectedInstrument;
@@ -14,12 +14,12 @@ class AddInstrument extends StatefulWidget {
 class _AddInstrumentState extends State<AddInstrument> {
   @override
   Widget build(BuildContext context) {
-    return Consumer<InstrumentsViewModel>(
-      builder: (context, instrumentsViewmodel, child) =>
+    return Consumer<ProfileViewModel>(
+      builder: (context, model, child) =>
 
     GestureDetector(
       onTap: () =>
-          _popUp(context, instrumentsViewmodel, widget.onSelectedInstrument),
+          _popUp(context, model.getAvailableInstruments(), widget.onSelectedInstrument),
       child: _pill(context),
     ),);
   }
@@ -44,7 +44,7 @@ BoxDecoration _getPillBoxDecoration(BuildContext context) {
   );
 }
 
-void _popUp(context, modelInstruments, onSelectedInstrument) {
+void _popUp(context,instrumentsList, onSelectedInstrument) {
   int selectedItem = 1;
   showModalBottomSheet(
     context: context,
@@ -61,7 +61,7 @@ void _popUp(context, modelInstruments, onSelectedInstrument) {
               icon: Icon(Icons.add),
               onPressed: () {
                 onSelectedInstrument(
-                    modelInstruments.getInstrument(selectedItem));
+                    instrumentsList[selectedItem]);
                 Navigator.pop(context);
               },
             )
@@ -71,7 +71,7 @@ void _popUp(context, modelInstruments, onSelectedInstrument) {
           child: CupertinoPicker(
             magnification: 1.0,
             backgroundColor: Colors.white10,
-            children: modelInstruments.instruments.items
+            children: instrumentsList
                 .map<Widget>(
                   (item) => CupertinoActionSheetAction(
                     child: Text(

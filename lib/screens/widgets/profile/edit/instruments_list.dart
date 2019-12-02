@@ -12,7 +12,6 @@ class EditInstrumentsList extends StatefulWidget {
 }
 
 class _EditInstrumentsListState extends State<EditInstrumentsList> {
-  
   Set<String> _instrumentsSelected = Set<String>();
 
   void _handleInstrumentChanged(String instrument, bool isSelected) {
@@ -25,28 +24,30 @@ class _EditInstrumentsListState extends State<EditInstrumentsList> {
         .instrumentsToRemove(instrumentsSelected: _instrumentsSelected);
   }
 
-  void _addInstrument(newInstrument){
-    Provider.of<ProfileViewModel>(context, listen: false).addInstrument(instrument: newInstrument);
+  void _addInstrument(String newInstrument) {
+    Provider.of<ProfileViewModel>(context, listen: false)
+        .addInstrument(instrument: newInstrument);
   }
 
   @override
   Widget build(BuildContext context) {
     return Consumer<ProfileViewModel>(
       builder: (context, data, child) {
-        
-        List<Widget> _instrumentsWidgetsList = data.profile.instruments.map((String instrument) {
-            return EditInstrumentItem(
-              instrument: instrument,
-              isSelected: _instrumentsSelected.contains(instrument),
-              onListChanged: _handleInstrumentChanged,
-            );
-          }).toList();
+        print('Instruments Edit: ${data.profile.instruments}');
+        List<Widget> _instrumentsWidgetsList =
+            data.profile.instruments.map((String instrument) {
+          return EditInstrumentItem(
+            instrument: instrument,
+            isSelected: _instrumentsSelected.contains(instrument),
+            onListChanged: _handleInstrumentChanged,
+          );
+        }).toList();
 
         List<Widget> _editableInstrumentsList = [
           AddInstrument(onSelectedInstrument: _addInstrument),
         ];
 
-       _editableInstrumentsList.addAll(_instrumentsWidgetsList);
+        _editableInstrumentsList.addAll(_instrumentsWidgetsList);
 
         return Wrap(
           spacing: 8.0,
@@ -56,6 +57,4 @@ class _EditInstrumentsListState extends State<EditInstrumentsList> {
       },
     );
   }
-
-  
 }

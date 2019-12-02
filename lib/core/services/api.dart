@@ -45,8 +45,8 @@ class Api {
     };
 
     final response = await client.get('$endpoint/profile', headers: headers);
-    print(response);
-    print('Profile Response: ${response.body}');
+   
+   // print('Profile Response: ${response.body}');
 
     switch (response.statusCode) {
       case 200:
@@ -106,13 +106,10 @@ class Api {
 
   updateAvatar(String filePath) async {
     var response = await uploadPhoto('$endpoint/profile/avatar', filePath);
-    final respStr = await response.stream.bytesToString();
+    //final respStr = await response.stream.bytesToString();
     switch (response.statusCode) {
       case 200:
-        print('Response Upload');
-        print(response.statusCode);
-        print(response.reasonPhrase);
-        print(respStr);
+         //  print(respStr);
 
         break;
       default:
@@ -153,11 +150,9 @@ class Api {
     switch (statusCode) {
       case StatusCode.success:
         var json = jsonDecode(response.body);
-        print('Instruments ${response.body}');
         return Instruments.fromJson(json);
       case StatusCode.clientError:
         var json = jsonDecode(response.body);
-        print('Instruments ${response.body} | ${json["message"]}');
         var error = json["message"];
         return Future.error('Error', StackTrace.fromString(error));
       case StatusCode.serverError:

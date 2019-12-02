@@ -8,6 +8,7 @@ class InstrumentsList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<ProfileViewModel>(
       builder: (context, data, child) {
+        print('Instruments Share: ${data.profile.instruments}');
         List<String> instruments = data.profile.instruments;
         return Wrap(
           spacing: 8.0,

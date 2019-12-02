@@ -22,4 +22,8 @@ class Instruments {
 
     return data;
   }
+
+  void add(String instrument) => this.items.add(instrument);
+  void remove(String instrument) => this.items.remove(instrument);
+  
 }

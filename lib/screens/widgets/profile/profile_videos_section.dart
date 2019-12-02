@@ -10,7 +10,6 @@ class ProfileVideosSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<ProfileViewModel>(builder: (context, model, child) {
-      print('Videos: ${model.getVideos()}');
       List<String> thumbnails =
           model.getVideos().map<String>((video) => video['thumbnail']).toList();
       List<String> urls = model.getVideos().map<String>((video) => video['video']).toList();
