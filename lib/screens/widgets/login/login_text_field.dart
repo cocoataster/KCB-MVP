@@ -10,16 +10,19 @@ class LoginTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: TextField(
+      child: TextFormField(
         obscureText: isSensitive,
         decoration: InputDecoration(
-            border: OutlineInputBorder(
-              borderSide: BorderSide(
-                color: Colors.blueGrey,
+            contentPadding:
+                EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+            labelStyle: TextStyle(fontSize: 20),
+            border: new OutlineInputBorder(
+              borderRadius: const BorderRadius.all(
+                const Radius.circular(5.0),
               ),
-              borderRadius: BorderRadius.circular(15.0),
             ),
             hintText: hintText),
+        style: TextStyle(color: Colors.blueGrey.shade300),
         controller: controller,
       ),
     );

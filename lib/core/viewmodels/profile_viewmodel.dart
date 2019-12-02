@@ -14,6 +14,7 @@ class ProfileViewModel extends BaseViewModel {
   Api _api = locator<Api>();
 
   Profile profile;
+  ProfileMode _profileMode = ProfileMode.Own;
   ContactMethod contactMethod;
   Set<String> instrumentsToRemoveList = {};
   Set<String> videosToRemoveList = {};
@@ -34,8 +35,7 @@ class ProfileViewModel extends BaseViewModel {
     await _api.updateProfile(profile);
     setState(ViewState.Idle);
   }
-
-  ProfileMode _profileMode = ProfileMode.Own;
+  
   ProfileMode get getMode => _profileMode;
 
   void setMode(ProfileMode profileMode) {
