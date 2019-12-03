@@ -32,3 +32,4 @@ class Storage {
     return token;
   }
 }
+             

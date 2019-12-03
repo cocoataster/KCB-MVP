@@ -20,16 +20,27 @@ class UserProfileHeader extends StatelessWidget {
 
 Widget _headerContent(context) {
   var model = Provider.of<ProfileViewModel>(context);
+  String name;
+  String friendlyLocation;
+
+  model.profile.name != null 
+  ? name = model.profile.name
+  : name = '';
+
+  model.profile.friendlyLocation != null 
+  ? friendlyLocation = model.profile.friendlyLocation
+  : friendlyLocation = '';
+  
 
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       Text(
-        model.profile.name,
+        name ,
         style: Theme.of(context).textTheme.headline,
       ),
       Text(
-        model.profile.friendlyLocation,
+        friendlyLocation,
         style: Theme.of(context).textTheme.display1,
       ),
     ],

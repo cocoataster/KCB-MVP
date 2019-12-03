@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:sounds_good/screens/views/profile_view.dart';
-import 'views/login_view.dart';
+import 'package:sounds_good/screens/views/access_forms/signin_view.dart';
+import 'package:sounds_good/screens/views/access_forms/login_view.dart';
+
 
 const String initialRoute = 'login';
 
@@ -12,6 +14,8 @@ class Router {
         return MaterialPageRoute(builder: (context) => LoginView());
       case 'login':
         return MaterialPageRoute(builder: (context) => LoginView());
+      case 'signin':
+        return MaterialPageRoute(builder: (context) => SigninView());
       case 'profile':
         return MaterialPageRoute(builder: (context) => ProfileView());
       default:

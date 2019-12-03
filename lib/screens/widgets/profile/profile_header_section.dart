@@ -9,8 +9,6 @@ import 'package:sounds_good/screens/widgets/profile/edit/profile_image.dart';
 import 'package:sounds_good/screens/widgets/profile/own/header.dart';
 import 'package:sounds_good/screens/widgets/profile/edit/header.dart';
 
-import 'dart:io';
-
 import 'package:sounds_good/screens/widgets/profile/shared/section_title.dart';
 
 class ProfileHeaderSection extends StatefulWidget {

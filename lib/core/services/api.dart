@@ -12,11 +12,18 @@ class Api {
 
   var client = http.Client();
 
-  Future createUser(String email, String password) async {
+  Future<bool> createUser({String email, String password}) async {
     var body = {"email": email, "password": password};
     var response = await client.post('$endpoint/users/create', body: body);
-
+    
     print('Create User Response: ${response.body}');
+    
+    switch (response.statusCode) {
+      case 200:
+        return true;
+      default:
+        return false;
+    }
   }
 
   Future<bool> login(String email, String password) async {
@@ -45,8 +52,8 @@ class Api {
     };
 
     final response = await client.get('$endpoint/profile', headers: headers);
-   
-   // print('Profile Response: ${response.body}');
+
+    // print('Profile Response: ${response.body}');
 
     switch (response.statusCode) {
       case 200:
@@ -109,7 +116,7 @@ class Api {
     //final respStr = await response.stream.bytesToString();
     switch (response.statusCode) {
       case 200:
-         //  print(respStr);
+        //  print(respStr);
 
         break;
       default:

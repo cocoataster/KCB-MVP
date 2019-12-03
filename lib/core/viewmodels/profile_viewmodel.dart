@@ -43,7 +43,10 @@ class ProfileViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  ImageProvider<dynamic> getAvatar() => profileAvatar;
+  ImageProvider<dynamic> getAvatar() {   
+   if(profile.photo.isEmpty) _profileMode = ProfileMode.Edit;
+   return profileAvatar;
+  }
 
   avatarToUpdate({File imageFile}) {
     profileAvatarToUpdate = imageFile;
