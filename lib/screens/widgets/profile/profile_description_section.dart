@@ -33,13 +33,12 @@ class ProfileDescriptionSection extends StatelessWidget {
       style: TextStyle(color: Colors.blueGrey.shade300),
       initialValue: model.profile.description,
       decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(0),
-                      focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Theme.of(context).accentColor,
-                              width: 1.0)),
-                      border: InputBorder.none
-      ),
+          hintText: 'Tell us about you',
+          contentPadding: EdgeInsets.all(0),
+          focusedBorder: UnderlineInputBorder(
+              borderSide:
+                  BorderSide(color: Theme.of(context).accentColor, width: 1.0)),
+          border: InputBorder.none),
       onChanged: (String value) => model.updateDescription(description: value),
     );
   }

@@ -16,22 +16,17 @@ class _HowToReachMeSelectorState extends State<HowToReachMeSelector> {
     ContactMethodType.Phone: Text('WhatsApp'),
   };
   
-  String textFieldValue;
   ContactMethodType typeSelected;
   String phoneHint = 'Insert your Phone Number';
   String emailHint = 'Insert your Email Address';
   TextEditingController _textFieldController;
 
-  String getfieldValue(String data) {
-    String value;
+  String getfieldValue() {
+    String hint;
     
-    if(textFieldValue == ''){
-        typeSelected == ContactMethodType.Email ? value = emailHint : value = phoneHint; 
-    } else {
-      value = textFieldValue;
-    }
+    typeSelected == ContactMethodType.Email ? hint = emailHint : hint = phoneHint; 
 
-    return value;
+    return hint;    
   }
 
   @override
@@ -78,6 +73,7 @@ class _HowToReachMeSelectorState extends State<HowToReachMeSelector> {
               child: TextFormField(
                 controller: _textFieldController,
                 decoration: InputDecoration(
+                  hintText: getfieldValue(),
                   contentPadding:
                       EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
                 
@@ -90,7 +86,6 @@ class _HowToReachMeSelectorState extends State<HowToReachMeSelector> {
                 style: TextStyle(color: Colors.blueGrey.shade300),
                 onChanged: (fieldContent) => {
                   setState(() {
-                    textFieldValue = fieldContent;
                     model.updateContactMethodData(fieldContent);
                   })
                 },

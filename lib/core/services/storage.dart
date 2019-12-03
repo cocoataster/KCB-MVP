@@ -28,8 +28,11 @@ class Storage {
 
   static Future<String> getToken() async {
     String token = await manager.read(key: "Token");
-
     return token;
+  }
+
+  static void logOut() async {
+    await manager.deleteAll();
   }
 }
              

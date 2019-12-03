@@ -17,8 +17,7 @@ class _EditProfileImageState extends State<EditProfileImage> {
 
   @override
   initState() {
-    if (Provider.of<ProfileViewModel>(context, listen: false).getAvatar !=
-        null) {
+    if (Provider.of<ProfileViewModel>(context, listen: false).profile.photo.isNotEmpty) {
       _avatarImageProvider =
           Provider.of<ProfileViewModel>(context, listen: false).getAvatar();
       _profileHasAvatar = true;
@@ -28,7 +27,7 @@ class _EditProfileImageState extends State<EditProfileImage> {
     super.initState();
   }
 
-  Future<void> cropImage({File pickedImage}) async {
+ Future<void> cropImage({File pickedImage}) async {
     File croppedImage = await ImageCropper.cropImage(
         sourcePath: pickedImage.path,
         aspectRatioPresets: [

@@ -36,7 +36,10 @@ class ProfileViewModel extends BaseViewModel {
     setState(ViewState.Idle);
   }
   
-  ProfileMode get getMode => _profileMode;
+  ProfileMode get getMode {
+   if(profile.photo.isEmpty) _profileMode = ProfileMode.Edit;
+   return _profileMode;
+  }
 
   void setMode(ProfileMode profileMode) {
     _profileMode = profileMode;

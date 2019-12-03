@@ -32,13 +32,13 @@ class _EditProfileHeaderState extends State<EditProfileHeader> {
                   maxLines: 1,
                   initialValue: model.profile.name,
                   decoration: InputDecoration(
-                     contentPadding: EdgeInsets.only(bottom: 3.0),
+                      hintText: 'Enter your name',
+                      contentPadding: EdgeInsets.only(bottom: 3.0),
                       focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(
                               color: Theme.of(context).accentColor,
-                              width: 1.0)),
+                              width: 2.0)),
                       border: InputBorder.none),
-                  //controller: nameController,
                   onChanged: (String value) =>
                       model.updateProfileName(name: value),
                 ),
@@ -50,11 +50,12 @@ class _EditProfileHeaderState extends State<EditProfileHeader> {
                   ),
                   initialValue: model.profile.friendlyLocation,
                   decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(0),
+                      hintText: 'Where do you live?',
+                      contentPadding: EdgeInsets.all(0),
                       focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(
                               color: Theme.of(context).accentColor,
-                              width: 1.0)),
+                              width: 2.0)),
                       border: InputBorder.none),
                   onChanged: (String value) =>
                       model.updateProfileLocation(friendlyLocation: value),
