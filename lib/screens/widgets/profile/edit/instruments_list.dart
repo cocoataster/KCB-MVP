@@ -33,7 +33,6 @@ class _EditInstrumentsListState extends State<EditInstrumentsList> {
   Widget build(BuildContext context) {
     return Consumer<ProfileViewModel>(
       builder: (context, data, child) {
-        print('Instruments Edit: ${data.profile.instruments}');
         List<Widget> _instrumentsWidgetsList =
             data.profile.instruments.map((String instrument) {
           return EditInstrumentItem(

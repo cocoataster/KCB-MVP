@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="48px" height="34px" viewBox="0 0 48 34" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 61 (89581) - https://sketch.com -->
+    <title>Overrides/Tab bar/Items/Notifications</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Overrides/Tab-bar/Items/Notifications" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group" transform="translate(25.000000, 16.000000) scale(-1, 1) translate(-25.000000, -16.000000) translate(13.000000, 4.000000)">
+            <path d="M9.024,2.0352 L20.0064,2.0352 C22.2120044,2.0352 24,3.82319562 24,6.0288 L24,20.0064 C24,22.2120044 22.2120044,24 20.0064,24 L6.0288,24 C3.82319562,24 2.0352,22.2120044 2.0352,20.0064 L2.0352,9.024" id="Rectangle" stroke="#3A3A3A" stroke-width="2.9952" stroke-linecap="round"></path>
+            <circle id="Oval" fill="#3A3A3A" cx="2.9952" cy="2.9952" r="2.9952"></circle>
+        </g>
+    </g>
+</svg>

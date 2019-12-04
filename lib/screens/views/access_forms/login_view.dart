@@ -1,6 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sounds_good/core/viewmodels/login_viewmodel.dart';
 import 'package:sounds_good/screens/views/base_view.dart';
+import 'package:sounds_good/screens/views/tab_bar_view.dart';
 import 'package:sounds_good/screens/widgets/access_forms/access_form_field.dart';
 import 'package:sounds_good/screens/widgets/access_forms/validators.dart';
 
@@ -19,7 +21,8 @@ class _LoginViewState extends State<LoginView> {
     loginSuccess =
         await model.login(emailController.text, passwordController.text);
     if (loginSuccess) {
-      Navigator.pushNamed(context, 'profile');
+      Navigator.push(
+          context, CupertinoPageRoute(builder: (context) => AppTabBar()));
     }
     return;
   }

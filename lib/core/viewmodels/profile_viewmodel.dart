@@ -79,7 +79,6 @@ class ProfileViewModel extends BaseViewModel {
     profile.instruments.add(instrument);
     disableAvailableInstrument(instrument);
     notifyListeners();
-    print('Add instrument: $instrument');
   }
 
   Future fetchAvailableInstruments() async {

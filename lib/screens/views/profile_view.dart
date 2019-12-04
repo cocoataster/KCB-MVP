@@ -16,8 +16,8 @@ class ProfileView extends StatefulWidget {
 
 class _ProfileViewState extends State<ProfileView> {
 
-  /* Para meter en la página de inicio y hacer llamada cada vez que haga falta */
-   Position _currentPosition;
+  /* Para meter en la página de inicio y hacer llamada cada vez que haga falta 
+   Position _currentPosition;*/
    
   _getCurrentLocation() {
     final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;    
