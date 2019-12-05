@@ -4,14 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:sounds_good/core/models/instruments.dart';
 import 'package:sounds_good/core/models/location.dart';
 import 'package:sounds_good/core/utils/enums.dart';
-import 'package:sounds_good/locator.dart';
 import 'package:sounds_good/core/models/profile.dart';
 import 'package:sounds_good/core/models/contact_method.dart';
 import 'package:sounds_good/core/services/api.dart';
 import 'base_viewmodel.dart';
 
 class ProfileViewModel extends BaseViewModel {
-  Api _api = locator<Api>();
+  Api _api = Api();
 
   Profile profile;
   ProfileMode _profileMode = ProfileMode.Own;
@@ -35,10 +34,10 @@ class ProfileViewModel extends BaseViewModel {
     await _api.updateProfile(profile);
     setState(ViewState.Idle);
   }
-  
+
   ProfileMode get getMode {
-   if(profile.photo.isEmpty) _profileMode = ProfileMode.Edit;
-   return _profileMode;
+    if (profile.photo.isEmpty) _profileMode = ProfileMode.Edit;
+    return _profileMode;
   }
 
   void setMode(ProfileMode profileMode) {
@@ -46,9 +45,9 @@ class ProfileViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  ImageProvider<dynamic> getAvatar() {   
-   if(profile.photo.isEmpty) _profileMode = ProfileMode.Edit;
-   return profileAvatar;
+  ImageProvider<dynamic> getAvatar() {
+    if (profile.photo.isEmpty) _profileMode = ProfileMode.Edit;
+    return profileAvatar;
   }
 
   avatarToUpdate({File imageFile}) {
@@ -85,10 +84,12 @@ class ProfileViewModel extends BaseViewModel {
     setState(ViewState.Busy);
     availableInstruments = await _api.getInstruments();
     setState(ViewState.Idle);
+  }
 
-    profile.instruments
-        .map((instrument) => disableAvailableInstrument(instrument))
-        .toList();
+  disableInstrementsSelectedOnProfile() {
+    profile.instruments.map((instrument) {
+      disableAvailableInstrument(instrument);
+    }).toList();
   }
 
   List<String> getAvailableInstruments() {
@@ -106,8 +107,10 @@ class ProfileViewModel extends BaseViewModel {
   enableAvailableInstrument(instrument) =>
       disabledAvailableInstruments.remove(instrument);
 
-  disableAvailableInstrument(instrument) =>
-      disabledAvailableInstruments.add(instrument);
+  disableAvailableInstrument(instrument) {
+    print('Disable instrument: $instrument');
+    disabledAvailableInstruments.add(instrument);
+  }
 
   List<dynamic> getVideos() {
     var thumbnailsList = profile.videos.map((video) => video).toList();

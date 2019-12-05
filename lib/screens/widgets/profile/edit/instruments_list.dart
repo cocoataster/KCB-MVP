@@ -30,6 +30,14 @@ class _EditInstrumentsListState extends State<EditInstrumentsList> {
   }
 
   @override
+  void initState() {
+    Provider.of<ProfileViewModel>(context, listen: false)
+        .disableInstrementsSelectedOnProfile();
+
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Consumer<ProfileViewModel>(
       builder: (context, data, child) {

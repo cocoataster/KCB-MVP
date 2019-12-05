@@ -12,7 +12,7 @@ class Router {
   static Route<dynamic> generateRouter(RouteSettings settings) {
     switch (settings.name) {
       case '/':
-        return MaterialPageRoute(builder: (context) => LoginView());
+        return MaterialPageRoute(builder: (_) => LoginView());
       case 'login':
         return MaterialPageRoute(builder: (context) => LoginView());
       case 'tabBar':

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sounds_good/core/viewmodels/login_viewmodel.dart';
-import 'package:sounds_good/core/viewmodels/signin_viewmodel.dart';
-import 'package:sounds_good/screens/views/base_view.dart';
+import 'package:provider/provider.dart';
+import 'package:sounds_good/core/viewmodels/authentication_viewmodel.dart';
 import 'package:sounds_good/screens/widgets/access_forms/access_form_field.dart';
 import 'package:sounds_good/screens/widgets/access_forms/validators.dart';
 
@@ -14,9 +13,8 @@ class _SigninViewState extends State<SigninView> {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  LoginViewModel loginViewModel = LoginViewModel();
 
-  _handleSignin(SigninViewModel viewModel) async {
+  _handleSignin(AuthenticationViewModel viewModel) async {
     bool signinSuccess = false;
     bool loginSuccess = false;
 
@@ -25,7 +23,7 @@ class _SigninViewState extends State<SigninView> {
 
     if (signinSuccess) {
       loginSuccess =
-          await loginViewModel.login(emailController.text, passwordController.text);
+          await viewModel.login(emailController.text, passwordController.text);
     }
 
     if (loginSuccess) {
@@ -37,9 +35,7 @@ class _SigninViewState extends State<SigninView> {
 
   @override
   Widget build(BuildContext context) {
-    return BaseView<SigninViewModel>(
-      onModelReady: (model) {},
-      builder: (context, model, child) => Scaffold(
+    return Scaffold(
         resizeToAvoidBottomPadding: true,
         body: ListView(
           children: <Widget>[
@@ -92,7 +88,7 @@ class _SigninViewState extends State<SigninView> {
                     onPressed: () {
                       final form = _formKey.currentState;
                       if (form.validate()) {
-                        _handleSignin(model);
+                        _handleSignin(Provider.of<AuthenticationViewModel>(context, listen: false));
                       }
                     },
                   ),
@@ -101,7 +97,7 @@ class _SigninViewState extends State<SigninView> {
             )
           ],
         ),
-      ),
+      
     );
   }
 }

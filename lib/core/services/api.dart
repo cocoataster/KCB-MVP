@@ -15,9 +15,9 @@ class Api {
   Future<bool> createUser({String email, String password}) async {
     var body = {"email": email, "password": password};
     var response = await client.post('$endpoint/users/create', body: body);
-    
+
     print('Create User Response: ${response.body}');
-    
+
     switch (response.statusCode) {
       case 200:
         return true;
@@ -29,15 +29,17 @@ class Api {
   Future<bool> login(String email, String password) async {
     var body = {"email": email, "password": password};
     var response = await client.post('$endpoint/users/login', body: body);
-
+    print('Hola desde Login');
     print('Login Response: ${response.body}');
 
     switch (response.statusCode) {
       case 200:
+        print('Login Success');
         Storage.saveUserId(response.headers["id"]);
         Storage.saveToken(response.headers["authorization"]);
         return true;
       default:
+        print('Login failed: ${response.reasonPhrase}');
         return false;
     }
   }

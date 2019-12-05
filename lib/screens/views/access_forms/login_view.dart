@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:sounds_good/core/viewmodels/login_viewmodel.dart';
-import 'package:sounds_good/screens/views/base_view.dart';
+import 'package:provider/provider.dart';
+import 'package:sounds_good/core/viewmodels/authentication_viewmodel.dart';
 import 'package:sounds_good/screens/views/tab_bar_view.dart';
 import 'package:sounds_good/screens/widgets/access_forms/access_form_field.dart';
 import 'package:sounds_good/screens/widgets/access_forms/validators.dart';
@@ -17,21 +17,22 @@ class _LoginViewState extends State<LoginView> {
       TextEditingController(text: "soundsgood");
 
   _handleLogin(model) async {
+    
     bool loginSuccess = false;
     loginSuccess =
         await model.login(emailController.text, passwordController.text);
-    if (loginSuccess) {
-      Navigator.push(
-          context, CupertinoPageRoute(builder: (context) => AppTabBar()));
+    
+    if (loginSuccess) {    
+      Navigator.push(context, CupertinoPageRoute(builder: (context) => AppTabBar()));
+    } else {
+    
     }
     return;
   }
 
   @override
   Widget build(BuildContext context) {
-    return BaseView<LoginViewModel>(
-      onModelReady: (model) {},
-      builder: (context, model, child) => Scaffold(
+    return Scaffold(
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -67,7 +68,7 @@ class _LoginViewState extends State<LoginView> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0),
                 ),
-                onPressed: () => _handleLogin(model),
+                onPressed: () => _handleLogin(Provider.of<AuthenticationViewModel>(context, listen: false)),
               ),
             ),
             Divider(
@@ -88,7 +89,7 @@ class _LoginViewState extends State<LoginView> {
             ),
           ],
         ),
-      ),
+
     );
   }
 }

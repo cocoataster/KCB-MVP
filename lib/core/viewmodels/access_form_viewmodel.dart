@@ -1,10 +1,9 @@
 import 'package:sounds_good/core/services/api.dart';
 import 'package:sounds_good/core/utils/enums.dart';
 import 'base_viewmodel.dart';
-import 'package:sounds_good/locator.dart';
 
 class AccessFormViewModel extends BaseViewModel {
-  final Api _api = locator<Api>();
+  final Api _api =  Api();
 
   Future<bool> signin(String email, String password) async {
     setState(ViewState.Busy);
