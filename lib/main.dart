@@ -8,7 +8,6 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
   final AuthenticationViewModel authentication = AuthenticationViewModel();
 
   @override
@@ -34,7 +33,6 @@ class MyApp extends StatelessWidget {
         ),
         initialRoute: 'login',
         onGenerateRoute: Router.generateRouter,
-        navigatorKey: key,
       ),
     );
   }

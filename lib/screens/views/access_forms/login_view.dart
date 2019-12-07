@@ -23,7 +23,7 @@ class _LoginViewState extends State<LoginView> {
         await model.login(emailController.text, passwordController.text);
     
     if (loginSuccess) {    
-      Navigator.push(context, CupertinoPageRoute(builder: (context) => AppTabBar()));
+      Navigator.pushNamed(context, 'cupertinoTabBar');
     } else {
     
     }

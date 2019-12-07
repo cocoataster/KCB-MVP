@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sounds_good/core/services/storage.dart';
+import 'package:sounds_good/screens/views/access_forms/login_view.dart';
 import 'package:sounds_good/screens/widgets/profile/shared/profile_close_button.dart';
 
 class OwnProfileCTAButtons extends StatelessWidget {
@@ -8,7 +9,7 @@ class OwnProfileCTAButtons extends StatelessWidget {
 
   _logOut(context) {
     Storage.logOut();
-    Navigator.pushNamed(context, 'login');
+    Navigator.pushNamed(context, '/');
   }
 
   @override
