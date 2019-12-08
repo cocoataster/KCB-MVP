@@ -1,0 +1,26 @@
+{
+    "cuid": "ck2gofyem0000n6pc8t9d28sa",
+    "name": "SpiesGang",
+    "location": {"lat": 2.4, "long": 4.3},
+    "friendlyLocation": "Ibiza",
+    "contact": {"type": "phone", "data": "64679532"},
+    "instruments": ["contrabajo", "zambomba"],
+    "videos": [
+      {
+        "id": "fDrTbLXHKu8",
+        "video": "https://www.youtube.com/watch?v=fDrTbLXHKu8",
+        "embedVideo":
+        "https://www.youtube.com/embed/fDrTbLXHKu8?ecver=1&amp;iv_load_policy=1&amp;yt:stretch=16:9&amp;autohide=1&amp;color=red&amp;",
+        "thumbnail": "https://img.youtube.com/vi/fDrTbLXHKu8/hqdefault.jpg"
+      },
+      {
+        "id": "nntGTK2Fhb0",
+        "video": "https://www.youtube.com/watch?v=nntGTK2Fhb0",
+        "embedVideo":
+        "https://www.youtube.com/embed/nntGTK2Fhb0?ecver=1&amp;iv_load_policy=1&amp;yt:stretch=16:9&amp;autohide=1&amp;color=red&amp;",
+        "thumbnail": "https://img.youtube.com/vi/nntGTK2Fhb0/hqdefault.jpg"
+      }
+    ],
+    "description": "Lore Ipsum door sit amet",
+    "photo": "img/ck2gofyem0000n6pc8t9d28sa.png"
+  }

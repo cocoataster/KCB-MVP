@@ -46,6 +46,8 @@ class Api {
 
   Future<Profile> getProfile() async {
     String token = await Storage.getToken();
+    
+    print('Token: $token');
 
     Map<String, String> headers = {
       'Content-type': 'application/json',
@@ -55,7 +57,7 @@ class Api {
 
     final response = await client.get('$endpoint/profile', headers: headers);
 
-    // print('Profile Response: ${response.body}');
+    print('Profile Response: ${response.body}');
 
     switch (response.statusCode) {
       case 200:

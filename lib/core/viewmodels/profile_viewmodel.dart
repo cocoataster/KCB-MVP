@@ -11,7 +11,6 @@ import 'base_viewmodel.dart';
 
 class ProfileViewModel extends BaseViewModel {
   Api _api = Api();
-
   Profile profile;
   ProfileMode _profileMode = ProfileMode.Own;
   ContactMethod contactMethod;
@@ -22,6 +21,10 @@ class ProfileViewModel extends BaseViewModel {
   Instruments availableInstruments;
   Set<String> disabledAvailableInstruments = {};
 
+  /*
+  *   Profile Data
+  */
+
   Future fetchProfile() async {
     setState(ViewState.Busy);
     profile = await _api.getProfile();
@@ -29,11 +32,16 @@ class ProfileViewModel extends BaseViewModel {
     profileAvatar = NetworkImage('${Api.endpoint}/${profile.photo}');
   }
 
-  updateProfile() async {
+  void updateProfile() async {
     setState(ViewState.Busy);
     await _api.updateProfile(profile);
     setState(ViewState.Idle);
   }
+
+  /*
+  *   Profile Mode
+  *   Own | Edit | User
+  */
 
   ProfileMode get getMode {
     if (profile.photo.isEmpty) _profileMode = ProfileMode.Edit;
@@ -45,16 +53,20 @@ class ProfileViewModel extends BaseViewModel {
     notifyListeners();
   }
 
+  /*
+  *   Avatar
+  */
+
   ImageProvider<dynamic> getAvatar() {
     if (profile.photo.isEmpty) _profileMode = ProfileMode.Edit;
     return profileAvatar;
   }
 
-  avatarToUpdate({File imageFile}) {
+  void avatarToUpdate({File imageFile}) {
     profileAvatarToUpdate = imageFile;
   }
 
-  updateAvatar() {
+  void updateAvatar() {
     if (profileAvatarToUpdate != null) {
       profileAvatar = FileImage(profileAvatarToUpdate);
       notifyListeners();
@@ -62,17 +74,11 @@ class ProfileViewModel extends BaseViewModel {
     }
   }
 
-  instrumentsToRemove({instrumentsSelected}) {
-    instrumentsToRemoveList = instrumentsSelected;
-  }
+  /*
+  *   Instruments
+  */
 
-  updateInstrumentsList() {
-    instrumentsToRemoveList.map((String instrument) {
-      profile.instruments.remove(instrument);
-      enableAvailableInstrument(instrument);
-    }).toList();
-    notifyListeners();
-  }
+  /* Edit Instruments */
 
   void addInstrument({instrument}) {
     profile.instruments.add(instrument);
@@ -80,17 +86,19 @@ class ProfileViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  Future fetchAvailableInstruments() async {
-    setState(ViewState.Busy);
-    availableInstruments = await _api.getInstruments();
-    setState(ViewState.Idle);
+  void instrumentsToRemove({instrumentsSelected}) {
+    instrumentsToRemoveList = instrumentsSelected;
   }
 
-  disableInstrementsSelectedOnProfile() {
-    profile.instruments.map((instrument) {
-      disableAvailableInstrument(instrument);
+  void updateInstrumentsList() {
+    instrumentsToRemoveList.map((String instrument) {
+      profile.instruments.remove(instrument);
+      enableAvailableInstrument(instrument);
     }).toList();
+    notifyListeners();
   }
+
+  /* Available Instruments */
 
   List<String> getAvailableInstruments() {
     List<String> finalList = [];
@@ -104,24 +112,40 @@ class ProfileViewModel extends BaseViewModel {
     return finalList;
   }
 
-  enableAvailableInstrument(instrument) =>
+  Future fetchAvailableInstruments() async {
+    setState(ViewState.Busy);
+    availableInstruments = await _api.getInstruments();
+    setState(ViewState.Idle);
+  }
+
+  void disableInstrementsSelectedOnProfile() {
+    profile.instruments.map((instrument) {
+      disableAvailableInstrument(instrument);
+    }).toList();
+  }
+
+  void enableAvailableInstrument(instrument) =>
       disabledAvailableInstruments.remove(instrument);
 
-  disableAvailableInstrument(instrument) {
+  void disableAvailableInstrument(instrument) {
     print('Disable instrument: $instrument');
     disabledAvailableInstruments.add(instrument);
   }
+
+  /*
+  *   Videos
+  */
 
   List<dynamic> getVideos() {
     var thumbnailsList = profile.videos.map((video) => video).toList();
     return thumbnailsList;
   }
 
-  videosToRemove({videosSelected}) {
+  void videosToRemove({videosSelected}) {
     videosToRemoveList = videosSelected;
   }
 
-  updateVideosList() {
+  void updateVideosList() {
     videosToRemoveList.map(
       (String thumbnail) {
         profile.videos.map((video) {
@@ -133,7 +157,7 @@ class ProfileViewModel extends BaseViewModel {
     ).toList();
   }
 
-  addNewVideo(videoURL) {
+  void addNewVideo(videoURL) {
     String videoId = videoURL.split('?v=')[1];
     Map<String, dynamic> videoURLtoJson() {
       final data = Map<String, dynamic>();
@@ -149,28 +173,44 @@ class ProfileViewModel extends BaseViewModel {
     profile.videos.add(newVideoItem);
   }
 
-  updateProfileLocation({friendlyLocation}) {
-    profile.friendlyLocation = friendlyLocation;
-    notifyListeners();
-  }
+  /*
+  *   Update Profile Data TextFields
+  */
 
-  updateProfileName({name}) {
+  void updateProfileName({name}) {
     profile.name = name;
     notifyListeners();
   }
 
-  updateDescription({description}) {
+  void updateProfileLocation({friendlyLocation}) {
+    profile.friendlyLocation = friendlyLocation;
+    notifyListeners();
+  }
+
+  void updateDescription({description}) {
     profile.description = description;
     notifyListeners();
   }
 
-  ContactMethodType getContactMethodType() => profile.contactMethod.type;
-  String getContactMethodData() => profile.contactMethod.data;
-  updateContactMethodType(ContactMethodType type) =>
-      profile.contactMethod.type = type;
-  updateContactMethodData(String data) => profile.contactMethod.data = data;
+  /*
+  *   ContactMethod
+  */
 
-  updateLocation({double lat, double long}) {
+  ContactMethodType getContactMethodType() => profile.contactMethod.type;
+
+  String getContactMethodData() => profile.contactMethod.data;
+
+  void updateContactMethodType(ContactMethodType type) =>
+      profile.contactMethod.type = type;
+
+  void updateContactMethodData(String data) =>
+      profile.contactMethod.data = data;
+
+  /*
+  *   GeoLocation
+  */
+
+  void updateLocation({double lat, double long}) {
     profile.location = Location(lat: lat, long: long);
   }
 }
