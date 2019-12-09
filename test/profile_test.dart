@@ -1,15 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sounds_good/core/models/location.dart';
 import 'package:sounds_good/core/models/profile.dart';
 import 'package:sounds_good/core/viewmodels/profile_viewmodel.dart';
 import 'dart:async';
-import 'package:path_provider/path_provider.dart';
-
-import 'package:flutter/services.dart' show rootBundle;
-
 
 
 Future<Profile> getProfile() async {
