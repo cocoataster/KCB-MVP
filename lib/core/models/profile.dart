@@ -25,7 +25,6 @@ class Profile {
       this.photo});
 
   factory Profile.fromJson(Map<String, dynamic> json) {
-    
     List<String> instrumentsList = List<String>();
     if (json['instruments'] != []) {
       var instruments = json['instruments'];
@@ -37,10 +36,12 @@ class Profile {
     // Location and Contact Method can be null
     // Not sure about that... just in case..
     Location voidLocation = Location(long: 0.0, lat: 0.0);
-    Location location =
-        json['location'] != null ? Location.fromJson(json['location']) : voidLocation;
+    Location location = json['location'] != null
+        ? Location.fromJson(json['location'])
+        : voidLocation;
 
-    ContactMethod voidContactMethod = ContactMethod(type: ContactMethodType.Email, data: '');
+    ContactMethod voidContactMethod =
+        ContactMethod(type: ContactMethodType.Email, data: '');
     ContactMethod contactMethod = json['contact'] != null
         ? ContactMethod.fromJson(json['contact'])
         : voidContactMethod;

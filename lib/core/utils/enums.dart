@@ -13,3 +13,5 @@ enum StatusCode {
 enum ContactMethodType { Email, Phone }
 
 enum AccessFormMode { Login, Signin }
+
+enum SearchType { Members, Locals }
