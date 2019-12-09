@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:sounds_good/screens/views/profile_view.dart';
 import 'package:sounds_good/screens/views/access_forms/signin_view.dart';
 import 'package:sounds_good/screens/views/access_forms/login_view.dart';
-import 'package:sounds_good/screens/views/search_view.dart';
+import 'package:sounds_good/screens/views/search/search_view.dart';
 import 'package:sounds_good/screens/views/tab_bar_view.dart';
 
 const String initialRoute = 'login';

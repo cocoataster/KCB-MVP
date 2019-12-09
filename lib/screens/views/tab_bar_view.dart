@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:sounds_good/screens/views/app_icons.dart';
 import 'package:sounds_good/screens/views/dummy_view.dart';
 import 'package:sounds_good/screens/views/profile_view.dart';
-import 'package:sounds_good/screens/views/search_view.dart';
+import 'package:sounds_good/screens/views/search/search_view.dart';
 
 class AppTabBar extends StatefulWidget {
   AppTabBar({Key key}) : super(key: key);

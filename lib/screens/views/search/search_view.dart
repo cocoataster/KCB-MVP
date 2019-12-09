@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:sounds_good/core/models/profile.dart';
 import 'package:sounds_good/core/utils/enums.dart';
 import 'package:sounds_good/core/viewmodels/search_viewmodel.dart';
+import 'package:sounds_good/screens/views/search/search_filters.dart';
 import 'package:sounds_good/screens/widgets/search/member_cell.dart';
 
 class SearchView extends StatefulWidget {
@@ -27,9 +28,17 @@ class _SearchViewState extends State<SearchView> {
         builder: (context, model, child) => Scaffold(
           body: model.state == ViewState.Idle
               ? SafeArea(
-                  child: ListView(
-                    padding: EdgeInsets.all(24),
-                    children: _getListData(model.profiles),
+                  child: Stack(
+                    children: <Widget>[
+                      SearchFilters(),
+                      Padding(
+                        padding: EdgeInsets.only(top: 100),
+                        child: ListView(
+                          padding: EdgeInsets.all(24),
+                          children: _getListData(model.profiles),
+                        ),
+                      ),
+                    ],
                   ),
                 )
               : Center(
