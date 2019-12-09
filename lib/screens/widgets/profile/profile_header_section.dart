@@ -3,85 +3,112 @@ import 'package:provider/provider.dart';
 import 'package:sounds_good/core/utils/enums.dart';
 import 'package:sounds_good/core/viewmodels/profile_viewmodel.dart';
 import 'package:sounds_good/screens/widgets/profile/edit/how_to_reach_me.dart';
+import 'package:sounds_good/screens/widgets/profile/own/profile_image.dart';
 import 'package:sounds_good/screens/widgets/profile/shared/profile_mode_switch_button.dart';
-import 'package:sounds_good/screens/widgets/profile/shared/profile_image.dart';
 import 'package:sounds_good/screens/widgets/profile/edit/profile_image.dart';
 import 'package:sounds_good/screens/widgets/profile/own/header.dart';
 import 'package:sounds_good/screens/widgets/profile/edit/header.dart';
-
 import 'package:sounds_good/screens/widgets/profile/shared/section_title.dart';
+import 'package:sounds_good/screens/widgets/profile/user/profile_image.dart';
 
 class ProfileHeaderSection extends StatefulWidget {
-  
   @override
   _ProfileHeaderSectionState createState() => _ProfileHeaderSectionState();
 }
 
 class _ProfileHeaderSectionState extends State<ProfileHeaderSection> {
+  @override
+  void initState() {
+    var profile = Provider.of<ProfileViewModel>(context, listen: false);
+    if (profile.getAvatar() == null) profile.initializeAvatar();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ProfileViewModel>(
-      builder: (context, mode, child) => Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: _modeSwitchHelper(mode.getMode),
-      ),
+    return Consumer<ProfileViewModel>(builder: (context, profile, child) {
+      switch (profile.getMode) {
+        case ProfileMode.Own:
+          return OwnModeWidgetsList();
+          break;
+
+        case ProfileMode.Edit:
+          return EditModeWidgetsList();
+          break;
+
+        default:
+          return UserModeWidgetsList();
+      }
+    });
+  }
+}
+
+class UserModeWidgetsList extends StatelessWidget {
+  const UserModeWidgetsList({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        HeaderHelper(
+          buttonHeader: ProfileModeSwitchButton(),
+          headerContent: UserProfileHeader(),
+        ),
+        ProfileImage(),
+      ],
     );
   }
+}
 
-  List<Widget> _modeSwitchHelper(profileMode) {
-    List<Widget> widgetsList = [];
-    switch (profileMode) {
-      case ProfileMode.User:
-        widgetsList = _userModeWidgetsList();
-        break;
+class OwnModeWidgetsList extends StatelessWidget {
+  const OwnModeWidgetsList({Key key}) : super(key: key);
 
-      case ProfileMode.Own:
-        widgetsList = _ownModeWidgetsList();
-        break;
-
-      case ProfileMode.Edit:
-        widgetsList = _editModeWidgetsList();
-        break;
-    }
-
-    return widgetsList;
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        HeaderHelper(
+          buttonHeader: ProfileModeSwitchButton(),
+          headerContent: UserProfileHeader(),
+        ),
+        OwnProfileImage(),
+      ],
+    );
   }
+}
 
-  List<Widget> _userModeWidgetsList() {
-    return <Widget>[
-      _headerHelper(
-        buttonHeader: ProfileModeSwitchButton(),
-        headerContent: UserProfileHeader(),
-      ),
-      ProfileImage(),
-    ];
+class EditModeWidgetsList extends StatelessWidget {
+  const EditModeWidgetsList({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          HeaderHelper(
+            buttonHeader: Container(),
+            headerContent: EditProfileHeader(),
+          ),
+          EditProfileImage(),
+          ProfileSectionTitle(sectionTitle: 'How to reach me'),
+          HowToReachMeSelector(),
+        ]);
   }
+}
 
-  List<Widget> _ownModeWidgetsList() {
-    return <Widget>[
-      _headerHelper(
-        buttonHeader: ProfileModeSwitchButton(),
-        headerContent: UserProfileHeader(),
-      ),
-      ProfileImage(),
-    ];
-  }
+class HeaderHelper extends StatelessWidget {
+  final Widget buttonHeader;
+  final Widget headerContent;
 
-  List<Widget> _editModeWidgetsList() {
-    return <Widget>[
-      _headerHelper(
-        buttonHeader: Container(),
-        headerContent: EditProfileHeader(),
-      ),
-      EditProfileImage(),
-      ProfileSectionTitle(sectionTitle: 'How to reach me'),
-      HowToReachMeSelector(),
-    ];
-  }
+  HeaderHelper({this.buttonHeader, this.headerContent});
 
-  Widget _headerHelper({Widget buttonHeader, Widget headerContent}) {
+  @override
+  Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
         buttonHeader,

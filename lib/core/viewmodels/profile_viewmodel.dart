@@ -29,7 +29,6 @@ class ProfileViewModel extends BaseViewModel {
     setState(ViewState.Busy);
     profile = await _api.getProfile();
     setState(ViewState.Idle);
-    profileAvatar = NetworkImage('${Api.endpoint}/${profile.photo}');
   }
 
   void updateProfile() async {
@@ -61,6 +60,9 @@ class ProfileViewModel extends BaseViewModel {
     if (profile.photo.isEmpty) _profileMode = ProfileMode.Edit;
     return profileAvatar;
   }
+
+  void initializeAvatar() =>
+      profileAvatar = NetworkImage('${Api.endpoint}/${profile.photo}');
 
   void avatarToUpdate({File imageFile}) {
     profileAvatarToUpdate = imageFile;

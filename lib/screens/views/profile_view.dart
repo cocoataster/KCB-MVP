@@ -54,6 +54,8 @@ class _ProfileViewState extends State<ProfileView> {
     profileViewModel.fetchAvailableInstruments();
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     _getCurrentLocation();
