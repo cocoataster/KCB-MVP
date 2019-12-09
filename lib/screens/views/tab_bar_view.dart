@@ -1,10 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:sounds_good/core/services/storage.dart';
-import 'package:sounds_good/screens/views/access_forms/login_view.dart';
 import 'package:sounds_good/screens/views/app_icons.dart';
 import 'package:sounds_good/screens/views/dummy_view.dart';
 import 'package:sounds_good/screens/views/profile_view.dart';
+import 'package:sounds_good/screens/views/search_view.dart';
 
 class AppTabBar extends StatefulWidget {
   AppTabBar({Key key}) : super(key: key);
@@ -34,7 +33,7 @@ class _AppTabBarState extends State<AppTabBar> {
 
   static List<Widget> _widgetOptions = <Widget>[
     DummyView('Home'),
-    DummyView('Search'),
+    SearchView(),
     DummyView('Notificaciones'),
     ProfileView(),
   ];

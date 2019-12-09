@@ -16,10 +16,13 @@ class ProfileView extends StatefulWidget {
 }
 
 class _ProfileViewState extends State<ProfileView> {
+  
+  ProfileViewModel profileViewModel = ProfileViewModel();
+
   /* Para meter en la página de inicio y hacer llamada cada vez que haga falta 
    Position _currentPosition;*/
 
-  _getCurrentLocation() {
+   _getCurrentLocation() {
     final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
 
     geolocator
@@ -42,24 +45,24 @@ class _ProfileViewState extends State<ProfileView> {
     }
   }
 
-  ProfileViewModel model = ProfileViewModel();
+  
 
   @override
   void initState() {
     super.initState();
-    model.fetchProfile();
-    model.fetchAvailableInstruments();
+    profileViewModel.fetchProfile();
+    profileViewModel.fetchAvailableInstruments();
   }
 
   @override
   Widget build(BuildContext context) {
     _getCurrentLocation();
     return ChangeNotifierProvider<ProfileViewModel>(
-      builder: (context) => model,
+      builder: (context) => profileViewModel,
       child: Consumer<ProfileViewModel>(
-        builder: (context, model, child) => WillPopScope(
+        builder: (context, profileViewModel, child) => WillPopScope(
           child: Scaffold(
-              body: model.state == ViewState.Idle
+              body: profileViewModel.state == ViewState.Idle
                   ? SafeArea(
                       child: ListView(
                         padding: const EdgeInsets.all(24),
@@ -75,7 +78,7 @@ class _ProfileViewState extends State<ProfileView> {
                   : Center(
                       child: CircularProgressIndicator(),
                     )),
-          onWillPop: () => _captureAndroidBackButton(model.getMode),
+          onWillPop: () => _captureAndroidBackButton(profileViewModel.getMode),
         ),
       ),
     );

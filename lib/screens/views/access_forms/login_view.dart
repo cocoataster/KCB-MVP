@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sounds_good/core/viewmodels/authentication_viewmodel.dart';
-import 'package:sounds_good/screens/views/tab_bar_view.dart';
 import 'package:sounds_good/screens/widgets/access_forms/access_form_field.dart';
 import 'package:sounds_good/screens/widgets/access_forms/validators.dart';
 
