@@ -18,9 +18,9 @@ class MemberCell extends StatelessWidget {
             children: <Widget>[
               Positioned.fill(child: Image.network(imageUrl)),
               Positioned(
-                bottom: 0,
-                left: 0,
-                right: 0,
+                bottom: -4,
+                left: -4,
+                right: -4,
                 child: MemberFooter(),
               )
             ],

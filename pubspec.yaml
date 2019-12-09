@@ -39,7 +39,7 @@ dependencies:
   url_launcher: ^5.2.7
   geolocator: ^5.1.5
 
-
+  flutter_pagewise: ^1.2.3
 dev_dependencies:
   flutter_test:
     sdk: flutter

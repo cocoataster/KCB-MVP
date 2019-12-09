@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_pagewise/flutter_pagewise.dart';
 import 'package:provider/provider.dart';
 import 'package:sounds_good/core/models/profile.dart';
 import 'package:sounds_good/core/utils/enums.dart';
@@ -16,7 +17,7 @@ class _SearchViewState extends State<SearchView> {
 
   @override
   void initState() {
-    searchViewModel.fetchProfiles();
+    //searchViewModel.fetchProfiles();
     super.initState();
   }
 
@@ -33,10 +34,23 @@ class _SearchViewState extends State<SearchView> {
                       SearchFilters(),
                       Padding(
                         padding: EdgeInsets.only(top: 100),
-                        child: ListView(
-                          padding: EdgeInsets.all(24),
-                          children: _getListData(model.profiles),
-                        ),
+                        child: PagewiseListView(
+                            pageSize: model.limit,
+                            padding: EdgeInsets.all(15.0),
+                            itemBuilder: (context, entry, index) {
+                              var url = 'https://picsum.photos/250?image=9';
+                              var profile = model.profiles[index];
+                              if (profile.photo != null) {
+                                url =
+                                    'http://ec2-52-87-34-66.compute-1.amazonaws.com/' +
+                                        profile.photo;
+                              }
+
+                              return MemberCell(url);
+                            },
+                            pageFuture: (pageIndex) {
+                              return model.fetchPage(pageIndex);
+                            }),
                       ),
                     ],
                   ),
@@ -47,22 +61,5 @@ class _SearchViewState extends State<SearchView> {
         ),
       ),
     );
-  }
-
-  _getListData(List<Profile> profiles) {
-    List<Widget> widgets = [];
-
-    print("Get List Data. After async call");
-
-    for (var profile in profiles) {
-      var url = 'https://picsum.photos/250?image=9';
-      if (profile.photo != null) {
-        url = 'http://ec2-52-87-34-66.compute-1.amazonaws.com/' + profile.photo;
-      }
-      print(url);
-      widgets.add(MemberCell(url));
-    }
-
-    return widgets;
   }
 }

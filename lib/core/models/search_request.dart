@@ -2,8 +2,11 @@ class SearchRequest {
   String name;
   List<String> instruments;
   double maxDistance;
+  int limit;
+  int offset;
 
-  SearchRequest({this.name, this.instruments, this.maxDistance});
+  SearchRequest(
+      {this.name, this.instruments, this.maxDistance, this.limit, this.offset});
 
   String getName() {
     return name != null ? name : "";
@@ -23,5 +26,13 @@ class SearchRequest {
 
   String getMaxDistance() {
     return maxDistance != null ? maxDistance.toStringAsFixed(0) : "";
+  }
+
+  int getLimit() {
+    return limit != null ? limit : 2;
+  }
+
+  int getOffset() {
+    return offset != null ? offset : 0;
   }
 }

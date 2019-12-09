@@ -48,7 +48,7 @@ class Api {
 
   Future<Profile> getProfile() async {
     String token = await Storage.getToken();
-    
+
     print('Token: $token');
 
     Map<String, String> headers = {
@@ -183,31 +183,28 @@ class Api {
     var headers = {"Authorization": token};
     var parameters = '?';
 
-    bool isFirstParameter = true;
+    var limit = searchRequest.getLimit();
+    var offset = searchRequest.getOffset();
+
+    parameters += 'limit=$limit&offset=$offset';
 
     var name = searchRequest.getName();
     if (name != "") {
-      parameters += isFirstParameter ? 'name=$name' : '&name=$name';
-      isFirstParameter = false;
+      parameters += '&name=$name';
     }
 
     var instruments = searchRequest.getInstrumentsString();
     if (instruments != "") {
-      parameters += isFirstParameter
-          ? 'instruments=$instruments'
-          : '&instruments=$instruments';
-      isFirstParameter = false;
+      parameters += '&instruments=$instruments';
     }
 
     var maxDistance = searchRequest.getMaxDistance();
     if (maxDistance != "") {
-      parameters += isFirstParameter
-          ? 'maxDistance=$maxDistance'
-          : '&maxDistance=$maxDistance';
-      isFirstParameter = false;
+      parameters += '&maxDistance=$maxDistance';
     }
 
     var request = '$endpoint/search/profile$parameters';
+    print('Search Request: $request');
 
     var response = await client.get(request, headers: headers);
     print('Search Response: ${response.body}');
@@ -232,4 +229,3 @@ class Api {
     }
   }
 }
-
