@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sounds_good/core/services/storage.dart';
 import 'package:sounds_good/core/viewmodels/authentication_viewmodel.dart';
 import 'package:sounds_good/screens/widgets/access_forms/access_form_field.dart';
 import 'package:sounds_good/screens/widgets/access_forms/validators.dart';
@@ -26,7 +25,7 @@ class _LoginViewState extends State<LoginView> {
     } else {}
     return;
   }
-
+/*
   @override
   void initState() async {
     // TODO: implement initState
@@ -37,7 +36,7 @@ class _LoginViewState extends State<LoginView> {
     if (token != null) {
       Navigator.pushNamed(context, 'cupertinoTabBar');
     }
-  }
+  } */
 
   @override
   Widget build(BuildContext context) {

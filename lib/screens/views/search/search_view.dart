@@ -47,7 +47,12 @@ class _SearchViewState extends State<SearchView> {
                                   ? '${Api.endpoint}/${profile.photo}'
                                   : placeholder;
 
-                              return MemberCell(url);
+                              return MemberCell(
+                                imageUrl: url,
+                                name: profile.name,
+                                friendlyLocation: profile.friendlyLocation,
+                                instruments: profile.instruments,
+                              );
                             },
                             pageFuture: (pageIndex) {
                               return model.fetchPage(pageIndex);

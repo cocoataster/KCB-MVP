@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sounds_good/core/utils/enums.dart';
-import 'package:sounds_good/screens/widgets/profile/shared/profile_mode_switch_button.dart';
 
 class SearchFilters extends StatefulWidget {
   SearchFilters({Key key}) : super(key: key);
@@ -24,10 +23,18 @@ class _SearchFiltersState extends State<SearchFilters> {
       children: <Widget>[
         ListTile(
           leading: FiltersButton(),
-          title: TextField(
+          title: TextFormField(
             decoration: InputDecoration(
               suffixIcon: Icon(Icons.search),
-              border: OutlineInputBorder(),
+              contentPadding:
+                  EdgeInsets.symmetric(horizontal: 15.0, vertical: 15.0),
+              labelStyle: TextStyle(fontSize: 16),
+              border: new OutlineInputBorder(
+                borderRadius: const BorderRadius.all(
+                  const Radius.circular(24.0),
+                ),
+              ),
+              hintText: 'hintText',
               labelText: 'Type something',
             ),
           ),
@@ -57,8 +64,8 @@ class FiltersButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 40.0,
-      height: 40.0,
+      width: 45.0,
+      height: 45.0,
       child: FloatingActionButton(
         backgroundColor: Colors.white,
         elevation: 4,
