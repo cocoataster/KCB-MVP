@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_pagewise/flutter_pagewise.dart';
 import 'package:provider/provider.dart';
-import 'package:sounds_good/core/models/profile.dart';
 import 'package:sounds_good/core/services/api.dart';
 import 'package:sounds_good/core/utils/enums.dart';
 import 'package:sounds_good/core/viewmodels/search_viewmodel.dart';
 import 'package:sounds_good/screens/views/search/search_filters.dart';
-import 'package:sounds_good/screens/widgets/search/member_cell.dart';
+import 'package:sounds_good/screens/widgets/member_cells/member_cell.dart';
 
 class SearchView extends StatefulWidget {
   @override

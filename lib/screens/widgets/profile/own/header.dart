@@ -9,7 +9,7 @@ class UserProfileHeader extends StatelessWidget {
       child: Row(
         children: <Widget>[
           Expanded(
-            flex: 9, // 90%
+            flex: 9,
             child: _headerContent(context),
           ),
         ],

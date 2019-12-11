@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:sounds_good/screens/views/authentication_view.dart';
 import 'package:sounds_good/screens/views/profile_view.dart';
-import 'package:sounds_good/screens/views/access_forms/signin_view.dart';
-import 'package:sounds_good/screens/views/access_forms/login_view.dart';
 import 'package:sounds_good/screens/views/search/search_view.dart';
 import 'package:sounds_good/screens/views/tab_bar_view.dart';
 
@@ -12,15 +11,11 @@ class Router {
   static Route<dynamic> generateRouter(RouteSettings settings) {
     switch (settings.name) {
       case '/':
-        return MaterialPageRoute(builder: (_) => LoginView());
-      case 'login':
-        return MaterialPageRoute(builder: (context) => LoginView());
+        return MaterialPageRoute(builder: (_) => AuthFormView());
       case 'search':
         return MaterialPageRoute(builder: (context) => SearchView());
       case 'cupertinoTabBar':
         return MaterialPageRoute(builder: (context) => AppTabBar());
-      case 'signin':
-        return MaterialPageRoute(builder: (context) => SigninView());
       case 'profile':
         return MaterialPageRoute(builder: (context) => ProfileView());
       default:

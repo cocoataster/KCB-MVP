@@ -15,7 +15,7 @@
       return null;
   }
 
-  String passwdValidator({value, errorMessage}) {
+  String notEmptyValidator({value, errorMessage}) {
     if (value.isEmpty) {
       return errorMessage;
     }

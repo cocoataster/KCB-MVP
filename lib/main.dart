@@ -12,6 +12,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    authentication.authInit();
     return ChangeNotifierProvider<AuthenticationViewModel>(
       builder: (context) => authentication,
       child: MaterialApp(
