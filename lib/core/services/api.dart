@@ -177,7 +177,8 @@ class Api {
     }
   }
 
-  Future<SearchResponse> getSearchProfiles(SearchRequest searchRequest) async {
+  Future<SearchResponse> getSearchProfiles(
+      SearchRequest searchRequest, SearchType type) async {
     String token = await Storage.getToken();
 
     var headers = {"Authorization": token};
@@ -215,7 +216,7 @@ class Api {
       case StatusCode.success:
         var json = jsonDecode(response.body);
         print(json);
-        return SearchResponse.fromJson(json);
+        return SearchResponse.fromJson(json, type);
       case StatusCode.clientError:
         var json = jsonDecode(response.body);
         var error = json["message"];

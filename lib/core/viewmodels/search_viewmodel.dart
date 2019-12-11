@@ -22,7 +22,8 @@ class SearchViewModel extends BaseViewModel {
 
   Future fetchProfiles() async {
     setState(ViewState.Busy);
-    SearchResponse searchResponse = await _api.getSearchProfiles(searchRequest);
+    SearchResponse searchResponse =
+        await _api.getSearchProfiles(searchRequest, SearchType.Members);
     profiles = searchResponse.items;
     offset = searchResponse.offset;
     setState(ViewState.Idle);
@@ -31,7 +32,8 @@ class SearchViewModel extends BaseViewModel {
   Future<List<Profile>> fetchPage(pageIndex) async {
     setState(ViewState.Busy);
     searchRequest.offset = pageIndex * limit;
-    SearchResponse searchResponse = await _api.getSearchProfiles(searchRequest);
+    SearchResponse searchResponse =
+        await _api.getSearchProfiles(searchRequest, SearchType.Members);
     profiles += searchResponse.items;
     ++offset;
     total = searchResponse.total;

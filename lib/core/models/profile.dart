@@ -45,7 +45,7 @@ class Profile {
 
     // Location and Contact Method can be null
     // Not sure about that... just in case..
-    Location voidLocation = Location(long: 0.0, lat: 0.0);
+    Location voidLocation = Location(lat: 0.0, long: 0.0);
     Location location = json['location'] != null
         ? Location.fromJson(json['location'])
         : voidLocation;

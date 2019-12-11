@@ -1,19 +1,29 @@
 import 'package:sounds_good/core/models/profile.dart';
+import 'package:sounds_good/core/utils/enums.dart';
 
 class SearchResponse {
   final int total;
   final int offset;
-  final List<Profile> items;
+  final List<dynamic> items;
 
   SearchResponse({this.total, this.offset, this.items});
 
-  factory SearchResponse.fromJson(Map<String, dynamic> json) {
+  factory SearchResponse.fromJson(Map<String, dynamic> json, SearchType type) {
     // Creates a list of objects and maps for each profile
     var list = json['items'] as List;
-    List<Profile> profiles =
-        list.map((jsonProfile) => Profile.fromJson(jsonProfile)).toList();
+    List<dynamic> items = [];
+
+    switch (type) {
+      case SearchType.Members:
+        items =
+            list.map((jsonProfile) => Profile.fromJson(jsonProfile)).toList();
+        break;
+      case SearchType.Locals:
+        // items = list.map((jsonLocal) => Local.fromJson(jsonLocal)).toList();
+        break;
+    }
 
     return SearchResponse(
-        total: json['total'], offset: json['offset'], items: profiles);
+        total: json['total'], offset: json['offset'], items: items);
   }
 }
