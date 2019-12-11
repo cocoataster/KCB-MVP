@@ -110,7 +110,7 @@ class CellMemberFollowers extends StatelessWidget {
       ),
       child: Padding(
         padding: const EdgeInsets.fromLTRB(16.0, 3.0, 16.0, 3.0),
-        child: Text('+2'),
+        child: Text('${followers.length}'),
       ),
     );
   }
