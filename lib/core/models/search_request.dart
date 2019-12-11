@@ -1,12 +1,13 @@
 class SearchRequest {
   String name;
   List<String> instruments;
+  List<dynamic> followers;
   double maxDistance;
   int limit;
   int offset;
 
   SearchRequest(
-      {this.name, this.instruments, this.maxDistance, this.limit, this.offset});
+      {this.name, this.instruments, this.maxDistance, this.limit, this.offset, this.followers});
 
   String getName() {
     return name != null ? name : "";
@@ -34,5 +35,9 @@ class SearchRequest {
 
   int getOffset() {
     return offset != null ? offset : 0;
+  }
+
+  List<dynamic> getFollowers() {
+    return this.followers;
   }
 }

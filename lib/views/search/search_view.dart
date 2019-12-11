@@ -51,6 +51,7 @@ class _SearchViewState extends State<SearchView> {
                                 name: profile.name,
                                 friendlyLocation: profile.friendlyLocation,
                                 instruments: profile.instruments,
+                                //followers: profile.followers,
                               );
                             },
                             pageFuture: (pageIndex) {

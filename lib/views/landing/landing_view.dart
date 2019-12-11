@@ -15,11 +15,13 @@ class _LandingViewState extends State<LandingView> {
     return Scaffold(
       body: SafeArea(
         child: Column(
-          children: <Widget>[
+          children: <Widget>[            
             Container(
-              child: LandingLocalsView(),
+              height: (MediaQuery.of(context).size.height - 100) / 2,
+              child: LandingMembersView(),
             ),
             Container(
+              height: (MediaQuery.of(context).size.height - 100) / 2,
               child: LandingMembersView(),
             ),
           ],

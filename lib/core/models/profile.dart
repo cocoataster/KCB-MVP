@@ -82,4 +82,5 @@ class Profile {
 
     return data;
   }
+
 }
