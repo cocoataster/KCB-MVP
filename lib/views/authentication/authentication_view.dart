@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sounds_good/core/utils/enums.dart';
 import 'package:sounds_good/core/viewmodels/authentication_viewmodel.dart';
-import 'package:sounds_good/screens/widgets/auth_form/auth_form_buttons.dart';
-import 'package:sounds_good/screens/widgets/auth_form/auth_form_field.dart';
-import 'package:sounds_good/screens/widgets/auth_forms/auth_form_validators.dart';
+import 'package:sounds_good/views/authentication/widgets/auth_form_buttons.dart';
+import 'package:sounds_good/views/authentication/widgets/auth_form_field.dart';
+import 'package:sounds_good/views/authentication/widgets/auth_form_validators.dart';
 
 class AuthFormView extends StatefulWidget {
   _AuthFormViewState createState() => _AuthFormViewState();

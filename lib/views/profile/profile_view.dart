@@ -3,11 +3,11 @@ import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
 import 'package:sounds_good/core/utils/enums.dart';
 import 'package:sounds_good/core/viewmodels/profile_viewmodel.dart';
-import 'package:sounds_good/screens/widgets/profile/instruments_section.dart';
-import 'package:sounds_good/screens/widgets/profile/profile_bottom_buttons_section.dart';
-import 'package:sounds_good/screens/widgets/profile/profile_description_section.dart';
-import 'package:sounds_good/screens/widgets/profile/profile_header_section.dart';
-import 'package:sounds_good/screens/widgets/profile/profile_videos_section.dart';
+import 'package:sounds_good/views/profile/widgets/instruments_section.dart';
+import 'package:sounds_good/views/profile/profile_bottom_buttons_section.dart';
+import 'package:sounds_good/views/profile/profile_description_section.dart';
+import 'package:sounds_good/views/profile/profile_header_section.dart';
+import 'package:sounds_good/views/profile/profile_videos_section.dart';
 
 
 class ProfileView extends StatefulWidget {

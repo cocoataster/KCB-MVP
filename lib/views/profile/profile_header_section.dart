@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sounds_good/core/utils/enums.dart';
 import 'package:sounds_good/core/viewmodels/profile_viewmodel.dart';
-import 'package:sounds_good/screens/widgets/profile/edit/how_to_reach_me.dart';
-import 'package:sounds_good/screens/widgets/profile/own/profile_image.dart';
-import 'package:sounds_good/screens/widgets/profile/shared/profile_mode_switch_button.dart';
-import 'package:sounds_good/screens/widgets/profile/edit/profile_image.dart';
-import 'package:sounds_good/screens/widgets/profile/own/header.dart';
-import 'package:sounds_good/screens/widgets/profile/edit/header.dart';
-import 'package:sounds_good/screens/widgets/profile/shared/section_title.dart';
-import 'package:sounds_good/screens/widgets/profile/user/profile_image.dart';
+import 'package:sounds_good/views/profile/widgets/edit/how_to_reach_me.dart';
+import 'package:sounds_good/views/profile/widgets/own/profile_image.dart';
+import 'package:sounds_good/views/profile/widgets/shared/profile_mode_switch_button.dart';
+import 'package:sounds_good/views/profile/widgets/edit/profile_image.dart';
+import 'package:sounds_good/views/profile/widgets/own/header.dart';
+import 'package:sounds_good/views/profile/widgets/edit/header.dart';
+import 'package:sounds_good/views/profile/widgets/shared/section_title.dart';
+import 'package:sounds_good/views/profile/widgets/user/profile_image.dart';
 
 class ProfileHeaderSection extends StatefulWidget {
   @override

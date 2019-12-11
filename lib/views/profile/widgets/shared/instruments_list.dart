@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sounds_good/core/viewmodels/profile_viewmodel.dart';
-import 'package:sounds_good/screens/widgets/profile/shared/instrument_item.dart';
+import 'package:sounds_good/views/profile/widgets/shared/instrument_item.dart';
 
 class InstrumentsList extends StatelessWidget {
   @override

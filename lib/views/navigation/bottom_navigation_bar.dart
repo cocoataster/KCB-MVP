@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:sounds_good/screens/views/app_icons.dart';
-import 'package:sounds_good/screens/views/dummy_view.dart';
-import 'package:sounds_good/screens/views/profile_view.dart';
+import 'package:sounds_good/views/navigation/app_icons.dart';
+import 'package:sounds_good/views/dummy_view.dart';
+import 'package:sounds_good/views/profile/profile_view.dart';
 
 class BottomTabBar extends StatefulWidget {
   BottomTabBar({Key key}) : super(key: key);

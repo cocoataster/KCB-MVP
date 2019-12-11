@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sounds_good/core/viewmodels/profile_viewmodel.dart';
-import 'package:sounds_good/screens/widgets/profile/edit/add_video.dart';
-import 'package:sounds_good/screens/widgets/profile/edit/video_item.dart';
+import 'package:sounds_good/views/profile/widgets/edit/add_video.dart';
+import 'package:sounds_good/views/profile/widgets/edit/video_item.dart';
 
 class EditProfileVideos extends StatefulWidget {
   final List<String> videos;

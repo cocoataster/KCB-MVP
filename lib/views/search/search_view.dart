@@ -4,8 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:sounds_good/core/services/api.dart';
 import 'package:sounds_good/core/utils/enums.dart';
 import 'package:sounds_good/core/viewmodels/search_viewmodel.dart';
-import 'package:sounds_good/screens/views/search/search_filters.dart';
-import 'package:sounds_good/screens/widgets/member_cells/member_cell.dart';
+import 'package:sounds_good/views/search/search_filters.dart';
+import 'package:sounds_good/views/search/widgets/member_cell.dart';
 
 class SearchView extends StatefulWidget {
   @override

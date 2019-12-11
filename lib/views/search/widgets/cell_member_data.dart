@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sounds_good/screens/widgets/profile/shared/instrument_item.dart';
+import 'package:sounds_good/views/profile/widgets/shared/instrument_item.dart';
 
 class CellMemberData extends StatelessWidget {
   final String name;

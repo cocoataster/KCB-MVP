@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:sounds_good/screens/views/authentication_view.dart';
-import 'package:sounds_good/screens/views/profile_view.dart';
-import 'package:sounds_good/screens/views/search/search_view.dart';
-import 'package:sounds_good/screens/views/tab_bar_view.dart';
+import 'package:sounds_good/views/authentication/authentication_view.dart';
+import 'package:sounds_good/views/profile/profile_view.dart';
+import 'package:sounds_good/views/search/search_view.dart';
+import 'package:sounds_good/views/navigation/tab_bar_view.dart';
 
 const String initialRoute = 'login';
 

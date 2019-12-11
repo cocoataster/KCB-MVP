@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sounds_good/screens/widgets/member_cells/cell_member_data.dart';
+import 'package:sounds_good/views/search/widgets/cell_member_data.dart';
+
 
 class MemberCell extends StatelessWidget {
   final String imageUrl;
