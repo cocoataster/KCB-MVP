@@ -1,5 +1,6 @@
 class SearchRequest {
   String name;
+  double price;
   List<String> instruments;
   List<dynamic> followers;
   double maxDistance;
@@ -7,10 +8,20 @@ class SearchRequest {
   int offset;
 
   SearchRequest(
-      {this.name, this.instruments, this.maxDistance, this.limit, this.offset, this.followers});
+      {this.name,
+      this.price,
+      this.instruments,
+      this.maxDistance,
+      this.limit,
+      this.offset,
+      this.followers});
 
   String getName() {
     return name != null ? name : "";
+  }
+
+  String getPrice() {
+    return price != null ? price.toString() : "";
   }
 
   String getInstrumentsString() {

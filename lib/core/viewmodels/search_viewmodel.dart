@@ -1,3 +1,4 @@
+import 'package:sounds_good/core/models/local.dart';
 import 'package:sounds_good/core/models/profile.dart';
 import 'package:sounds_good/core/models/search_request.dart';
 import 'package:sounds_good/core/models/search_response.dart';
@@ -15,26 +16,19 @@ class SearchViewModel extends BaseViewModel {
       limit: 2,
       offset: 0);
 
-  List<Profile> profiles = [];
+  SearchType type = SearchType.Locals;
+  List<dynamic> items = [];
   int limit = 2;
   int offset = 0;
   int total = 0;
-
-  Future fetchProfiles() async {
-    setState(ViewState.Busy);
-    SearchResponse searchResponse =
-        await _api.getSearchProfiles(searchRequest, SearchType.Members);
-    profiles = searchResponse.items;
-    offset = searchResponse.offset;
-    setState(ViewState.Idle);
-  }
 
   Future<List<Profile>> fetchPage(pageIndex) async {
     setState(ViewState.Busy);
     searchRequest.offset = pageIndex * limit;
     SearchResponse searchResponse =
-        await _api.getSearchProfiles(searchRequest, SearchType.Members);
-    profiles += searchResponse.items;
+        await _api.getSearchProfiles(searchRequest, type);
+
+    items += searchResponse.items;
     ++offset;
     total = searchResponse.total;
     setState(ViewState.Idle);
@@ -42,7 +36,15 @@ class SearchViewModel extends BaseViewModel {
     return searchResponse.items;
   }
 
-  bool hasNextPage() {
-    return offset < total;
+  void resetRequest(SearchType type) {
+    searchRequest = SearchRequest(
+        name: "",
+        instruments: List<String>(),
+        maxDistance: 0.0,
+        limit: 2,
+        offset: 0);
+    //this.items = [];
+    this.offset = 0;
+    this.type = type;
   }
 }

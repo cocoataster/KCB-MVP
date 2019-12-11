@@ -1,6 +1,8 @@
 import 'package:sounds_good/core/models/profile.dart';
 import 'package:sounds_good/core/utils/enums.dart';
 
+import 'local.dart';
+
 class SearchResponse {
   final int total;
   final int offset;
@@ -19,7 +21,7 @@ class SearchResponse {
             list.map((jsonProfile) => Profile.fromJson(jsonProfile)).toList();
         break;
       case SearchType.Locals:
-        // items = list.map((jsonLocal) => Local.fromJson(jsonLocal)).toList();
+        items = list.map((jsonLocal) => Local.fromJson(jsonLocal)).toList();
         break;
     }
 

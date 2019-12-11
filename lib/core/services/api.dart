@@ -194,17 +194,31 @@ class Api {
       parameters += '&name=$name';
     }
 
-    var instruments = searchRequest.getInstrumentsString();
-    if (instruments != "") {
-      parameters += '&instruments=$instruments';
-    }
-
     var maxDistance = searchRequest.getMaxDistance();
     if (maxDistance != "") {
       parameters += '&maxDistance=$maxDistance';
     }
 
-    var request = '$endpoint/search/profile$parameters';
+    var endpointSearch = "";
+
+    switch (type) {
+      case SearchType.Members:
+        var instruments = searchRequest.getInstrumentsString();
+        if (instruments != "") {
+          parameters += '&instruments=$instruments';
+        }
+        endpointSearch = '/profile';
+        break;
+      case SearchType.Locals:
+        var price = searchRequest.getPrice();
+        if (price != "") {
+          parameters += '&price=$price';
+        }
+        endpointSearch = '/local';
+        break;
+    }
+
+    var request = '$endpoint/search/$endpointSearch' + parameters;
     print('Search Request: $request');
 
     var response = await client.get(request, headers: headers);

@@ -6,7 +6,6 @@ import 'package:sounds_good/core/utils/enums.dart';
 import 'package:sounds_good/core/viewmodels/search_viewmodel.dart';
 import 'package:sounds_good/views/landing/widgets/landing_member_cell.dart';
 
-
 class LandingMembersView extends StatefulWidget {
   LandingMembersView({Key key}) : super(key: key);
 
@@ -28,29 +27,28 @@ class _LandingMembersViewState extends State<LandingMembersView> {
                   child: Stack(
                     children: <Widget>[
                       PagewiseListView(
-                            scrollDirection: Axis.horizontal,
-                            pageSize: model.limit,
-                            padding: EdgeInsets.all(15.0),
-                            itemBuilder: (context, entry, index) {
-                              var placeholder =
-                                  'https://picsum.photos/250?image=9';
-                              var profile = model.profiles[index];
+                          scrollDirection: Axis.horizontal,
+                          pageSize: model.limit,
+                          padding: EdgeInsets.all(15.0),
+                          itemBuilder: (context, entry, index) {
+                            var placeholder =
+                                'https://picsum.photos/250?image=9';
+                            var profile = model.items[index];
 
-                              var url = profile.photo != ""
-                                  ? '${Api.endpoint}/${profile.photo}'
-                                  : placeholder;
+                            var url = profile.photo != ""
+                                ? '${Api.endpoint}/${profile.photo}'
+                                : placeholder;
 
-                              return LandingMemberCell(
-                                imageUrl: url,
-                                name: profile.name,
-                                friendlyLocation: profile.friendlyLocation,
-                                instruments: profile.instruments,
-                              );
-                            },
-                            pageFuture: (pageIndex) {
-                              return model.fetchPage(pageIndex);
-                            }),
-                      
+                            return LandingMemberCell(
+                              imageUrl: url,
+                              name: profile.name,
+                              friendlyLocation: profile.friendlyLocation,
+                              instruments: profile.instruments,
+                            );
+                          },
+                          pageFuture: (pageIndex) {
+                            return model.fetchPage(pageIndex);
+                          }),
                     ],
                   ),
                 )
