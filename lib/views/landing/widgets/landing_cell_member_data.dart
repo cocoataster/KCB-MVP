@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:sounds_good/views/profile/widgets/shared/instrument_item.dart';
+import 'package:sounds_good/views/landing/widgets/landing_instruments.dart';
 
 class LandingCellMemberData extends StatelessWidget {
   final String name;
   final String friendlyLocation;
   final List<String> instruments;
+  final List<dynamic> followers;
 
-  LandingCellMemberData({this.name, this.friendlyLocation, this.instruments});
+  LandingCellMemberData(
+      {this.name, this.friendlyLocation, this.instruments, this.followers});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -17,42 +19,75 @@ class LandingCellMemberData extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          LandingMemberData(
+          LandingMemberDataFirstRow(
               name: name, friendlyLocation: friendlyLocation),
-          CellMemberInstruments(instruments: instruments),
+          LandingMemberDataSndRow(
+              instruments: instruments, followers: followers),
         ],
       ),
     );
   }
 }
 
-class LandingMemberData extends StatelessWidget {
+class LandingMemberDataFirstRow extends StatelessWidget {
   final String name;
   final String friendlyLocation;
 
-  LandingMemberData({this.name, this.friendlyLocation});
+  LandingMemberDataFirstRow({this.name, this.friendlyLocation});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
+      padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 12.0),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[
           Expanded(
-            flex: 9,
+            flex: 8,
             child: Text(
               name,
-              style: Theme.of(context).textTheme.headline,
+              style: TextStyle(
+                fontSize: 16.0,
+                fontWeight: FontWeight.w700,
+                color: Colors.black87,
+              ),
               textAlign: TextAlign.start,
             ),
           ),
           Expanded(
-            flex: 9,
-            child: Text(
-              friendlyLocation,
-              style: Theme.of(context).textTheme.display1,
-              textAlign: TextAlign.right
-            ),
+            flex: 6,
+            child: Text(friendlyLocation,
+                style: TextStyle(
+                  fontSize: 10.0,
+                  fontWeight: FontWeight.w400,
+                  color: Colors.black87,
+                ),
+                textAlign: TextAlign.right),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class LandingMemberDataSndRow extends StatelessWidget {
+  final List<String> instruments;
+  final List<dynamic> followers;
+
+  const LandingMemberDataSndRow({this.instruments, this.followers});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Row(
+        children: <Widget>[
+          Expanded(
+            flex: 8,
+            child: CellMemberInstruments(instruments: instruments),
+          ),
+          Expanded(
+            flex: 2,
+            child: LandingCellMemberFollowers(followers: followers),
           ),
         ],
       ),
@@ -69,21 +104,35 @@ class CellMemberInstruments extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: 12.0, right: 12.0, bottom: 10.0),
-      child: Row(
+      child: Wrap(
         children: <Widget>[
-          Expanded(
-            flex: 8,
-            child: Wrap(
-              children: instruments
-                  .map((instrument) => InstrumentItem(instrument: instrument))
-                  .toList(),
-            ),
-          ),
-          Expanded(
-            flex: 2,
-            child: Text('+'),
-          ),
+          if (instruments.length > 0)
+            LandingInstrumentItem(instrument: instruments[0]),
+          if (instruments.length > 1)
+            LandingInstrumentItem(instrument: instruments[1]),
+          if (instruments.length > 2) LandingInstrumentItem(instrument: '+'),
         ],
+      ),
+    );
+  }
+}
+
+class LandingCellMemberFollowers extends StatelessWidget {
+  final List<dynamic> followers;
+  LandingCellMemberFollowers({this.followers});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(right: 10.0, top: 3.0, bottom: 8.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(const Radius.circular(15.0)),
+        border: Border.all(color: Colors.blueGrey.shade200),
+        color: Colors.white,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+        child: Text('+${followers.length}', style: TextStyle(fontSize: 11)),
       ),
     );
   }

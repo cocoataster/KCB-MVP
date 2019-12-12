@@ -13,8 +13,14 @@ class _OwnProfileImageState extends State<OwnProfileImage> {
   @override
   void initState() {
     setState(() {
+     try{
       _avatar =
           Provider.of<ProfileViewModel>(context, listen: false).getAvatar();
+     } catch(error){
+       _avatar = AssetImage('assets/images/profile.png');
+       print('Avatar: $error');
+
+     }
     });
     super.initState();
   }

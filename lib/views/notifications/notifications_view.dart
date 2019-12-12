@@ -11,147 +11,147 @@ class _NotificationsViewState extends State<NotificationsView> {
   List<Widget> items = [
     NotificationsRow(
         asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band',
+        notification: 'Paquito wants to join your band!',
         button: 'Accept'),
     NotificationsRow(
         asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band',
+        notification: 'Paquito wants to join your band!',
         button: 'Accepted'),
     NotificationsRow(
         asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band',
+        notification: 'Paquito wants to join your band!',
         button: 'Accept'),
     NotificationsRow(
         asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band',
+        notification: 'Paquito wants to join your band!',
         button: 'Accepted'),
     NotificationsRow(
         asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band',
+        notification: 'Paquito wants to join your band!',
         button: 'Accept'),
     NotificationsRow(
         asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band',
+        notification: 'Paquito wants to join your band!',
         button: 'Accepted'),
     NotificationsRow(
         asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band',
+        notification: 'Paquito wants to join your band!',
         button: 'Accept'),
     NotificationsRow(
         asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band',
+        notification: 'Paquito wants to join your band!',
         button: 'Accepted'),
     NotificationsRow(
         asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band',
+        notification: 'Paquito wants to join your band!',
         button: 'Accept'),
     NotificationsRow(
         asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band',
+        notification: 'Paquito wants to join your band!',
         button: 'Accepted'),
     NotificationsRow(
         asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band',
+        notification: 'Paquito wants to join your band!',
         button: 'Accept'),
     NotificationsRow(
         asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band',
+        notification: 'Paquito wants to join your band!',
         button: 'Accepted'),
     NotificationsRow(
         asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band',
+        notification: 'Paquito wants to join your band!',
         button: 'Accept'),
     NotificationsRow(
         asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band',
+        notification: 'Paquito wants to join your band!',
         button: 'Accepted'),
     NotificationsRow(
         asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band',
+        notification: 'Paquito wants to join your band!',
         button: 'Accept'),
     NotificationsRow(
         asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band',
+        notification: 'Paquito wants to join your band!',
         button: 'Accepted'),
     NotificationsRow(
         asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band',
+        notification: 'Paquito wants to join your band!',
         button: 'Accept'),
     NotificationsRow(
         asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band',
+        notification: 'Paquito wants to join your band!',
         button: 'Accepted'),
         NotificationsRow(
         asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band',
+        notification: 'Paquito wants to join your band!',
         button: 'Accept'),
     NotificationsRow(
         asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band',
+        notification: 'Paquito wants to join your band!',
         button: 'Accepted'),
     NotificationsRow(
         asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band',
+        notification: 'Paquito wants to join your band!',
         button: 'Accept'),
     NotificationsRow(
         asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band',
+        notification: 'Paquito wants to join your band!',
         button: 'Accepted'),
     NotificationsRow(
         asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band',
+        notification: 'Paquito wants to join your band!',
         button: 'Accept'),
     NotificationsRow(
         asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band',
+        notification: 'Paquito wants to join your band!',
         button: 'Accepted'),
     NotificationsRow(
         asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band',
+        notification: 'Paquito wants to join your band!',
         button: 'Accept'),
     NotificationsRow(
         asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band',
+        notification: 'Paquito wants to join your band!',
         button: 'Accepted'),
     NotificationsRow(
         asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band',
+        notification: 'Paquito wants to join your band!',
         button: 'Accept'),
     NotificationsRow(
         asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band',
+        notification: 'Paquito wants to join your band!',
         button: 'Accepted'),
     NotificationsRow(
         asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band',
+        notification: 'Paquito wants to join your band!',
         button: 'Accept'),
     NotificationsRow(
         asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band',
+        notification: 'Paquito wants to join your band!',
         button: 'Accepted'),
     NotificationsRow(
         asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band',
+        notification: 'Paquito wants to join your band!',
         button: 'Accept'),
     NotificationsRow(
         asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band',
+        notification: 'Paquito wants to join your band!',
         button: 'Accepted'),
     NotificationsRow(
         asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band',
+        notification: 'Paquito wants to join your band!',
         button: 'Accept'),
     NotificationsRow(
         asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band',
+        notification: 'Paquito wants to join your band!',
         button: 'Accepted'),
     NotificationsRow(
         asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band',
+        notification: 'Paquito wants to join your band!',
         button: 'Accept'),
     NotificationsRow(
         asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band',
+        notification: 'Paquito wants to join your band!',
         button: 'Accepted'),
   ];
 

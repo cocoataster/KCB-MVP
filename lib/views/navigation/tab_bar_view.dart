@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sounds_good/views/navigation/app_icons.dart';
-import 'package:sounds_good/views/dummy_view.dart';
 import 'package:sounds_good/views/landing/landing_view.dart';
 import 'package:sounds_good/views/notifications/notifications_view.dart';
 import 'package:sounds_good/views/profile/profile_view.dart';
@@ -24,7 +23,7 @@ class _AppTabBarState extends State<AppTabBar> {
       _selectedIndex = index;
     });
   }
-
+/*
   @override
   void initState() {
     setState(() {
@@ -32,6 +31,7 @@ class _AppTabBarState extends State<AppTabBar> {
     });
     super.initState();
   }
+*/
 
   static List<Widget> _widgetOptions = <Widget>[
     LandingView(),

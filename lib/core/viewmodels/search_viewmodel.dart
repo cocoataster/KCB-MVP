@@ -10,13 +10,14 @@ class SearchViewModel extends BaseViewModel {
   Api _api = Api();
 
   SearchRequest searchRequest = SearchRequest(
-      name: "",
-      instruments: List<String>(),
-      maxDistance: 0.0,
-      limit: 2,
-      offset: 0);
+    name: "",
+    instruments: List<String>(),
+    maxDistance: 0.0,
+    limit: 2,
+    offset: 0,
+  );
 
-  SearchType type = SearchType.Locals;
+  SearchType type = SearchType.Members;
   List<dynamic> items = [];
   int limit = 2;
   int offset = 0;

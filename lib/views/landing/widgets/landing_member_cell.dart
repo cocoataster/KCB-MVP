@@ -6,8 +6,14 @@ class LandingMemberCell extends StatelessWidget {
   final String name;
   final String friendlyLocation;
   final List<String> instruments;
+  final List<dynamic> followers;
 
-  LandingMemberCell({this.imageUrl, this.name, this.friendlyLocation, this.instruments});
+  LandingMemberCell(
+      {this.imageUrl,
+      this.name,
+      this.friendlyLocation,
+      this.instruments,
+      this.followers});
 
   @override
   Widget build(BuildContext context) {
@@ -24,13 +30,19 @@ class LandingMemberCell extends StatelessWidget {
         child: Stack(
           children: <Widget>[
             Container(
-              child: Image.network(
-                imageUrl,
-                fit: BoxFit.cover,
-                width: (MediaQuery.of(context).size.height - 140) / 2
-              ),
+              child: Image.network(imageUrl,
+                  fit: BoxFit.cover,
+                  width: (MediaQuery.of(context).size.height - 200) / 2),
             ),
-            Positioned(child: LandingCellMemberData(name: name, friendlyLocation: friendlyLocation, instruments: instruments ), bottom: 0, left: 0, right: 0)
+            Positioned(
+                child: LandingCellMemberData(
+                    name: name,
+                    friendlyLocation: friendlyLocation,
+                    instruments: instruments,
+                    followers: followers),
+                bottom: 0,
+                left: 0,
+                right: 0)
           ],
         ),
       ),

@@ -14,48 +14,51 @@ class LandingMembersView extends StatefulWidget {
 }
 
 class _LandingMembersViewState extends State<LandingMembersView> {
-  final SearchViewModel searchViewModel = SearchViewModel();
+  SearchType typeSelected;
+
+  @override
+  void initState() {
+    typeSelected = Provider.of<SearchViewModel>(context, listen: false).type;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<SearchViewModel>(
-      builder: (context) => searchViewModel,
-      child: Consumer<SearchViewModel>(
-        builder: (context, model, child) => Scaffold(
-          body: model.state == ViewState.Idle
-              ? SafeArea(
-                  child: Stack(
-                    children: <Widget>[
-                      PagewiseListView(
-                          scrollDirection: Axis.horizontal,
-                          pageSize: model.limit,
-                          padding: EdgeInsets.all(15.0),
-                          itemBuilder: (context, entry, index) {
-                            var placeholder =
-                                'https://picsum.photos/250?image=9';
-                            var profile = model.items[index];
+    return Consumer<SearchViewModel>(
+      builder: (context, model, child) => Scaffold(
+        body: model.state == ViewState.Idle
+            ? SafeArea(
+                child: Stack(
+                  children: <Widget>[
+                    PagewiseListView(
+                        scrollDirection: Axis.horizontal,
+                        pageSize: model.limit,
+                        padding: EdgeInsets.fromLTRB(12.0, 3.0, 12.0, 6.0),
+                        itemBuilder: (context, entry, index) {
+                          var placeholder = 'https://picsum.photos/250?image=9';
+                          var profile = model.items[index];
 
-                            var url = profile.photo != ""
-                                ? '${Api.endpoint}/${profile.photo}'
-                                : placeholder;
+                          var url = profile.photo != ""
+                              ? '${Api.endpoint}/${profile.photo}'
+                              : placeholder;
 
-                            return LandingMemberCell(
-                              imageUrl: url,
-                              name: profile.name,
-                              friendlyLocation: profile.friendlyLocation,
-                              instruments: profile.instruments,
-                            );
-                          },
-                          pageFuture: (pageIndex) {
-                            return model.fetchPage(pageIndex);
-                          }),
-                    ],
-                  ),
-                )
-              : Center(
-                  child: CircularProgressIndicator(),
+                          return LandingMemberCell(
+                            imageUrl: url,
+                            name: profile.name,
+                            friendlyLocation: profile.friendlyLocation,
+                            instruments: profile.instruments,
+                            followers: profile.followers,
+                          );
+                        },
+                        pageFuture: (pageIndex) {
+                          return model.fetchPage(pageIndex);
+                        }),
+                  ],
                 ),
-        ),
+              )
+            : Center(
+                child: CircularProgressIndicator(),
+              ),
       ),
     );
   }
