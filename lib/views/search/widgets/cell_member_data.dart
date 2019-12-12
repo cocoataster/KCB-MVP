@@ -25,11 +25,11 @@ class CellMemberData extends StatelessWidget {
             child: Row(
               children: <Widget>[
                 Expanded(
-                  flex: 9,
+                  flex: 10,
                   child: MemberName(name: name),
                 ),
                 Expanded(
-                    flex: 9,
+                    flex: 8,
                     child: MemberLocation(friendlyLocation: friendlyLocation)),
               ],
             ),
@@ -87,9 +87,11 @@ class CellMemberInstruments extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Wrap(
-      children: instruments
-          .map((instrument) => InstrumentItem(instrument: instrument))
-          .toList(),
+      children: <Widget>[
+        if (instruments.length > 0) InstrumentItem(instrument: instruments[0]),
+        if (instruments.length > 1) InstrumentItem(instrument: instruments[1]),
+        if (instruments.length > 2) InstrumentItem(instrument: '+'),
+      ],
     );
   }
 }
@@ -100,8 +102,7 @@ class CellMemberFollowers extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return //Text('${followers.length.toString()}');
-        Container(
+    return Container(
       margin: EdgeInsets.only(right: 3.0, top: 3.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(const Radius.circular(15.0)),
@@ -110,7 +111,7 @@ class CellMemberFollowers extends StatelessWidget {
       ),
       child: Padding(
         padding: const EdgeInsets.fromLTRB(16.0, 3.0, 16.0, 3.0),
-        child: Text('${followers.length}'),
+        child: Text('+${followers.length}'),
       ),
     );
   }
