@@ -43,7 +43,11 @@ class _SearchViewState extends State<SearchView> {
                                   ? '${Api.endpoint}/${item.photo}'
                                   : placeholder;
 
-                              return ItemCell(searchViewModel.type, item, url);
+                              return ItemCell(
+                                  type: searchViewModel.type,
+                                  item: item,
+                                  url: url,
+                                  id: item.id);
                             },
                             pageFuture: (pageIndex) {
                               return model.fetchPage(pageIndex);
@@ -61,25 +65,40 @@ class _SearchViewState extends State<SearchView> {
   }
 }
 
-Widget ItemCell(SearchType type, dynamic item, String url) {
-  switch (type) {
-    case SearchType.Members:
-      var profile = item as Profile;
-      return MemberCell(
+class ItemCell extends StatelessWidget {
+  final SearchType type;
+  final dynamic item;
+  final String url;
+  final String id;
+
+  ItemCell({this.type, this.item, this.url, this.id});
+
+  @override
+  Widget build(BuildContext context) {
+    MemberCell memberCell;
+
+    switch (type) {
+      case SearchType.Members:
+        var profile = item as Profile;
+        return MemberCell(
           imageUrl: url,
           name: profile.name,
           friendlyLocation: profile.friendlyLocation,
           instruments: profile.instruments,
-          followers: profile.followers);
-      break;
-    case SearchType.Locals:
-      var local = item as Local;
-      return LocalCell(
-        imageUrl: url,
-        name: local.name,
-        price: local.price,
-        description: local.description,
-      );
-      break;
+          followers: profile.followers,
+          id: id,
+        );
+        break;
+      case SearchType.Locals:
+        var local = item as Local;
+        return LocalCell(
+          imageUrl: url,
+          name: local.name,
+          price: local.price,
+          description: local.description,
+        );
+        break;
+    }
+    return memberCell;
   }
 }

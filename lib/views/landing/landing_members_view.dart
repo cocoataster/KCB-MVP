@@ -44,6 +44,7 @@ class _LandingMembersViewState extends State<LandingMembersView> {
 
                           return LandingMemberCell(
                             imageUrl: url,
+                            id: profile.id,
                             name: profile.name,
                             friendlyLocation: profile.friendlyLocation,
                             instruments: profile.instruments,

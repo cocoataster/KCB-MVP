@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:sounds_good/views/profile/profile_view.dart';
 import 'package:sounds_good/views/search/widgets/cell_member_data.dart';
 
 class MemberCell extends StatelessWidget {
+  final String id;
   final String imageUrl;
   final String name;
   final String friendlyLocation;
@@ -9,7 +11,8 @@ class MemberCell extends StatelessWidget {
   final List<dynamic> followers;
 
   MemberCell(
-      {this.imageUrl,
+      {this.id,
+      this.imageUrl,
       this.name,
       this.friendlyLocation,
       this.instruments,
@@ -26,7 +29,14 @@ class MemberCell extends StatelessWidget {
       ),
       child: InkWell(
         splashColor: Colors.blueGrey.withAlpha(30),
-        onTap: () {},
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ProfileView(id),
+            ),
+          );
+        },
         child: Stack(
           children: <Widget>[
             Container(

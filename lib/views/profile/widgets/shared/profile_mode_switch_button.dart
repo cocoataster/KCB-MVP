@@ -4,16 +4,12 @@ import 'package:sounds_good/core/utils/enums.dart';
 import 'package:sounds_good/core/viewmodels/profile_viewmodel.dart';
 
 class ProfileModeSwitchButton extends StatelessWidget {
-  void _switchMode(mode) {
-    //var mode = Provider.of<ProfileModeViewModel>(context, listen: false);
+  
+  void _switchMode(mode, context) {
     ProfileMode profileMode = mode.getMode;
-    profileMode == ProfileMode.Own ? mode.setMode(ProfileMode.Edit) : mode.setMode(ProfileMode.Own);
-  }
-
-  Icon _icon(profileMode) {
-    return profileMode == ProfileMode.Own
-        ? Icon(Icons.edit, color: Colors.black, semanticLabel: 'Edit Profile')
-        : Icon(Icons.close, color: Colors.black, semanticLabel: 'Close Profile');
+    profileMode == ProfileMode.Own
+        ? mode.setMode(ProfileMode.Edit)
+        : Navigator.pop(context);
   }
 
   @override
@@ -29,8 +25,12 @@ class ProfileModeSwitchButton extends StatelessWidget {
             backgroundColor: Colors.white,
             elevation: 4,
             shape: CircleBorder(),
-            child: _icon(mode.getMode),
-            onPressed: () => _switchMode(mode),
+            child: mode.getMode == ProfileMode.Own
+                ? Icon(Icons.edit,
+                    color: Colors.black, semanticLabel: 'Edit Profile')
+                : Icon(Icons.close,
+                    color: Colors.black, semanticLabel: 'Close Profile'),
+            onPressed: () => _switchMode(mode, context),
           ),
         ),
       ),

@@ -4,14 +4,19 @@ import 'package:image_cropper/image_cropper.dart';
 import 'dart:async';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:sounds_good/core/services/api.dart';
+import 'package:sounds_good/core/utils/enums.dart';
 import 'package:sounds_good/core/viewmodels/profile_viewmodel.dart';
 
-class EditProfileImage extends StatefulWidget {
+class ProfileImage extends StatefulWidget {
+  final String avatarURL;
+  ProfileImage({this.avatarURL});
+
   @override
-  _EditProfileImageState createState() => _EditProfileImageState();
+  _ProfileImageState createState() => _ProfileImageState();
 }
 
-class _EditProfileImageState extends State<EditProfileImage> {
+class _ProfileImageState extends State<ProfileImage> {
   ImageProvider<dynamic> _avatarImageProvider;
   bool _profileHasAvatar = false;
 
@@ -27,7 +32,7 @@ class _EditProfileImageState extends State<EditProfileImage> {
     super.initState();
   }
 
- Future<void> cropImage({File pickedImage}) async {
+  Future<void> cropImage({File pickedImage}) async {
     File croppedImage = await ImageCropper.cropImage(
         sourcePath: pickedImage.path,
         aspectRatioPresets: [
@@ -95,7 +100,7 @@ class _EditProfileImageState extends State<EditProfileImage> {
   @override
   Widget build(BuildContext context) {
     return Consumer<ProfileViewModel>(
-      builder: (context, model, child) => Padding(
+      builder: (context, profileViewModel, child) => Padding(
         padding: const EdgeInsets.only(top: 20.0, left: 10.0, right: 10.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -108,63 +113,71 @@ class _EditProfileImageState extends State<EditProfileImage> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(24.0),
               ),
-              child: InkWell(
-                onTap: () => getImage(),
-                child: Container(
-                  child: Stack(
-                    alignment: AlignmentDirectional.center,
-                    children: <Widget>[
-                      Image(
-                        image: _avatarImageProvider,
-                        fit: BoxFit.fill,
-                        width: MediaQuery.of(context).size.width - 68.0,
-                        height: MediaQuery.of(context).size.width - 88.0,
-                      ),
-                      Container(
-                        width: 200,
-                        height: 130,
-                        decoration: BoxDecoration(
-                          borderRadius:
-                              BorderRadius.all(const Radius.circular(24.0)),
-                          color: Colors.black38,
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.all(5.0),
-                          child: Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.add_a_photo,
-                                  color: _profileHasAvatar
-                                      ? Colors.white54
-                                      : Colors.blueGrey.shade100,
-                                  size: 80.0,
-                                ),
-                                _profileHasAvatar
-                                    ? Text(
-                                        'Change your profile Image',
-                                        style: TextStyle(
-                                          color: Colors.white70,
-                                        ),
-                                      )
-                                    : Text(
-                                        'Add a profile Image',
-                                        style: TextStyle(
-                                          color: Colors.blueGrey.shade300,
-                                        ),
-                                      ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
+              child: Stack(
+                alignment: AlignmentDirectional.center,
+                children: <Widget>[
+                  Image(
+                    image: _avatarImageProvider,
+                    fit: BoxFit.fill,
+                    width: MediaQuery.of(context).size.width - 68.0,
+                    height: MediaQuery.of(context).size.width - 88.0,
                   ),
-                ),
+                  if (profileViewModel.getMode == ProfileMode.Edit)
+                    InkWell(
+                      onTap: () => getImage(),
+                      child: Container(
+                        child: AddIconToAvatar(hasAvatar: _profileHasAvatar),
+                      ),
+                    ),
+                ],
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class AddIconToAvatar extends StatelessWidget {
+  final bool hasAvatar;
+  const AddIconToAvatar({this.hasAvatar});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 200,
+      height: 130,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(const Radius.circular(24.0)),
+        color: Colors.black38,
+      ),
+      child: Padding(
+        padding: EdgeInsets.all(5.0),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.add_a_photo,
+                color: hasAvatar ? Colors.white54 : Colors.blueGrey.shade100,
+                size: 80.0,
+              ),
+              hasAvatar
+                  ? Text(
+                      'Change your profile Image',
+                      style: TextStyle(
+                        color: Colors.white70,
+                      ),
+                    )
+                  : Text(
+                      'Add a profile Image',
+                      style: TextStyle(
+                        color: Colors.blueGrey.shade300,
+                      ),
+                    ),
+            ],
+          ),
         ),
       ),
     );

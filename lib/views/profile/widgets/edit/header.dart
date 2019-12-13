@@ -13,6 +13,12 @@ class _EditProfileHeaderState extends State<EditProfileHeader> {
       TextEditingController();
 
   @override
+  void initState() {
+    Provider.of<ProfileViewModel>(context, listen: false).fetchProfile();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     var model = Provider.of<ProfileViewModel>(context);
     return Container(

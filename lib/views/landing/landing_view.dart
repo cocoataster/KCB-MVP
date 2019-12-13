@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
 import 'package:sounds_good/core/viewmodels/search_viewmodel.dart';
 import 'package:sounds_good/views/landing/landing_members_view.dart';
@@ -12,6 +13,27 @@ class LandingView extends StatefulWidget {
 
 class _LandingViewState extends State<LandingView> {
   final SearchViewModel searchViewModel = SearchViewModel();
+
+  Position _currentPosition;
+
+  Position _getCurrentLocation() {
+    final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
+
+    geolocator
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.best)
+        .then((Position position) {
+      return geolocator;
+      // print('Current position: $position');
+    }).catchError((e) {
+      print(e);
+    });
+  }
+
+  @override
+  void initState() {
+    _currentPosition = _getCurrentLocation();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

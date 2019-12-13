@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
 import 'package:sounds_good/core/utils/enums.dart';
 import 'package:sounds_good/core/viewmodels/profile_viewmodel.dart';
 import 'package:sounds_good/views/profile/widgets/instruments_section.dart';
-import 'package:sounds_good/views/profile/profile_bottom_buttons_section.dart';
-import 'package:sounds_good/views/profile/profile_description_section.dart';
-import 'package:sounds_good/views/profile/profile_header_section.dart';
-import 'package:sounds_good/views/profile/profile_videos_section.dart';
+import 'package:sounds_good/views/profile/sections/profile_bottom_buttons_section.dart';
+import 'package:sounds_good/views/profile/sections/profile_description_section.dart';
+import 'package:sounds_good/views/profile/sections/profile_header_section.dart';
+import 'package:sounds_good/views/profile/sections/profile_videos_section.dart';
 
 
 class ProfileView extends StatefulWidget {
+  final String cuid;
+  ProfileView([this.cuid]);
+
   @override
   _ProfileViewState createState() => _ProfileViewState();
 }
@@ -19,22 +21,7 @@ class _ProfileViewState extends State<ProfileView> {
   
   ProfileViewModel profileViewModel = ProfileViewModel();
 
-  /* Para meter en la página de inicio y hacer llamada cada vez que haga falta 
-   Position _currentPosition;*/
-
-   _getCurrentLocation() {
-    final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
-
-    geolocator
-        .getCurrentPosition(desiredAccuracy: LocationAccuracy.best)
-        .then((Position position) {
-      // print('Current position: $position');
-    }).catchError((e) {
-      print(e);
-    });
-  }
-
-  Future<bool> _captureAndroidBackButton(profileMode) {
+   Future<bool> _captureAndroidBackButton(profileMode) {
     if (profileMode == ProfileMode.Edit) {
       setState(() {
         profileMode = ProfileMode.Own;
@@ -50,15 +37,20 @@ class _ProfileViewState extends State<ProfileView> {
   @override
   void initState() {
     super.initState();
-    profileViewModel.fetchProfile();
-    profileViewModel.fetchAvailableInstruments();
+    if(widget.cuid == null){
+      profileViewModel.fetchProfile();
+      profileViewModel.fetchAvailableInstruments();
+    } else {
+      print('Not Member');
+      profileViewModel.fetchMemberProfile(widget.cuid);
+      profileViewModel.setMode(ProfileMode.User);
+    }
   }
 
 
 
   @override
   Widget build(BuildContext context) {
-    _getCurrentLocation();
     return ChangeNotifierProvider<ProfileViewModel>(
       builder: (context) => profileViewModel,
       child: Consumer<ProfileViewModel>(

@@ -7,8 +7,8 @@ class InstrumentsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<ProfileViewModel>(
-      builder: (context, data, child) {      
-        List<String> instruments = data.profile.instruments;
+      builder: (context, profileViewModel, child) {      
+        List<String> instruments = profileViewModel.profile.instruments;
         return Wrap(
           spacing: 8.0,
           runSpacing: 4.0,

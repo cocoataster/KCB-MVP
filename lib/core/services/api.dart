@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:http_parser/http_parser.dart';
 import 'package:http/http.dart' as http;
 import 'package:sounds_good/core/models/instruments.dart';
@@ -15,23 +14,11 @@ class Api {
 
   var client = http.Client();
 
-  checkInternetConnection() async {
-    try {
-      final result = await InternetAddress.lookup('8.8.8.8');
-      print('Resutl: $result');
-      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        print('connected');
-      }
-    } on SocketException catch (_) {
-      print('not connected: $_');
-    }
-  }
-
   Future<bool> createUser({String email, String password}) async {
     var body = {"email": email, "password": password};
     var response = await client.post('$endpoint/users/create', body: body);
 
-    print('Create User Response: ${response.body}');
+    //print('Create User Response: ${response.body}');
 
     switch (response.statusCode) {
       case 200:
@@ -44,8 +31,8 @@ class Api {
   Future<bool> login(String email, String password) async {
     var body = {"email": email, "password": password};
     var response = await client.post('$endpoint/users/login', body: body);
-    print('Hola desde Login');
-    print('Login Response: ${response.body}');
+
+    //print('Login Response: ${response.body}');
 
     switch (response.statusCode) {
       case 200:
@@ -60,10 +47,9 @@ class Api {
   }
 
   Future<Profile> getProfile() async {
-    
     String token = await Storage.getToken();
 
-    print('Token: $token');
+    //print('Token: $token');
 
     Map<String, String> headers = {
       'Content-type': 'application/json',
@@ -93,7 +79,9 @@ class Api {
       'Authorization': token
     };
 
-    var response = await client.post('$endpoint/profile/$id', headers: headers);
+    var response = await client.get('$endpoint/profile/$id', headers: headers);
+
+   
     print('Profile ID Response: ${response.body}');
 
     switch (response.statusCode) {
@@ -101,6 +89,8 @@ class Api {
         var json = jsonDecode(response.body);
         return Profile.fromJson(json);
       default:
+        print(response.statusCode);
+        print(response.reasonPhrase);
         return Profile();
     }
   }

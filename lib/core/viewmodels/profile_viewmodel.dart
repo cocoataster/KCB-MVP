@@ -20,6 +20,7 @@ class ProfileViewModel extends BaseViewModel {
   File profileAvatarToUpdate;
   Instruments availableInstruments;
   Set<String> disabledAvailableInstruments = {};
+  bool _profileEdited = false;
 
   /*
   *   Profile Data
@@ -30,13 +31,20 @@ class ProfileViewModel extends BaseViewModel {
     profile = await _api.getProfile();
     setState(ViewState.Idle);
   }
-
-  void updateProfile() async {
+  
+  Future fetchMemberProfile(String id) async {
     setState(ViewState.Busy);
-    await _api.updateProfile(profile);
+    profile = await _api.getProfileWithId(id);
     setState(ViewState.Idle);
   }
 
+  void updateProfile() async {
+    await _api.updateProfile(profile);
+    _profileEdited = true;
+  }
+
+  bool checkProfileHasBeenEdited() => _profileEdited;
+  
   /*
   *   Profile Mode
   *   Own | Edit | User
@@ -52,7 +60,7 @@ class ProfileViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  /*
+   /*
   *   Avatar
   */
 
@@ -181,11 +189,13 @@ class ProfileViewModel extends BaseViewModel {
 
   void updateProfileName({name}) {
     profile.name = name;
+    print(name);
     notifyListeners();
   }
 
   void updateProfileLocation({friendlyLocation}) {
     profile.friendlyLocation = friendlyLocation;
+    print(friendlyLocation);
     notifyListeners();
   }
 
