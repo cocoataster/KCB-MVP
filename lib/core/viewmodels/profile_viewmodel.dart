@@ -70,7 +70,7 @@ class ProfileViewModel extends BaseViewModel {
   }
 
   void initializeAvatar() =>
-      profileAvatar = NetworkImage('${Api.endpoint}/${profile.photo}');
+      profileAvatar = NetworkImage('${Api.endpoint}/${profile.photo}?v=${DateTime.now().millisecondsSinceEpoch}');
 
   void avatarToUpdate({File imageFile}) {
     profileAvatarToUpdate = imageFile;
