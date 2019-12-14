@@ -8,6 +8,6 @@ class User {
   // TODO Reminder: Delete on production
   User.initial()
       : name = '',
-        email = 'cocoataster@gmail.com',
-        password = 'soundsgood';
+        email = 'alb.garciam@gmail.com',
+        password = '1234567';
 }

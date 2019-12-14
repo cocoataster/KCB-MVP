@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_pagewise/flutter_pagewise.dart';
+import 'package:provider/provider.dart';
+import 'package:sounds_good/core/utils/enums.dart';
+import 'package:sounds_good/core/viewmodels/notifications_viewmodel.dart';
 
 class NotificationsView extends StatefulWidget {
   NotificationsView({Key key}) : super(key: key);
@@ -8,143 +12,9 @@ class NotificationsView extends StatefulWidget {
 }
 
 class _NotificationsViewState extends State<NotificationsView> {
+  NotificationsViewModel notificationsViewModel = NotificationsViewModel();
+
   List<Widget> items = [
-    NotificationsRow(
-        asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band!',
-        button: 'Accept'),
-    NotificationsRow(
-        asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band!',
-        button: 'Accepted'),
-    NotificationsRow(
-        asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band!',
-        button: 'Accept'),
-    NotificationsRow(
-        asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band!',
-        button: 'Accepted'),
-    NotificationsRow(
-        asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band!',
-        button: 'Accept'),
-    NotificationsRow(
-        asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band!',
-        button: 'Accepted'),
-    NotificationsRow(
-        asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band!',
-        button: 'Accept'),
-    NotificationsRow(
-        asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band!',
-        button: 'Accepted'),
-    NotificationsRow(
-        asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band!',
-        button: 'Accept'),
-    NotificationsRow(
-        asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band!',
-        button: 'Accepted'),
-    NotificationsRow(
-        asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band!',
-        button: 'Accept'),
-    NotificationsRow(
-        asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band!',
-        button: 'Accepted'),
-    NotificationsRow(
-        asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band!',
-        button: 'Accept'),
-    NotificationsRow(
-        asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band!',
-        button: 'Accepted'),
-    NotificationsRow(
-        asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band!',
-        button: 'Accept'),
-    NotificationsRow(
-        asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band!',
-        button: 'Accepted'),
-    NotificationsRow(
-        asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band!',
-        button: 'Accept'),
-    NotificationsRow(
-        asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band!',
-        button: 'Accepted'),
-        NotificationsRow(
-        asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band!',
-        button: 'Accept'),
-    NotificationsRow(
-        asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band!',
-        button: 'Accepted'),
-    NotificationsRow(
-        asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band!',
-        button: 'Accept'),
-    NotificationsRow(
-        asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band!',
-        button: 'Accepted'),
-    NotificationsRow(
-        asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band!',
-        button: 'Accept'),
-    NotificationsRow(
-        asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band!',
-        button: 'Accepted'),
-    NotificationsRow(
-        asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band!',
-        button: 'Accept'),
-    NotificationsRow(
-        asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band!',
-        button: 'Accepted'),
-    NotificationsRow(
-        asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band!',
-        button: 'Accept'),
-    NotificationsRow(
-        asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band!',
-        button: 'Accepted'),
-    NotificationsRow(
-        asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band!',
-        button: 'Accept'),
-    NotificationsRow(
-        asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band!',
-        button: 'Accepted'),
-    NotificationsRow(
-        asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band!',
-        button: 'Accept'),
-    NotificationsRow(
-        asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band!',
-        button: 'Accepted'),
-    NotificationsRow(
-        asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band!',
-        button: 'Accept'),
-    NotificationsRow(
-        asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band!',
-        button: 'Accepted'),
     NotificationsRow(
         asset: 'assets/images/profile.png',
         notification: 'Paquito wants to join your band!',
@@ -169,10 +39,36 @@ class _NotificationsViewState extends State<NotificationsView> {
             ),
             Container(
               height: MediaQuery.of(context).size.height - 140,
-              child: ListView.builder(
-                itemCount: items.length,
-                itemBuilder: (BuildContext ctxt, int index) {
-                  return items[index];
+              child: PagewiseListView(
+                pageSize: notificationsViewModel.limit,
+                itemBuilder: (context, entry, index) {
+                  var notification =
+                      notificationsViewModel.notifications[index];
+
+                  var image = notification.info.image != ''
+                      ? notification.info.image
+                      : 'assets/images/profile.png';
+
+                  var sender = notification.info.senderName != ''
+                      ? notification.info.senderName
+                      : 'Sender is empty';
+
+                  var buttonText =
+                      notification.state == NotificationState.Pending
+                          ? 'Accept'
+                          : 'Accepted';
+
+                  print(notification.info.senderName);
+
+                  return NotificationsRow(
+                    asset: image,
+                    notification: sender,
+                    button: buttonText,
+                  );
+                },
+                pageFuture: (pageIndex) {
+                  return notificationsViewModel
+                      .fetchNotificationPage(pageIndex);
                 },
               ),
             ),

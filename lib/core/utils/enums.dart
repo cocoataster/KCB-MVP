@@ -16,6 +16,6 @@ enum AuthFormMode { Login, Signin }
 
 enum SearchType { Members, Locals }
 
-enum NotificationType { Follow }
+enum NotificationType { Follow, Other }
 
 enum NotificationState { Pending, Redeemed }

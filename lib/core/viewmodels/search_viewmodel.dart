@@ -56,22 +56,4 @@ class SearchViewModel extends BaseViewModel {
     type = searchType;
     notifyListeners();
   }
-
-  void resetProfileRequest() {
-    profileSearchRequest = SearchRequest(
-        name: "",
-        instruments: List<String>(),
-        maxDistance: 0.0,
-        limit: 2,
-        offset: 0,
-        total: 0);
-
-    this.profiles = [];
-  }
-
-  void resetRequest(SearchType type) {
-    localSearchRequest = SearchRequest(name: "", limit: 2, offset: 0, total: 0);
-
-    this.locals = [];
-  }
 }

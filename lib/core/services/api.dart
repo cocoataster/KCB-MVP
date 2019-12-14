@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'package:http_parser/http_parser.dart';
 import 'package:http/http.dart' as http;
+import 'package:sounds_good/core/models/notification_response.dart';
 import 'package:sounds_good/core/models/instruments.dart';
+import 'package:sounds_good/core/models/notification.dart';
 import 'package:sounds_good/core/models/profile.dart';
 import 'package:sounds_good/core/models/search_request.dart';
 import 'package:sounds_good/core/models/search_response.dart';
@@ -247,18 +249,18 @@ class Api {
     }
   }
 
-  Future<SearchResponse> getLocalsRequest() async {
+  Future<NotificationResponse> getNotifications(int limit, int offset) async {
     String token = await Storage.getToken();
-    Map<String, String> headers = {
-      'Content-type': 'application/json',
-      'Accept': 'application/json',
-      'Authorization': token
-    };
 
-    SearchType type = SearchType.Locals;
+    var headers = {"Authorization": token};
+    var parameters = '?';
 
-    var request = '$endpoint/search/local';
-    var response = await client.get(request, headers: headers);
+    parameters += 'limit=$limit&offset=$offset';
+
+    final response =
+        await client.get('$endpoint/notification$parameters', headers: headers);
+
+    print('Notification Response: ${response.body}');
 
     StatusCode statusCode = getStatusCode(response.statusCode);
 
@@ -266,17 +268,11 @@ class Api {
       case StatusCode.success:
         var json = jsonDecode(response.body);
         print(json);
-        return SearchResponse.fromJson(json, type);
+        return NotificationResponse.fromJson(json);
       case StatusCode.clientError:
-        var json = jsonDecode(response.body);
-        var error = json["message"];
-        return Future.error('Error', StackTrace.fromString(error));
       case StatusCode.serverError:
-        var json = jsonDecode(response.body);
-        var error = json["message"];
-        return Future.error('Error', StackTrace.fromString(error));
       default:
-        return SearchResponse();
+        return NotificationResponse();
     }
   }
 }

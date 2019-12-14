@@ -20,7 +20,7 @@ class _SearchViewState extends State<SearchView> {
 
   @override
   void initState() {
-    searchViewModel.type = SearchType.Locals;
+    searchViewModel.type = SearchType.Members;
     super.initState();
   }
 
@@ -59,7 +59,7 @@ Widget searchList(SearchViewModel searchViewModel) {
           pageSize: searchViewModel.profileSearchRequest.limit,
           padding: EdgeInsets.all(15.0),
           itemBuilder: (context, entry, index) {
-            var placeholder = 'https://picsum.photos/250?image=9';
+            var placeholder = 'assets/images/profile.png';
             var profile = searchViewModel.profiles[index];
 
             var url = profile.photo != ""
@@ -85,7 +85,7 @@ Widget searchList(SearchViewModel searchViewModel) {
           pageSize: searchViewModel.localSearchRequest.limit,
           padding: EdgeInsets.all(15.0),
           itemBuilder: (context, entry, index) {
-            var placeholder = 'https://picsum.photos/250?image=9';
+            var placeholder = 'assets/images/profile.png';
             var local = searchViewModel.locals[index];
 
             var url = local.photos.first != ""

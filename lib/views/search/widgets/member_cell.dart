@@ -40,12 +40,19 @@ class MemberCell extends StatelessWidget {
         child: Stack(
           children: <Widget>[
             Container(
-              child: Image.network(
-                imageUrl,
-                fit: BoxFit.cover,
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.width - 20,
-              ),
+              child: imageUrl.contains('http')
+                  ? Image.network(
+                      imageUrl,
+                      fit: BoxFit.cover,
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.width - 20,
+                    )
+                  : Image.asset(
+                      imageUrl,
+                      fit: BoxFit.cover,
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.width - 20,
+                    ),
             ),
             Positioned(
                 child: CellMemberData(
