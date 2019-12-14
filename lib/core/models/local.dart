@@ -37,16 +37,25 @@ class Local {
     List<String> photosList = List<String>();
     if (json['photos'] != []) {
       var photos = json['photos'];
-      photosList = List<String>.from(photos);
+      if (photos != []) {
+        photosList = List<String>.from(photos);
+        if (photosList.length == 0) {
+          photosList = [""];
+        }
+      } else {
+        photos = [""];
+      }
     } else {
-      photosList = [];
+      photosList = [""];
     }
+
+    double price = json['price'] != null ? json['price'] * 1.0 : 0.0;
 
     return Local(
       id: json['cuid'],
       name: json['name'] != null ? json['name'] : '',
       location: location,
-      price: json['price'] != null ? json['price'] : 0.0,
+      price: price,
       contactMethod: contactMethod,
       photos: photosList,
       description: json['description'] != null ? json['description'] : '',

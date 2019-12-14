@@ -7,7 +7,9 @@ class Storage {
   // Save user ID for profile
 
   static void saveUserId(String id) async {
-    await manager.write(key: "Id", value: id);
+    if (id != null) {
+      await manager.write(key: "Id", value: id);
+    }
   }
 
   // Save user token for authentication
@@ -35,4 +37,3 @@ class Storage {
     await manager.deleteAll();
   }
 }
-             

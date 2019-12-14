@@ -1,0 +1,20 @@
+{
+  "cuid": "ck2rirdx70000ndpcci97a9m5",
+  "dateAdded": "2019-11-09T12:02:24.195Z",
+  "name": "Sala mandra!",
+  "location": {
+    "lat": 40.33,
+    "long": 0.5
+  },
+  "price": 20,
+  "contact": {
+    "type": "phone",
+    "data": "+34671646356"
+  },
+  "photos": [
+    "img/ck2rirdx70000ndpcci97a9m5_ck45qt7670000rfpc4qk4gh2y.jpg",
+    "img/ck2rirdx70000ndpcci97a9m5_ck45qtfj40001rfpcdhmig3nx.jpg",
+    "img/ck2rirdx70000ndpcci97a9m5_ck45qu2rf0002rfpcf3e45ssx.jpg"
+  ],
+  "description": "Lorem ipsum dolor ..."
+}

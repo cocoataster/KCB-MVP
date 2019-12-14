@@ -29,7 +29,7 @@ class LandingViewModel extends BaseViewModel {
     setState(ViewState.Busy);
     searchRequest.offset = pageIndex * limit;
     SearchResponse searchResponse =
-        await _api.getSearchProfiles(searchRequest, type);
+        await _api.getSearchItems(searchRequest, type);
 
     members += searchResponse.items;
     ++offset;
@@ -40,12 +40,10 @@ class LandingViewModel extends BaseViewModel {
   }
 
   Future<List<Local>> fetchLocals(pageIndex) async {
-    
     type = SearchType.Locals;
     setState(ViewState.Busy);
     searchRequest.offset = pageIndex * limit;
-    SearchResponse localsResponse =
-        await _api.getLocalsRequest();
+    SearchResponse localsResponse = await _api.getLocalsRequest();
 
     print('Locals: $localsResponse');
     locals += localsResponse.items;

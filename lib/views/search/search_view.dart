@@ -19,39 +19,25 @@ class _SearchViewState extends State<SearchView> {
   SearchViewModel searchViewModel = SearchViewModel();
 
   @override
+  void initState() {
+    searchViewModel.type = SearchType.Locals;
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<SearchViewModel>(
       builder: (context) => searchViewModel,
       child: Consumer<SearchViewModel>(
-        builder: (context, model, child) => Scaffold(
-          body: model.state == ViewState.Idle
+        builder: (context, searchViewModel, child) => Scaffold(
+          body: searchViewModel.state == ViewState.Idle
               ? SafeArea(
                   child: Stack(
                     children: <Widget>[
                       SearchFilters(),
                       Padding(
                         padding: EdgeInsets.only(top: 120),
-                        child: PagewiseListView(
-                            pageSize: model.limit,
-                            padding: EdgeInsets.all(15.0),
-                            itemBuilder: (context, entry, index) {
-                              var placeholder =
-                                  'https://picsum.photos/250?image=9';
-                              var item = model.items[index];
-
-                              var url = item.photo != ""
-                                  ? '${Api.endpoint}/${item.photo}'
-                                  : placeholder;
-
-                              return ItemCell(
-                                  type: searchViewModel.type,
-                                  item: item,
-                                  url: url,
-                                  id: item.id);
-                            },
-                            pageFuture: (pageIndex) {
-                              return model.fetchPage(pageIndex);
-                            }),
+                        child: searchList(searchViewModel),
                       ),
                     ],
                   ),
@@ -62,6 +48,61 @@ class _SearchViewState extends State<SearchView> {
         ),
       ),
     );
+  }
+}
+
+Widget searchList(SearchViewModel searchViewModel) {
+  switch (searchViewModel.type) {
+    case SearchType.Members:
+      print('Case search members');
+      return PagewiseListView(
+          pageSize: searchViewModel.profileSearchRequest.limit,
+          padding: EdgeInsets.all(15.0),
+          itemBuilder: (context, entry, index) {
+            var placeholder = 'https://picsum.photos/250?image=9';
+            var profile = searchViewModel.profiles[index];
+
+            var url = profile.photo != ""
+                ? '${Api.endpoint}/${profile.photo}'
+                : placeholder;
+
+            return MemberCell(
+              imageUrl: url,
+              name: profile.name,
+              friendlyLocation: profile.friendlyLocation,
+              instruments: profile.instruments,
+              followers: profile.followers,
+              id: profile.id,
+            );
+          },
+          pageFuture: (pageIndex) {
+            return searchViewModel.fetchProfilePage(pageIndex);
+          });
+      break;
+    case SearchType.Locals:
+      print('Case search Locals');
+      return PagewiseListView(
+          pageSize: searchViewModel.localSearchRequest.limit,
+          padding: EdgeInsets.all(15.0),
+          itemBuilder: (context, entry, index) {
+            var placeholder = 'https://picsum.photos/250?image=9';
+            var local = searchViewModel.locals[index];
+
+            var url = local.photos.first != ""
+                ? '${Api.endpoint}/${local.photos.first}'
+                : placeholder;
+
+            return LocalCell(
+              imageUrl: url,
+              name: local.name,
+              price: local.price,
+              description: local.description,
+            );
+          },
+          pageFuture: (pageIndex) {
+            return searchViewModel.fetchLocalPage(pageIndex);
+          });
+      break;
   }
 }
 

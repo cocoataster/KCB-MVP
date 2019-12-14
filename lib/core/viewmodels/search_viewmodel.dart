@@ -9,7 +9,7 @@ import 'package:sounds_good/core/viewmodels/base_viewmodel.dart';
 class SearchViewModel extends BaseViewModel {
   Api _api = Api();
 
-  SearchRequest searchRequest = SearchRequest(
+  SearchRequest profileSearchRequest = SearchRequest(
     name: "",
     instruments: List<String>(),
     maxDistance: 0.0,
@@ -17,35 +17,61 @@ class SearchViewModel extends BaseViewModel {
     offset: 0,
   );
 
-  SearchType type = SearchType.Members;
-  List<dynamic> items = [];
-  int limit = 2;
-  int offset = 0;
-  int total = 0;
+  SearchRequest localSearchRequest =
+      SearchRequest(name: "", limit: 2, offset: 0);
 
-  Future<List<Profile>> fetchPage(pageIndex) async {
+  SearchType type;
+
+  List<Profile> profiles = [];
+  List<Local> locals = [];
+
+  Future<List<Profile>> fetchProfilePage(pageIndex) async {
     setState(ViewState.Busy);
-    searchRequest.offset = pageIndex * limit;
+    profileSearchRequest.offset = pageIndex * profileSearchRequest.limit;
     SearchResponse searchResponse =
-        await _api.getSearchProfiles(searchRequest, type);
+        await _api.getSearchItems(profileSearchRequest, SearchType.Members);
 
-    items += searchResponse.items;
-    ++offset;
-    total = searchResponse.total;
+    profiles += searchResponse.items;
+    ++profileSearchRequest.offset;
+    profileSearchRequest.total = searchResponse.total;
     setState(ViewState.Idle);
 
     return searchResponse.items;
   }
 
-  void resetRequest(SearchType type) {
-    searchRequest = SearchRequest(
+  Future<List<Local>> fetchLocalPage(pageIndex) async {
+    setState(ViewState.Busy);
+    localSearchRequest.offset = pageIndex * localSearchRequest.limit;
+    SearchResponse searchResponse =
+        await _api.getSearchItems(localSearchRequest, SearchType.Locals);
+    locals += searchResponse.items;
+    ++localSearchRequest.offset;
+    localSearchRequest.total = searchResponse.total;
+    setState(ViewState.Idle);
+
+    return searchResponse.items;
+  }
+
+  void setType(SearchType searchType) {
+    type = searchType;
+    notifyListeners();
+  }
+
+  void resetProfileRequest() {
+    profileSearchRequest = SearchRequest(
         name: "",
         instruments: List<String>(),
         maxDistance: 0.0,
         limit: 2,
-        offset: 0);
-    //this.items = [];
-    this.offset = 0;
-    this.type = type;
+        offset: 0,
+        total: 0);
+
+    this.profiles = [];
+  }
+
+  void resetRequest(SearchType type) {
+    localSearchRequest = SearchRequest(name: "", limit: 2, offset: 0, total: 0);
+
+    this.locals = [];
   }
 }

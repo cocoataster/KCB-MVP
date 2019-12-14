@@ -6,6 +6,7 @@ class SearchRequest {
   double maxDistance;
   int limit;
   int offset;
+  int total;
 
   SearchRequest(
       {this.name,
@@ -14,6 +15,7 @@ class SearchRequest {
       this.maxDistance,
       this.limit,
       this.offset,
+      this.total,
       this.followers});
 
   String getName() {

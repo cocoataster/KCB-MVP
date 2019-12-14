@@ -60,7 +60,8 @@ class _SearchFiltersState extends State<SearchFilters> {
               onValueChanged: (selection) {
                 setState(() {
                   typeSelected = selection;
-                  search.resetRequest(selection);
+                  //search.resetRequest(selection);
+                  search.setType(selection);
                 });
               },
               groupValue: typeSelected,

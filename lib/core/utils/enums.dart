@@ -15,3 +15,7 @@ enum ContactMethodType { Email, Phone }
 enum AuthFormMode { Login, Signin }
 
 enum SearchType { Members, Locals }
+
+enum NotificationType { Follow }
+
+enum NotificationState { Pending, Redeemed }

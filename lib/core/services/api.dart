@@ -180,7 +180,7 @@ class Api {
     }
   }
 
-  Future<SearchResponse> getSearchProfiles(
+  Future<SearchResponse> getSearchItems(
       SearchRequest searchRequest, SearchType type) async {
     String token = await Storage.getToken();
 
@@ -221,7 +221,7 @@ class Api {
         break;
     }
 
-    var request = '$endpoint/search/$endpointSearch' + parameters;
+    var request = '$endpoint/search$endpointSearch' + parameters;
     print('Search Request: $request');
 
     var response = await client.get(request, headers: headers);
