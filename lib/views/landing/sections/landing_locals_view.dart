@@ -14,7 +14,6 @@ class LandingLocalsView extends StatefulWidget {
 }
 
 class _LandingLocalsViewState extends State<LandingLocalsView> {
-
   @override
   Widget build(BuildContext context) {
     return Consumer<LandingViewModel>(
@@ -25,29 +24,26 @@ class _LandingLocalsViewState extends State<LandingLocalsView> {
                   children: <Widget>[
                     PagewiseListView(
                         scrollDirection: Axis.horizontal,
-                        pageSize: landingViewModel.limit,
+                        pageSize: landingViewModel.localsRequest.limit,
                         padding: EdgeInsets.fromLTRB(12.0, 3.0, 12.0, 6.0),
                         itemBuilder: (context, entry, index) {
-                          
                           var placeholder = 'https://picsum.photos/250?image=9';
                           var local = landingViewModel.locals[index];
 
                           List<String> localPhotosURLs = [];
-                          local.photosList != []
-                              ? localPhotosURLs.add('${Api.endpoint}/${local.photosList[0]}')
+                          local.photos.first != ""
+                              ? localPhotosURLs
+                                  .add('${Api.endpoint}/${local.photos.first}')
                               : localPhotosURLs.add(placeholder);
 
-                          
-                          return Text(local.name);
-                          /*LandingLocalCell(
-                            photos: localPhotosURLs,
-                            id: local.id,
-                            name: local.name,
-                            friendlyLocation: local.friendlyLocation,
-                            price: local.price,
-                            contactMethod: local.contactMethod,
-                            description: local.description
-                          );*/
+                          return LandingLocalCell(
+                              photos: localPhotosURLs,
+                              id: local.id,
+                              name: local.name,
+                              friendlyLocation: "",
+                              price: local.price.toStringAsFixed(2),
+                              contactMethod: local.contactMethod,
+                              description: local.description);
                         },
                         pageFuture: (pageIndex) {
                           return landingViewModel.fetchLocals(pageIndex);

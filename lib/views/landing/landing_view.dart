@@ -73,7 +73,7 @@ class _LandingViewState extends State<LandingView> {
               ),
               Container(
                 height: (MediaQuery.of(context).size.height - 175) / 2,
-                child: LandingMembersView(),
+                child: LandingLocalsView(),
               ),
             ],
           ),

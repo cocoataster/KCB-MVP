@@ -14,7 +14,6 @@ class LandingMembersView extends StatefulWidget {
 }
 
 class _LandingMembersViewState extends State<LandingMembersView> {
-
   @override
   Widget build(BuildContext context) {
     return Consumer<LandingViewModel>(
@@ -25,7 +24,7 @@ class _LandingMembersViewState extends State<LandingMembersView> {
                   children: <Widget>[
                     PagewiseListView(
                         scrollDirection: Axis.horizontal,
-                        pageSize: landingViewModel.limit,
+                        pageSize: landingViewModel.profilesRequest.limit,
                         padding: EdgeInsets.fromLTRB(12.0, 3.0, 12.0, 6.0),
                         itemBuilder: (context, entry, index) {
                           var placeholder = 'https://picsum.photos/250?image=9';

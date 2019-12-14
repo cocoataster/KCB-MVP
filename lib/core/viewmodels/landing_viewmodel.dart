@@ -9,7 +9,7 @@ import 'package:sounds_good/core/viewmodels/base_viewmodel.dart';
 class LandingViewModel extends BaseViewModel {
   Api _api = Api();
 
-  SearchRequest searchRequest = SearchRequest(
+  SearchRequest profilesRequest = SearchRequest(
     name: "",
     instruments: List<String>(),
     maxDistance: 0.0,
@@ -17,52 +17,36 @@ class LandingViewModel extends BaseViewModel {
     offset: 0,
   );
 
-  SearchType type;
-  List<dynamic> members = [];
-  List<dynamic> locals = [];
-  int limit = 2;
-  int offset = 0;
-  int total = 0;
+  SearchRequest localsRequest = SearchRequest(name: "", limit: 2, offset: 0);
+
+  List<Profile> members = [];
+  List<Local> locals = [];
 
   Future<List<Profile>> fetchMembers(pageIndex) async {
-    type = SearchType.Members;
     setState(ViewState.Busy);
-    searchRequest.offset = pageIndex * limit;
+    profilesRequest.offset = pageIndex * profilesRequest.limit;
     SearchResponse searchResponse =
-        await _api.getSearchItems(searchRequest, type);
+        await _api.getSearchItems(profilesRequest, SearchType.Members);
 
     members += searchResponse.items;
-    ++offset;
-    total = searchResponse.total;
+    ++profilesRequest.offset;
+    profilesRequest.total = searchResponse.total;
     setState(ViewState.Idle);
 
     return searchResponse.items;
   }
 
   Future<List<Local>> fetchLocals(pageIndex) async {
-    type = SearchType.Locals;
     setState(ViewState.Busy);
-    searchRequest.offset = pageIndex * limit;
-    SearchResponse localsResponse = await _api.getLocalsRequest();
+    localsRequest.offset = pageIndex * localsRequest.limit;
+    SearchResponse localsResponse =
+        await _api.getSearchItems(localsRequest, SearchType.Locals);
 
-    print('Locals: $localsResponse');
     locals += localsResponse.items;
-    ++offset;
-    total = localsResponse.total;
+    ++localsRequest.offset;
+    localsRequest.total = localsResponse.total;
     setState(ViewState.Idle);
 
     return localsResponse.items;
-  }
-
-  void resetRequest(SearchType type) {
-    searchRequest = SearchRequest(
-        name: "",
-        instruments: List<String>(),
-        maxDistance: 0.0,
-        limit: 2,
-        offset: 0);
-    //this.items = [];
-    this.offset = 0;
-    this.type = type;
   }
 }
