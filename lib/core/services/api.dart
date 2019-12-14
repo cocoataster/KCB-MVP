@@ -81,7 +81,6 @@ class Api {
 
     var response = await client.get('$endpoint/profile/$id', headers: headers);
 
-   
     print('Profile ID Response: ${response.body}');
 
     switch (response.statusCode) {
@@ -227,6 +226,39 @@ class Api {
 
     var response = await client.get(request, headers: headers);
     print('Search Response: ${response.body}');
+
+    StatusCode statusCode = getStatusCode(response.statusCode);
+
+    switch (statusCode) {
+      case StatusCode.success:
+        var json = jsonDecode(response.body);
+        print(json);
+        return SearchResponse.fromJson(json, type);
+      case StatusCode.clientError:
+        var json = jsonDecode(response.body);
+        var error = json["message"];
+        return Future.error('Error', StackTrace.fromString(error));
+      case StatusCode.serverError:
+        var json = jsonDecode(response.body);
+        var error = json["message"];
+        return Future.error('Error', StackTrace.fromString(error));
+      default:
+        return SearchResponse();
+    }
+  }
+
+  Future<SearchResponse> getLocalsRequest() async {
+    String token = await Storage.getToken();
+    Map<String, String> headers = {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': token
+    };
+
+    SearchType type = SearchType.Locals;
+
+    var request = '$endpoint/search/local';
+    var response = await client.get(request, headers: headers);
 
     StatusCode statusCode = getStatusCode(response.statusCode);
 
