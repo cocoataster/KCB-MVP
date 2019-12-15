@@ -18,7 +18,6 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Sounds Good',
         theme: ThemeData(
-          accentColor: Colors.red[400],
           textTheme: TextTheme(
             headline: TextStyle(
                 fontSize: 22.0,
