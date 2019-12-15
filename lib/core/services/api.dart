@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http_parser/http_parser.dart';
 import 'package:http/http.dart' as http;
+import 'package:sounds_good/core/models/local.dart';
 import 'package:sounds_good/core/models/notification_response.dart';
 import 'package:sounds_good/core/models/instruments.dart';
 import 'package:sounds_good/core/models/notification.dart';
@@ -16,6 +17,8 @@ class Api {
 
   var client = http.Client();
 
+  /* Create User */
+
   Future<bool> createUser({String email, String password}) async {
     var body = {"email": email, "password": password};
     var response = await client.post('$endpoint/users/create', body: body);
@@ -29,6 +32,8 @@ class Api {
         return false;
     }
   }
+
+  /* Log-in User */
 
   Future<bool> login(String email, String password) async {
     var body = {"email": email, "password": password};
@@ -47,6 +52,8 @@ class Api {
         return false;
     }
   }
+
+  /* Get Profile */
 
   Future<Profile> getProfile() async {
     String token = await Storage.getToken();
@@ -72,6 +79,8 @@ class Api {
     }
   }
 
+  /* Get Profile with ID */
+
   Future<Profile> getProfileWithId(String id) async {
     String token = await Storage.getToken();
 
@@ -96,6 +105,34 @@ class Api {
     }
   }
 
+  /* Get Local with ID */
+
+  Future<Local> getLocalWithId(String id) async {
+    String token = await Storage.getToken();
+
+    Map<String, String> headers = {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': token
+    };
+
+    var response = await client.get('$endpoint/profile/$id', headers: headers);
+
+    print('Local ID Response: ${response.body}');
+
+    switch (response.statusCode) {
+      case 200:
+        var json = jsonDecode(response.body);
+        return Local.fromJson(json);
+      default:
+        print(response.statusCode);
+        print(response.reasonPhrase);
+        return Local();
+    }
+  }
+
+  /* Update Profile Information */
+
   Future<Profile> updateProfile(Profile profile) async {
     String token = await Storage.getToken();
 
@@ -118,9 +155,7 @@ class Api {
     }
   }
 
-  /// Update Avatar
-  ///
-  /// Updates your profile picture
+  /* Update Profile Photo */
 
   updateAvatar(String filePath) async {
     var response = await uploadPhoto('$endpoint/profile/avatar', filePath);
@@ -152,7 +187,8 @@ class Api {
     return response;
   }
 
-  // Get the available instruments list from server
+  /* Get List of Available Instruments */
+
   Future<Instruments> getInstruments() async {
     String token = await Storage.getToken();
 
@@ -181,6 +217,8 @@ class Api {
         return Instruments();
     }
   }
+
+  /* Get Search Response for Members or Profiles */
 
   Future<SearchResponse> getSearchItems(
       SearchRequest searchRequest, SearchType type) async {
@@ -248,6 +286,8 @@ class Api {
         return SearchResponse();
     }
   }
+
+  /* Get Notifications */
 
   Future<NotificationResponse> getNotifications(int limit, int offset) async {
     String token = await Storage.getToken();
