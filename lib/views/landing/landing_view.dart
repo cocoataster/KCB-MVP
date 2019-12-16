@@ -61,7 +61,7 @@ class _LandingViewState extends State<LandingView> {
                 ),
               ),
               Container(
-                height: (MediaQuery.of(context).size.height - 175) / 2,
+                height: (MediaQuery.of(context).size.height - 185) / 2,
                 child: LandingLocalsView(),
               ),
               Padding(
@@ -72,7 +72,7 @@ class _LandingViewState extends State<LandingView> {
                 ),
               ),
               Container(
-                height: (MediaQuery.of(context).size.height - 175) / 2,
+                height: (MediaQuery.of(context).size.height - 185) / 2,
                 child: LandingMembersView(),
               ),
             ],

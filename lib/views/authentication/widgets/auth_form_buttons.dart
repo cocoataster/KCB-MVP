@@ -1,13 +1,16 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:sounds_good/core/utils/colors.dart';
 import 'package:sounds_good/core/utils/enums.dart';
+import 'package:sounds_good/core/utils/text_strings.dart';
+import 'package:sounds_good/core/utils/text_styles.dart';
 import 'package:sounds_good/core/viewmodels/authentication_viewmodel.dart';
+import 'package:sounds_good/views/shared_resources/full_width_button.dart';
 
 class AccessFormButtons extends StatefulWidget {
   final GlobalKey<FormState> formKey;
-
   AccessFormButtons({this.formKey});
 
   @override
@@ -24,25 +27,7 @@ class _AccessFormButtonsState extends State<AccessFormButtons> {
     super.initState();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Consumer<AuthenticationViewModel>(
-      builder: (context, authViewModel, child) =>
-          authViewModel.getMode == AuthFormMode.Login
-              ? LoginButtons(formKey: widget.formKey)
-              : SigninButtons(formKey: widget.formKey),
-    );
-  }
-}
-
-class LoginButtons extends StatelessWidget {
-  final GlobalKey<FormState> formKey;
-
-  LoginButtons({this.formKey});
-
-  final AuthenticationViewModel viewModel = AuthenticationViewModel();
-
-  _handleLogin(context) async {
+  _handleLogin() async {
     bool loginSuccess = false;
     var providerOfAuth =
         Provider.of<AuthenticationViewModel>(context, listen: false);
@@ -57,83 +42,73 @@ class LoginButtons extends StatelessWidget {
     return;
   }
 
+  _handleSignin() async {
+    bool signinSuccess = false;
+    bool loginSuccess = false;
+    var providerOfAuth =
+        Provider.of<AuthenticationViewModel>(context, listen: false);
+    String email = providerOfAuth.getEmail();
+    String password = providerOfAuth.getPassword();
 
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Padding(
-          padding: EdgeInsets.only(top: 20.0),
-          child: RaisedButton(
-            color: Theme.of(context).accentColor,
-            child: Text('Login',
-                style: TextStyle(fontSize: 16, color: Colors.white)),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-            onPressed: () => _handleLogin(context),
-          ),
-        ),
-      ],
-    );
-  }
-}
+    signinSuccess =
+        await providerOfAuth.signin(email: email, password: password);
 
-class SigninButtons extends StatelessWidget {
-  final AuthenticationViewModel viewModel = AuthenticationViewModel();
-
-  final GlobalKey<FormState> formKey;
-  SigninButtons({this.formKey});
-
-  @override
-  Widget build(BuildContext context) {
-    _handleSignin() async {
-      bool signinSuccess = false;
-      bool loginSuccess = false;
-      var providerOfAuth =
-          Provider.of<AuthenticationViewModel>(context, listen: false);
-      String email = providerOfAuth.getEmail();
-      String password = providerOfAuth.getPassword();
-
-      signinSuccess = await viewModel.signin(email: email, password: password);
-
-      if (signinSuccess) {
-        loginSuccess = await viewModel.login(email: email, password: password);
-      }
-
-      if (loginSuccess) {
-        Navigator.pushNamed(context, 'profile');
-      }
+    if (signinSuccess) {
+      loginSuccess =
+          await providerOfAuth.login(email: email, password: password);
     }
 
-    return Padding(
-      padding: EdgeInsets.only(top: 40.0),
-      child: Column(
+    if (loginSuccess) {
+      Navigator.pushNamed(context, 'profile');
+    }
+  }
+
+  _handleClose() {
+    SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+  }
+
+  _handleCancel() {
+    Provider.of<AuthenticationViewModel>(context, listen: false)
+        .setMode(AuthFormMode.Login);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<AuthenticationViewModel>(
+      builder: (context, authViewModel, child) => Column(
         children: <Widget>[
-          RaisedButton(
-            color: AppColors.firstLevelCTAColor,
-            child: Text('Create Account',
-                style: TextStyle(fontSize: 16, color: Colors.white)),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10.0),
+          Padding(
+            padding: EdgeInsets.only(top: 20.0),
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width - 48.0,
+              child: RaisedButton(
+                  color: AppColors.firstLevelCTAColor,
+                  child: authViewModel.getMode == AuthFormMode.Login
+                      ? Text(
+                          TextStrings.authentication_login_button_value,
+                          style: TextStyles.buttons_value,
+                        )
+                      : Text(
+                          TextStrings.authentication_signin_button_value,
+                          style: TextStyles.buttons_value,
+                        ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  onPressed: () => authViewModel.getMode == AuthFormMode.Login
+                      ? _handleLogin()
+                      : _handleSignin()),
             ),
-            onPressed: () {
-              final form = formKey.currentState;
-              if (form.validate()) {
-                _handleSignin();
-              }
-            },
           ),
-          RaisedButton(
-              color: AppColors.secondLevelCTAColor,
-              child: Text('Cancel',
-                  style: TextStyle(fontSize: 16, color: Colors.white)),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              onPressed: () =>
-                  Provider.of<AuthenticationViewModel>(context, listen: false)
-                      .setMode(AuthFormMode.Login))
+          FullWidthButton(
+            color: Colors.grey.shade200,
+            value: authViewModel.getMode == AuthFormMode.Login
+                ? TextStrings.authentication_close_app_button_value
+                : TextStrings.authentication_cancel_button_value,
+            onPressed: authViewModel.getMode == AuthFormMode.Login
+                ? _handleClose
+                : _handleCancel,
+          )
         ],
       ),
     );

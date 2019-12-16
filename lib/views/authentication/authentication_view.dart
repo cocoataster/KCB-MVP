@@ -66,9 +66,8 @@ class _AuthFormViewState extends State<AuthFormView> {
                       Padding(
                         padding: EdgeInsets.only(top: 50),
                         child: Center(
-                          child: Image.asset(
-                            'assets/images/logo.png', width: 150, fit: BoxFit.cover
-                          ),
+                          child: Image.asset('assets/images/logo.png',
+                              width: 150, fit: BoxFit.cover),
                         ),
                       ),
                       if (authViewModel.getMode == AuthFormMode.Signin)
@@ -100,24 +99,28 @@ class _AuthFormViewState extends State<AuthFormView> {
                         errorMessage: TextStrings.authentication_password_error,
                         action: _updatePassword,
                       ),
-                      if (authViewModel.getMode == AuthFormMode.Login) Padding(
-                        padding: EdgeInsets.only(top: 40.0),
-                        child: InkWell(
-                          child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Text('Don´t have an accout? '),
-                                Text(
-                                  'Register here',
-                                  style: TextStyle(color: Colors.red),
-                                ),
-                              ]),
-                          onTap: () => Provider.of<AuthenticationViewModel>(
-                                  context,
-                                  listen: false)
-                              .setMode(AuthFormMode.Signin),
-                        ),
-                      )
+                      if (authViewModel.getMode == AuthFormMode.Login)
+                        Padding(
+                          padding: EdgeInsets.only(top: 40.0),
+                          child: InkWell(
+                            child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Text(
+                                    TextStrings
+                                      .authentication_register_message),
+                                  Text(
+                                    TextStrings
+                                        .authentication_register_message_highlited,
+                                    style: TextStyle(color: Colors.red),
+                                  ),
+                                ]),
+                            onTap: () => Provider.of<AuthenticationViewModel>(
+                                    context,
+                                    listen: false)
+                                .setMode(AuthFormMode.Signin),
+                          ),
+                        )
                     ],
                   ),
                   AccessFormButtons(formKey: _formKey),
