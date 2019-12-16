@@ -5,6 +5,7 @@ import 'package:sounds_good/core/utils/enums.dart';
 class Local {
   final String id;
   String name;
+  String friendlyLocation;
   Location location;
   double price;
   ContactMethod contactMethod;
@@ -13,6 +14,7 @@ class Local {
 
   Local(
       {this.id,
+      this.friendlyLocation,
       this.name,
       this.location,
       this.price,
@@ -54,6 +56,8 @@ class Local {
     return Local(
       id: json['cuid'],
       name: json['name'] != null ? json['name'] : '',
+      friendlyLocation:
+          json['friendlyLocation'] != null ? json['fiendlyLocation'] : '',
       location: location,
       price: price,
       contactMethod: contactMethod,
@@ -68,6 +72,7 @@ class Local {
     data['name'] = this.name;
     data['location'] = this.location.toJson();
     data['price'] = this.price;
+    data['friendlyLocation'] = this.friendlyLocation;
     data['contact'] = this.contactMethod.toJson();
     data['photos'] = this.photos;
     data['description'] = this.description;

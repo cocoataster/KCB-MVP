@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sounds_good/core/utils/enums.dart';
+import 'package:sounds_good/core/utils/text_strings.dart';
 import 'package:sounds_good/core/viewmodels/profile_viewmodel.dart';
-import 'package:sounds_good/views/profile/widgets/shared/section_title.dart';
+import 'package:sounds_good/views/shared_resources/section_title.dart';
 
 class ProfileDescriptionSection extends StatelessWidget {
   @override
@@ -15,7 +16,7 @@ class ProfileDescriptionSection extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                ProfileSectionTitle(sectionTitle: 'About me'),
+                SectionTitle(sectionTitle: TextStrings.profile_description_section_title),
                 model.getMode == ProfileMode.Edit
                     ? _editModeWidget(model, context)
                     : _plainWidget(model),
@@ -33,7 +34,7 @@ class ProfileDescriptionSection extends StatelessWidget {
       style: TextStyle(color: Colors.blueGrey.shade300),
       initialValue: model.profile.description,
       decoration: InputDecoration(
-          hintText: 'Tell us about you',
+          hintText: TextStrings.profile_edit_description_hint,
           contentPadding: EdgeInsets.all(0),
           focusedBorder: UnderlineInputBorder(
               borderSide:

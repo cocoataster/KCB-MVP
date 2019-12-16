@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:sounds_good/core/utils/text_styles.dart';
 
-
-class ProfileSectionTitle extends StatelessWidget {
-  ProfileSectionTitle({this.sectionTitle}):super();
+class SectionTitle extends StatelessWidget {
+  SectionTitle({this.sectionTitle}) : super();
   final String sectionTitle;
 
   @override
@@ -11,9 +11,10 @@ class ProfileSectionTitle extends StatelessWidget {
         padding: const EdgeInsets.only(top: 20.0),
         child: Row(
           children: <Widget>[
-            Text(sectionTitle,
-                style: Theme.of(context).textTheme.headline
-                ),
+            Text(
+              sectionTitle,
+              style: TextStyles.section_header,
+            ),
           ],
         ));
   }

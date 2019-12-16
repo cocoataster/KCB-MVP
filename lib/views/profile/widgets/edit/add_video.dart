@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:sounds_good/core/utils/text_strings.dart';
+import 'package:sounds_good/core/utils/text_styles.dart';
 
 typedef void AddVideoCallback(String videoUrl);
 
@@ -25,7 +27,7 @@ class AddVideo extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(top: 6.0),
                 child: Text(
-                  'Add a video',
+                  TextStrings.profile_edit_add_video_title,
                   style: TextStyle(
                     color: Colors.blueGrey.shade300,
                   ),
@@ -57,8 +59,7 @@ class _VideoDialogState extends State<VideoDialog> {
   String url;
 
   youtubeURL(String value) {
-    Pattern pattern = r'^(https?\:\/\/)?((www\.)?youtube\.com|youtu\.?be)\/.+$';
-    RegExp regex = new RegExp(pattern);
+    RegExp regex = new RegExp(TextStrings.youTubePattern);
     if (!regex.hasMatch(value)) {
       setState(() {
         validate = false;
@@ -85,7 +86,7 @@ class _VideoDialogState extends State<VideoDialog> {
             Padding(
                 padding: EdgeInsets.all(15.0),
                 child: Text(
-                  'Insert a valid YouTube URL',
+                  TextStrings.profile_edit_add_video_youtube_url_error,
                   style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w600),
                 )),
             Padding(
@@ -100,7 +101,7 @@ class _VideoDialogState extends State<VideoDialog> {
                   decoration: InputDecoration(
                       prefixIcon:
                           validate ? Icon(Icons.check) : Icon(Icons.close),
-                      hintText: 'https://www.youtube.com/watch?v=KzTeWPkUxQs',
+                      hintText: TextStrings.profile_edit_add_video_youtube_hint,
                       border: OutlineInputBorder(
                         borderSide:
                             BorderSide(color: Colors.blueAccent, width: 12.0),
@@ -127,8 +128,8 @@ class _VideoDialogState extends State<VideoDialog> {
                     onPressed: () => Navigator.pop(context, true),
                     color: Colors.blueGrey.shade200,
                     child: const Text(
-                      'Cancel',
-                      style: TextStyle(fontSize: 16, color: Colors.white),
+                      TextStrings.profile_edit_add_video_ko_button,
+                      style: TextStyles.buttons_small_value,
                     ),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
@@ -142,8 +143,8 @@ class _VideoDialogState extends State<VideoDialog> {
                   },
                   color: Colors.red.shade400,
                   child: const Text(
-                    'Accept',
-                    style: TextStyle(fontSize: 16, color: Colors.white),
+                    TextStrings.profile_edit_add_video_ok_button,
+                    style: TextStyles.buttons_small_value,
                   ),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0),

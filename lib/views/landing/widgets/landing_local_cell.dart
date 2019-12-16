@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sounds_good/core/models/contact_method.dart';
 import 'package:sounds_good/views/landing/widgets/landing_cell_local_data.dart';
-import 'package:sounds_good/views/profile/profile_view.dart';
+import 'package:sounds_good/views/locals/local_view.dart';
 
 class LandingLocalCell extends StatelessWidget {
   final String id;
@@ -10,7 +10,7 @@ class LandingLocalCell extends StatelessWidget {
   final String friendlyLocation;
   final String price;
   final ContactMethod contactMethod;
-  final String description; 
+  final String description;
 
   LandingLocalCell(
       {this.id,
@@ -36,7 +36,8 @@ class LandingLocalCell extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => ProfileView(id)),
+              builder: (context) => LocalView(localId: id),
+            ),
           );
         },
         child: Stack(

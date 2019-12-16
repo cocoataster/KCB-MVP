@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sounds_good/core/utils/text_strings.dart';
 import 'package:sounds_good/core/viewmodels/profile_viewmodel.dart';
 
 class AddInstrument extends StatefulWidget {
@@ -52,7 +53,7 @@ void _popUp(context,instrumentsList, onSelectedInstrument) {
       return Scaffold(
         appBar: AppBar(
           title: Text(
-            "Select Your Instrument",
+            TextStrings.profile_edit_add_instrument_title,
             textAlign: TextAlign.justify,
           ),
           backgroundColor: Colors.blueGrey,

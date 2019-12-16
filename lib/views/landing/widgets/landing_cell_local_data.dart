@@ -18,10 +18,8 @@ class LandingCellLocalData extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          LandingMemberDataFirstRow(
-              name: name, friendlyLocation: friendlyLocation),
-          LandingMemberDataSndRow(
-              description: description, price: price),
+          LandingMemberDataFirstRow(name: name, price: price),
+          LandingMemberDataSndRow(description: description),
         ],
       ),
     );
@@ -30,9 +28,9 @@ class LandingCellLocalData extends StatelessWidget {
 
 class LandingMemberDataFirstRow extends StatelessWidget {
   final String name;
-  final String friendlyLocation;
+  final String price;
 
-  LandingMemberDataFirstRow({this.name, this.friendlyLocation});
+  LandingMemberDataFirstRow({this.name, this.price});
 
   @override
   Widget build(BuildContext context) {
@@ -54,14 +52,8 @@ class LandingMemberDataFirstRow extends StatelessWidget {
             ),
           ),
           Expanded(
-            flex: 6,
-            child: Text(friendlyLocation,
-                style: TextStyle(
-                  fontSize: 10.0,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.black87,
-                ),
-                textAlign: TextAlign.right),
+            flex: 3,
+            child: Text('$price €/h', style: TextStyle(fontSize: 10)),
           ),
         ],
       ),
@@ -70,24 +62,20 @@ class LandingMemberDataFirstRow extends StatelessWidget {
 }
 
 class LandingMemberDataSndRow extends StatelessWidget {
-  final String price;
   final String description;
 
-  const LandingMemberDataSndRow({this.price, this.description});
+  const LandingMemberDataSndRow({this.description});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 12.0),
       child: Row(
         children: <Widget>[
           Expanded(
-            flex: 8,
+            flex: 12,
             child: Text(description),
-          ),
-          Expanded(
-            flex: 2,
-            child: Text(price),
-          ),
+          )
         ],
       ),
     );

@@ -49,4 +49,5 @@ class LandingViewModel extends BaseViewModel {
 
     return localsResponse.items;
   }
+
 }

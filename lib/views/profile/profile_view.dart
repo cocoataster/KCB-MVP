@@ -8,7 +8,6 @@ import 'package:sounds_good/views/profile/sections/profile_description_section.d
 import 'package:sounds_good/views/profile/sections/profile_header_section.dart';
 import 'package:sounds_good/views/profile/sections/profile_videos_section.dart';
 
-
 class ProfileView extends StatefulWidget {
   final String cuid;
   ProfileView([this.cuid]);
@@ -18,10 +17,9 @@ class ProfileView extends StatefulWidget {
 }
 
 class _ProfileViewState extends State<ProfileView> {
-  
   ProfileViewModel profileViewModel = ProfileViewModel();
 
-   Future<bool> _captureAndroidBackButton(profileMode) {
+  Future<bool> _captureAndroidBackButton(profileMode) {
     if (profileMode == ProfileMode.Edit) {
       setState(() {
         profileMode = ProfileMode.Own;
@@ -32,22 +30,18 @@ class _ProfileViewState extends State<ProfileView> {
     }
   }
 
-  
-
   @override
   void initState() {
     super.initState();
-    if(widget.cuid == null){
+    if (widget.cuid == null) {
       profileViewModel.fetchProfile();
       profileViewModel.fetchAvailableInstruments();
     } else {
       print('Not Member');
       profileViewModel.fetchMemberProfile(widget.cuid);
-      profileViewModel.setMode(ProfileMode.User);
+      profileViewModel.setMode(ProfileMode.Member);
     }
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -56,22 +50,23 @@ class _ProfileViewState extends State<ProfileView> {
       child: Consumer<ProfileViewModel>(
         builder: (context, profileViewModel, child) => WillPopScope(
           child: Scaffold(
-              body: profileViewModel.state == ViewState.Idle
-                  ? SafeArea(
-                      child: ListView(
-                        padding: const EdgeInsets.all(24),
-                        children: <Widget>[
-                          ProfileHeaderSection(),
-                          InstrumentsSection(),
-                          ProfileVideosSection(),
-                          ProfileDescriptionSection(),
-                          ProfileCTAButtons(),
-                        ],
-                      ),
-                    )
-                  : Center(
-                      child: CircularProgressIndicator(),
-                    )),
+            body: profileViewModel.state == ViewState.Idle
+                ? SafeArea(
+                    child: ListView(
+                      padding: const EdgeInsets.all(24),
+                      children: <Widget>[
+                        ProfileHeaderSection(),
+                        InstrumentsSection(),
+                        ProfileVideosSection(),
+                        ProfileDescriptionSection(),
+                        ProfileCTAButtons(),
+                      ],
+                    ),
+                  )
+                : Center(
+                    child: CircularProgressIndicator(),
+                  ),
+          ),
           onWillPop: () => _captureAndroidBackButton(profileViewModel.getMode),
         ),
       ),

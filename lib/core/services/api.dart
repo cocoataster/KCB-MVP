@@ -116,7 +116,7 @@ class Api {
       'Authorization': token
     };
 
-    var response = await client.get('$endpoint/profile/$id', headers: headers);
+    var response = await client.get('$endpoint/local/$id', headers: headers);
 
     print('Local ID Response: ${response.body}');
 

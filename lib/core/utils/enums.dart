@@ -1,6 +1,6 @@
 enum ViewState { Idle, Busy }
 
-enum ProfileMode { Edit, Own, User }
+enum ProfileMode { Edit, Own, Member }
 
 enum StatusCode {
   informational,
