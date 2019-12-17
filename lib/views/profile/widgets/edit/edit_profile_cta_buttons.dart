@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sounds_good/core/utils/colors.dart';
 import 'package:sounds_good/core/utils/enums.dart';
+import 'package:sounds_good/core/utils/text_strings.dart';
 import 'package:sounds_good/core/viewmodels/profile_viewmodel.dart';
 import 'package:sounds_good/views/profile/widgets/shared/profile_close_button.dart';
 
@@ -25,10 +27,13 @@ class EditProfileCTAButtons extends StatelessWidget {
                     model.updateAvatar();
                     model.updateProfile();
                   },
-                  color: Theme.of(context).accentColor,
-                  child: Text('Accept', style: TextStyle(fontSize: 18)),
+                  color: AppColors.firstLevelCTAColor,
+                  child: Text(
+                    TextStrings.profile_edit_cta_buttons_ok_value,
+                    style: TextStyle(fontSize: 18),
+                  ),
                   shape: RoundedRectangleBorder(
-                    borderRadius: new BorderRadius.circular(10.0),
+                    borderRadius: BorderRadius.circular(10.0),
                   ),
                 ),
               ),
@@ -39,7 +44,7 @@ class EditProfileCTAButtons extends StatelessWidget {
               SizedBox(
                 width: MediaQuery.of(context).size.width - 48.0,
                 child: ProfileCloseButton(
-                    value: 'Cancel',
+                    value: TextStrings.profile_edit_cta_buttons_ko_value,
                     onPressed: () => model.setMode(ProfileMode.Own)),
               ),
             ],

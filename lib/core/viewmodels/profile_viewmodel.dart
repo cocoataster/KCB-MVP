@@ -138,7 +138,6 @@ class ProfileViewModel extends BaseViewModel {
       disabledAvailableInstruments.remove(instrument);
 
   void disableAvailableInstrument(instrument) {
-    print('Disable instrument: $instrument');
     disabledAvailableInstruments.add(instrument);
   }
 

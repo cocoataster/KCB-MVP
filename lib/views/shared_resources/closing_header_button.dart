@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sounds_good/core/utils/text_strings.dart';
 
-class LocalHeaderButton extends StatelessWidget {
+class ClosingHeaderButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(

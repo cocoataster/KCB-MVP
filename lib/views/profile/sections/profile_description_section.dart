@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sounds_good/core/utils/colors.dart';
 import 'package:sounds_good/core/utils/enums.dart';
 import 'package:sounds_good/core/utils/text_strings.dart';
 import 'package:sounds_good/core/viewmodels/profile_viewmodel.dart';
@@ -38,7 +39,7 @@ class ProfileDescriptionSection extends StatelessWidget {
           contentPadding: EdgeInsets.all(0),
           focusedBorder: UnderlineInputBorder(
               borderSide:
-                  BorderSide(color: Theme.of(context).accentColor, width: 1.0)),
+                  BorderSide(color: AppColors.firstLevelCTAColor, width: 1.0)),
           border: InputBorder.none),
       onChanged: (String value) => model.updateDescription(description: value),
     );

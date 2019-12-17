@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:sounds_good/views/locals/local_view.dart';
 import 'package:sounds_good/views/search/widgets/cell_local_data.dart';
 
 class LocalCell extends StatelessWidget {
   final String imageUrl;
+  final String localId;
   final String name;
   final double price;
   final String description;
 
-  LocalCell({this.imageUrl, this.name, this.price, this.description});
+  LocalCell(
+      {this.imageUrl, this.localId, this.name, this.price, this.description});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +23,14 @@ class LocalCell extends StatelessWidget {
       ),
       child: InkWell(
         splashColor: Colors.blueGrey.withAlpha(30),
-        onTap: () {},
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => LocalView(localId: localId),
+            ),
+          );
+        },
         child: Stack(
           children: <Widget>[
             Container(

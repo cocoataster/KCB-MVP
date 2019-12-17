@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:sounds_good/views/locals/widgets/local_header_data.dart';
+import 'package:sounds_good/core/utils/text_strings.dart';
 import 'package:sounds_good/views/shared_resources/closing_header_button.dart';
+import 'package:sounds_good/views/shared_resources/section_title.dart';
 
-class LocalHeader extends StatelessWidget {
+class FiltersHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -12,7 +13,9 @@ class LocalHeader extends StatelessWidget {
           right: 0,
           child: ClosingHeaderButton(),
         ),
-        LocalHeaderData(),
+        SectionTitle(
+              sectionTitle: TextStrings.search_filters_section_title,
+            ),
       ],
     );
   }

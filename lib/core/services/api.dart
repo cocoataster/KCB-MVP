@@ -4,7 +4,6 @@ import 'package:http/http.dart' as http;
 import 'package:sounds_good/core/models/local.dart';
 import 'package:sounds_good/core/models/notification_response.dart';
 import 'package:sounds_good/core/models/instruments.dart';
-import 'package:sounds_good/core/models/notification.dart';
 import 'package:sounds_good/core/models/profile.dart';
 import 'package:sounds_good/core/models/search_request.dart';
 import 'package:sounds_good/core/models/search_response.dart';
@@ -43,7 +42,7 @@ class Api {
 
     switch (response.statusCode) {
       case 200:
-        print('Login Success');
+        
         Storage.saveUserId(response.headers["id"]);
         Storage.saveToken(response.headers["authorization"]);
         return true;
@@ -68,7 +67,7 @@ class Api {
 
     final response = await client.get('$endpoint/profile', headers: headers);
 
-    print('Profile Response: ${response.body}');
+    //print('Profile Response: ${response.body}');
 
     switch (response.statusCode) {
       case 200:
@@ -92,7 +91,7 @@ class Api {
 
     var response = await client.get('$endpoint/profile/$id', headers: headers);
 
-    print('Profile ID Response: ${response.body}');
+    //print('Profile ID Response: ${response.body}');
 
     switch (response.statusCode) {
       case 200:
@@ -118,7 +117,7 @@ class Api {
 
     var response = await client.get('$endpoint/local/$id', headers: headers);
 
-    print('Local ID Response: ${response.body}');
+   // print('Local ID Response: ${response.body}');
 
     switch (response.statusCode) {
       case 200:
@@ -198,7 +197,7 @@ class Api {
       'Authorization': token
     };
     var response = await client.get('$endpoint/profile/tags', headers: headers);
-
+    
     StatusCode statusCode = getStatusCode(response.statusCode);
 
     switch (statusCode) {
@@ -262,10 +261,10 @@ class Api {
     }
 
     var request = '$endpoint/search$endpointSearch' + parameters;
-    print('Search Request: $request');
+   // print('Search Request: $request');
 
     var response = await client.get(request, headers: headers);
-    print('Search Response: ${response.body}');
+   // print('Search Response: ${response.body}');
 
     StatusCode statusCode = getStatusCode(response.statusCode);
 

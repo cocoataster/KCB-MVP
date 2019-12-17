@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sounds_good/core/utils/colors.dart';
 import 'package:sounds_good/core/viewmodels/profile_viewmodel.dart';
 
 class EditProfileHeader extends StatefulWidget {
@@ -42,8 +43,7 @@ class _EditProfileHeaderState extends State<EditProfileHeader> {
                       contentPadding: EdgeInsets.only(bottom: 3.0),
                       focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(
-                              color: Theme.of(context).accentColor,
-                              width: 2.0)),
+                              color: AppColors.firstLevelCTAColor, width: 2.0)),
                       border: InputBorder.none),
                   onChanged: (String value) =>
                       model.updateProfileName(name: value),
@@ -59,9 +59,11 @@ class _EditProfileHeaderState extends State<EditProfileHeader> {
                       hintText: 'Where do you live?',
                       contentPadding: EdgeInsets.all(0),
                       focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Theme.of(context).accentColor,
-                              width: 2.0)),
+                        borderSide: BorderSide(
+                          color: AppColors.firstLevelCTAColor,
+                          width: 2.0,
+                        ),
+                      ),
                       border: InputBorder.none),
                   onChanged: (String value) =>
                       model.updateProfileLocation(friendlyLocation: value),

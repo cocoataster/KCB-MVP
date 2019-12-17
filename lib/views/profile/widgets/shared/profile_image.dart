@@ -4,7 +4,7 @@ import 'package:image_cropper/image_cropper.dart';
 import 'dart:async';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:sounds_good/core/services/api.dart';
+import 'package:sounds_good/core/utils/colors.dart';
 import 'package:sounds_good/core/utils/enums.dart';
 import 'package:sounds_good/core/viewmodels/profile_viewmodel.dart';
 
@@ -64,7 +64,7 @@ class _ProfileImageState extends State<ProfileImage> {
               actions: <Widget>[
                 RaisedButton.icon(
                   onPressed: () => Navigator.pop(context, ImageSource.camera),
-                  color: Theme.of(context).accentColor,
+                  color: AppColors.firstLevelCTAColor,
                   icon: Icon(Icons.camera, color: Colors.white70),
                   label: const Text(
                     'Camera',
@@ -76,7 +76,7 @@ class _ProfileImageState extends State<ProfileImage> {
                 ),
                 RaisedButton.icon(
                   onPressed: () => Navigator.pop(context, ImageSource.gallery),
-                  color: Theme.of(context).accentColor,
+                  color: AppColors.firstLevelCTAColor,
                   icon: Icon(Icons.collections, color: Colors.white70),
                   label: Text(
                     'Gallery',

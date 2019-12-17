@@ -2,11 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sounds_good/core/utils/text_strings.dart';
-import 'package:sounds_good/core/viewmodels/profile_viewmodel.dart';
+import 'package:sounds_good/core/viewmodels/available_instruments_viewmodel.dart';
 
 class AddInstrument extends StatefulWidget {
   final onSelectedInstrument;
-  AddInstrument({this.onSelectedInstrument});
+  final List<String> availableInstruments;
+  AddInstrument({this.onSelectedInstrument, this.availableInstruments});
 
   @override
   _AddInstrumentState createState() => _AddInstrumentState();
@@ -14,15 +15,12 @@ class AddInstrument extends StatefulWidget {
 
 class _AddInstrumentState extends State<AddInstrument> {
   @override
-  Widget build(BuildContext context) {
-    return Consumer<ProfileViewModel>(
-      builder: (context, model, child) =>
-
-    GestureDetector(
+   Widget build(BuildContext context) {
+    return GestureDetector(
       onTap: () =>
-          _popUp(context, model.getAvailableInstruments(), widget.onSelectedInstrument),
+          _popUp(context, widget.availableInstruments, widget.onSelectedInstrument),
       child: _pill(context),
-    ),);
+    );
   }
 }
 
@@ -45,7 +43,7 @@ BoxDecoration _getPillBoxDecoration(BuildContext context) {
   );
 }
 
-void _popUp(context,instrumentsList, onSelectedInstrument) {
+void _popUp(context, instrumentsList, onSelectedInstrument) {
   int selectedItem = 1;
   showModalBottomSheet(
     context: context,
@@ -61,8 +59,7 @@ void _popUp(context,instrumentsList, onSelectedInstrument) {
             IconButton(
               icon: Icon(Icons.add),
               onPressed: () {
-                onSelectedInstrument(
-                    instrumentsList[selectedItem]);
+                onSelectedInstrument(instrumentsList[selectedItem]);
                 Navigator.pop(context);
               },
             )

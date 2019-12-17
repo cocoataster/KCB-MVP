@@ -41,7 +41,23 @@ class TextStrings{
   static const String profile_edit_add_video_ok_button = 'Accept';
   static const String profile_edit_add_video_ko_button = 'Cancel';
   static const String profile_instruments_section_title = 'What can I play?';
+  static const String profile_edit_cta_buttons_ok_value = 'Accept';
+  static const String profile_edit_cta_buttons_ko_value = 'Cancel';
 
+  // Search
+  static const String search_filters_section_title = 'Filters';
+  static const String search_filter_segmented_control_members = 'Members';
+  static const String search_filter_segmented_control_locals = 'Locals';
+  static const String search_filter_search_label = 'Insert your search term';
+  static const String search_filter_search_hint = 'Insert your search term';
+  static const String search_filter_instruments_section_title = 'Instruments';
+  static const String search_filter_distance_section_title = 'Distance';
+
+  // Notifications
+  static const String notifications_screen_title = 'Notifications';
+  static const String notifications_sender_empty = 'Sender is empty';
+  static const String notifications_actions_todo = 'Accept';
+  static const String notifications_actions_done = 'Accepted';
   //Paterns
    static const Pattern youTubePattern = r'^(https?\:\/\/)?((www\.)?youtube\.com|youtu\.?be)\/.+$';
 }

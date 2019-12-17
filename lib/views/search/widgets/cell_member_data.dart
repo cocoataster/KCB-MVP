@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sounds_good/core/utils/text_styles.dart';
 import 'package:sounds_good/views/profile/widgets/shared/instrument_item.dart';
 
 class CellMemberData extends StatelessWidget {
@@ -61,7 +62,7 @@ class MemberName extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       name,
-      style: Theme.of(context).textTheme.headline,
+      style: TextStyles.section_header,
       textAlign: TextAlign.start,
     );
   }
@@ -74,7 +75,7 @@ class MemberLocation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(friendlyLocation,
-        style: Theme.of(context).textTheme.display1,
+        style: TextStyles.section_subHeader,
         textAlign: TextAlign.right);
   }
 }

@@ -56,4 +56,41 @@ class SearchViewModel extends BaseViewModel {
     type = searchType;
     notifyListeners();
   }
+
+  
+  Set<String> disabledAvailableInstruments = {};
+  List<String> availableInstruments = [];
+  Set<String> instrumentsFilterRequest = {};
+
+  void initAvailableInstruments(List<String> instrumentsList){
+    availableInstruments.addAll(instrumentsList);
+  }
+
+  void addInstrument(instrument) {
+    instrumentsFilterRequest.add(instrument);
+    availableInstruments.remove(instrument);
+    notifyListeners();
+  }
+
+  void removeInstrument(instrument) {
+    instrumentsFilterRequest.remove(instrument);
+    availableInstruments.add(instrument);
+    notifyListeners();
+  }
+
+  void availableInstrumentsList() {
+    disabledAvailableInstruments.map((String instrument) {
+      availableInstruments.remove(instrument);      
+    }).toList();
+    notifyListeners();
+  }
+
+List<String> getAvailableInstruments() => availableInstruments;
+Set<String> getSelectedInstruments() => instrumentsFilterRequest;
+
+
+double distanceFilter;
+
+void setDistanceFilter(double distance) => distanceFilter = distance;
+
 }

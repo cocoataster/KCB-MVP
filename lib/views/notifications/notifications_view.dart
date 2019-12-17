@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_pagewise/flutter_pagewise.dart';
-import 'package:provider/provider.dart';
 import 'package:sounds_good/core/utils/enums.dart';
+import 'package:sounds_good/core/utils/text_strings.dart';
+import 'package:sounds_good/core/utils/text_styles.dart';
 import 'package:sounds_good/core/viewmodels/notifications_viewmodel.dart';
 
 class NotificationsView extends StatefulWidget {
@@ -14,16 +15,6 @@ class NotificationsView extends StatefulWidget {
 class _NotificationsViewState extends State<NotificationsView> {
   NotificationsViewModel notificationsViewModel = NotificationsViewModel();
 
-  List<Widget> items = [
-    NotificationsRow(
-        asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band!',
-        button: 'Accept'),
-    NotificationsRow(
-        asset: 'assets/images/profile.png',
-        notification: 'Paquito wants to join your band!',
-        button: 'Accepted'),
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -34,8 +25,10 @@ class _NotificationsViewState extends State<NotificationsView> {
           children: <Widget>[
             Padding(
               padding: EdgeInsets.all(15),
-              child: Text('Notifications',
-                  style: Theme.of(context).textTheme.headline),
+              child: Text(
+                TextStrings.notifications_screen_title,
+                style: TextStyles.section_header,
+              ),
             ),
             Container(
               height: MediaQuery.of(context).size.height - 140,
@@ -51,12 +44,12 @@ class _NotificationsViewState extends State<NotificationsView> {
 
                   var sender = notification.info.senderName != ''
                       ? notification.info.senderName
-                      : 'Sender is empty';
+                      : TextStrings.notifications_sender_empty;
 
                   var buttonText =
                       notification.state == NotificationState.Pending
-                          ? 'Accept'
-                          : 'Accepted';
+                          ? TextStrings.notifications_actions_todo
+                          : TextStrings.notifications_actions_done;
 
                   print(notification.info.senderName);
 

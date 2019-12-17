@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sounds_good/core/models/local.dart';
-import 'package:sounds_good/core/models/location.dart';
 import 'dart:async';
 
 Future<Local> getLocal() async {

@@ -12,25 +12,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    authentication.authInit();
     return ChangeNotifierProvider<AuthenticationViewModel>(
-      builder: (context) => authentication,
+      builder: (context) {
+        authentication.authInit();
+        return authentication;
+        },
       child: MaterialApp(
-        title: 'Sounds Good',
-        theme: ThemeData(
-          textTheme: TextTheme(
-            headline: TextStyle(
-                fontSize: 22.0,
-                fontWeight: FontWeight.w700,
-                color: Colors.black87),
-            display1: TextStyle(
-                fontSize: 14.0,
-                fontWeight: FontWeight.w400,
-                color: Colors.black87),
-            title: TextStyle(fontSize: 18.0),
-            button: TextStyle(fontSize: 16.0),
-          ),
-        ),
+        title: 'Tuned',
         initialRoute: '/',
         onGenerateRoute: Router.generateRouter,
       ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sounds_good/core/viewmodels/available_instruments_viewmodel.dart';
 import 'package:sounds_good/core/viewmodels/profile_viewmodel.dart';
 import 'package:sounds_good/views/profile/widgets/edit/add_instrument.dart';
 import 'package:sounds_good/views/profile/widgets/edit/instrument_item.dart';
@@ -39,27 +40,32 @@ class _EditInstrumentsListState extends State<EditInstrumentsList> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ProfileViewModel>(
-      builder: (context, data, child) {
-        List<Widget> _instrumentsWidgetsList =
-            data.profile.instruments.map((String instrument) {
-          return EditInstrumentItem(
-            instrument: instrument,
-            isSelected: _instrumentsSelected.contains(instrument),
-            onListChanged: _handleInstrumentChanged,
-          );
-        }).toList();
+    return Consumer<AvailableInstrumentsViewModel>(
+      builder: (context, availableInstruments, child) {
+        List<String> instrumentsList = availableInstruments.getAvailableInstruments();
+        return Consumer<ProfileViewModel>(
+          builder: (context, data, child) {
+            List<Widget> _instrumentsWidgetsList =
+                data.profile.instruments.map((String instrument) {
+              return EditInstrumentItem(
+                instrument: instrument,
+                isSelected: _instrumentsSelected.contains(instrument),
+                onListChanged: _handleInstrumentChanged,
+              );
+            }).toList();
 
-        List<Widget> _editableInstrumentsList = [
-          AddInstrument(onSelectedInstrument: _addInstrument),
-        ];
+            List<Widget> _editableInstrumentsList = [
+              AddInstrument(onSelectedInstrument: _addInstrument, availableInstruments: instrumentsList),
+            ];
 
-        _editableInstrumentsList.addAll(_instrumentsWidgetsList);
+            _editableInstrumentsList.addAll(_instrumentsWidgetsList);
 
-        return Wrap(
-          spacing: 8.0,
-          runSpacing: 4.0,
-          children: _editableInstrumentsList,
+            return Wrap(
+              spacing: 8.0,
+              runSpacing: 4.0,
+              children: _editableInstrumentsList,
+            );
+          },
         );
       },
     );

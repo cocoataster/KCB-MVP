@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sounds_good/core/utils/text_styles.dart';
 
 class CellLocalData extends StatelessWidget {
   final String name;
@@ -58,7 +59,7 @@ class MemberName extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       name,
-      style: Theme.of(context).textTheme.headline,
+      style: TextStyles.section_header,
       textAlign: TextAlign.start,
     );
   }
@@ -71,7 +72,7 @@ class MemberPrice extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text('$price€/h',
-        style: Theme.of(context).textTheme.display1,
+        style: TextStyles.section_subHeader,
         textAlign: TextAlign.right);
   }
 }

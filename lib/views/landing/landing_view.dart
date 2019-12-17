@@ -40,10 +40,10 @@ class _LandingViewState extends State<LandingView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: ChangeNotifierProvider<LandingViewModel>(
-        builder: (context) => landingViewModel,
-        child: SafeArea(
+    return ChangeNotifierProvider<LandingViewModel>(
+      builder: (context) => landingViewModel,
+      child: Scaffold(
+        body: SafeArea(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[

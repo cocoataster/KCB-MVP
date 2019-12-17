@@ -6,7 +6,14 @@ import 'base_viewmodel.dart';
 class AuthenticationViewModel extends BaseViewModel {
   final Api _api = Api();
   User user;
-  void authInit() => user = User.initial();
+
+  void authInit() {
+    user = User.initial();
+  } 
+
+  String test() {
+    return ('From AuthViewmodel');
+  }
 
   AuthFormMode _authMode = AuthFormMode.Login;
 
