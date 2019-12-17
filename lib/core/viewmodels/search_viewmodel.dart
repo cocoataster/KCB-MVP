@@ -57,12 +57,20 @@ class SearchViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  
+  void updateName(String name) {
+    if (type == SearchType.Members) {
+      profileSearchRequest.name = name;
+    } else {
+      localSearchRequest.name = name;
+    }
+    notifyListeners();
+  }
+
   Set<String> disabledAvailableInstruments = {};
   List<String> availableInstruments = [];
   Set<String> instrumentsFilterRequest = {};
 
-  void initAvailableInstruments(List<String> instrumentsList){
+  void initAvailableInstruments(List<String> instrumentsList) {
     availableInstruments.addAll(instrumentsList);
   }
 
@@ -80,17 +88,15 @@ class SearchViewModel extends BaseViewModel {
 
   void availableInstrumentsList() {
     disabledAvailableInstruments.map((String instrument) {
-      availableInstruments.remove(instrument);      
+      availableInstruments.remove(instrument);
     }).toList();
     notifyListeners();
   }
 
-List<String> getAvailableInstruments() => availableInstruments;
-Set<String> getSelectedInstruments() => instrumentsFilterRequest;
+  List<String> getAvailableInstruments() => availableInstruments;
+  Set<String> getSelectedInstruments() => instrumentsFilterRequest;
 
+  double distanceFilter;
 
-double distanceFilter;
-
-void setDistanceFilter(double distance) => distanceFilter = distance;
-
+  void setDistanceFilter(double distance) => distanceFilter = distance;
 }

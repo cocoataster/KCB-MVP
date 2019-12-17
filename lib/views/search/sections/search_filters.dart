@@ -51,6 +51,13 @@ class _SearchFiltersState extends State<SearchFilters> {
                 hintText: TextStrings.search_filter_search_hint,
                 labelText: TextStrings.search_filter_search_label,
               ),
+              onChanged: (name) {
+                if (name.length > 3) {
+                  setState(() {
+                    search.updateName(name);
+                  });
+                }
+              },
             ),
           ),
           SizedBox(
