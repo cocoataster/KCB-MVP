@@ -72,8 +72,7 @@ class MemberPrice extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text('$price€/h',
-        style: TextStyles.section_subHeader,
-        textAlign: TextAlign.right);
+        style: TextStyles.section_subHeader, textAlign: TextAlign.right);
   }
 }
 
@@ -84,6 +83,6 @@ class MemberDescription extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Wrap(children: [Text(description)]);
+    return Wrap(children: [Text('${description.substring(0, 160)}...')]);
   }
 }

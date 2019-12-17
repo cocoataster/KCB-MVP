@@ -7,7 +7,7 @@ import 'package:sounds_good/core/viewmodels/base_viewmodel.dart';
 class NotificationsViewModel extends BaseViewModel {
   Api _api = Api();
 
-  final limit = 2;
+  final limit = 10;
   int offset = 0;
 
   List<Notification> notifications = [];

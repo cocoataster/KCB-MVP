@@ -74,7 +74,7 @@ class LandingMemberDataSndRow extends StatelessWidget {
         children: <Widget>[
           Expanded(
             flex: 12,
-            child: Text(description),
+            child: Text('${description.substring(0, 80)}...'),
           )
         ],
       ),
