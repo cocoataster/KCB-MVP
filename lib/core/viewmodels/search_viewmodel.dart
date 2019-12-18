@@ -21,6 +21,7 @@ class SearchViewModel extends BaseViewModel {
       SearchRequest(name: "", limit: 2, offset: 0);
 
   SearchType type;
+  String name;
 
   List<Profile> profiles = [];
   List<Local> locals = [];
@@ -34,6 +35,7 @@ class SearchViewModel extends BaseViewModel {
     profiles += searchResponse.items;
     ++profileSearchRequest.offset;
     profileSearchRequest.total = searchResponse.total;
+    profileSearchRequest.name = name;
     setState(ViewState.Idle);
 
     return searchResponse.items;
@@ -54,15 +56,12 @@ class SearchViewModel extends BaseViewModel {
 
   void setType(SearchType searchType) {
     type = searchType;
+    name = "";
     notifyListeners();
   }
 
-  void updateName(String name) {
-    if (type == SearchType.Members) {
-      profileSearchRequest.name = name;
-    } else {
-      localSearchRequest.name = name;
-    }
+  void updateName(String newName) {
+    name = newName;
     notifyListeners();
   }
 

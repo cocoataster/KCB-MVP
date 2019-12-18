@@ -37,7 +37,7 @@ class _SearchViewState extends State<SearchView> {
                       SearchFilters(),
                       Padding(
                         padding: EdgeInsets.only(top: 120),
-                        child: searchList(searchViewModel),
+                        child: SearchPage(),
                       ),
                     ],
                   ),
@@ -51,16 +51,31 @@ class _SearchViewState extends State<SearchView> {
   }
 }
 
-Widget searchList(SearchViewModel searchViewModel) {
-  switch (searchViewModel.type) {
-    case SearchType.Members:
+class SearchPage extends StatefulWidget {
+  @override
+  _SearchPageState createState() => _SearchPageState();
+}
+
+class _SearchPageState extends State<SearchPage> {
+  SearchViewModel search;
+  var pageSize;
+
+  @override
+  void initState() {
+    search = Provider.of<SearchViewModel>(context, listen: false);
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (search.type == SearchType.Members) {
       print('Case search members');
       return PagewiseListView(
-          pageSize: searchViewModel.profileSearchRequest.limit,
+          pageSize: search.profileSearchRequest.limit,
           padding: EdgeInsets.all(15.0),
           itemBuilder: (context, entry, index) {
             var placeholder = 'assets/images/profile.png';
-            var profile = searchViewModel.profiles[index];
+            var profile = search.profiles[index];
 
             var url = profile.photo != ""
                 ? '${Api.endpoint}/${profile.photo}'
@@ -76,17 +91,16 @@ Widget searchList(SearchViewModel searchViewModel) {
             );
           },
           pageFuture: (pageIndex) {
-            return searchViewModel.fetchProfilePage(pageIndex);
+            return search.fetchProfilePage(pageIndex);
           });
-      break;
-    case SearchType.Locals:
+    } else {
       print('Case search Locals');
       return PagewiseListView(
-          pageSize: searchViewModel.localSearchRequest.limit,
+          pageSize: search.localSearchRequest.limit,
           padding: EdgeInsets.all(15.0),
           itemBuilder: (context, entry, index) {
             var placeholder = 'assets/images/profile.png';
-            var local = searchViewModel.locals[index];
+            var local = search.locals[index];
 
             var url = local.photos.first != ""
                 ? '${Api.endpoint}/${local.photos.first}'
@@ -101,46 +115,8 @@ Widget searchList(SearchViewModel searchViewModel) {
             );
           },
           pageFuture: (pageIndex) {
-            return searchViewModel.fetchLocalPage(pageIndex);
+            return search.fetchLocalPage(pageIndex);
           });
-      break;
-  }
-}
-
-class ItemCell extends StatelessWidget {
-  final SearchType type;
-  final dynamic item;
-  final String url;
-  final String id;
-
-  ItemCell({this.type, this.item, this.url, this.id});
-
-  @override
-  Widget build(BuildContext context) {
-    MemberCell memberCell;
-
-    switch (type) {
-      case SearchType.Members:
-        var profile = item as Profile;
-        return MemberCell(
-          imageUrl: url,
-          name: profile.name,
-          friendlyLocation: profile.friendlyLocation,
-          instruments: profile.instruments,
-          followers: profile.followers,
-          id: id,
-        );
-        break;
-      case SearchType.Locals:
-        var local = item as Local;
-        return LocalCell(
-          imageUrl: url,
-          name: local.name,
-          price: local.price,
-          description: local.description,
-        );
-        break;
     }
-    return memberCell;
   }
 }

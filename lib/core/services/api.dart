@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:http/http.dart' as http;
 import 'package:sounds_good/core/models/local.dart';
+import 'package:sounds_good/core/models/my_band.dart';
 import 'package:sounds_good/core/models/notification_response.dart';
 import 'package:sounds_good/core/models/instruments.dart';
 import 'package:sounds_good/core/models/profile.dart';
@@ -42,7 +44,6 @@ class Api {
 
     switch (response.statusCode) {
       case 200:
-        
         Storage.saveUserId(response.headers["id"]);
         Storage.saveToken(response.headers["authorization"]);
         return true;
@@ -75,6 +76,35 @@ class Api {
         return Profile.fromJson(json);
       default:
         return Profile();
+    }
+  }
+
+  /* Get My Band */
+
+  Future<MyBand> getMyBand(int limit, int offset) async {
+    String token = await Storage.getToken();
+
+    var headers = {"Authorization": token};
+    var parameters = '?';
+
+    parameters += 'limit=$limit&offset=$offset';
+
+    final response = await client.get('$endpoint/profile/my-band$parameters',
+        headers: headers);
+
+    print('My-Band Response: ${response.body}');
+
+    StatusCode statusCode = getStatusCode(response.statusCode);
+
+    switch (statusCode) {
+      case StatusCode.success:
+        var json = jsonDecode(response.body);
+        print(json);
+        return MyBand.fromJson(json);
+      case StatusCode.clientError:
+      case StatusCode.serverError:
+      default:
+        return MyBand();
     }
   }
 
@@ -117,7 +147,7 @@ class Api {
 
     var response = await client.get('$endpoint/local/$id', headers: headers);
 
-   // print('Local ID Response: ${response.body}');
+    // print('Local ID Response: ${response.body}');
 
     switch (response.statusCode) {
       case 200:
@@ -197,7 +227,7 @@ class Api {
       'Authorization': token
     };
     var response = await client.get('$endpoint/profile/tags', headers: headers);
-    
+
     StatusCode statusCode = getStatusCode(response.statusCode);
 
     switch (statusCode) {
@@ -261,10 +291,10 @@ class Api {
     }
 
     var request = '$endpoint/search$endpointSearch' + parameters;
-   // print('Search Request: $request');
+    // print('Search Request: $request');
 
     var response = await client.get(request, headers: headers);
-   // print('Search Response: ${response.body}');
+    // print('Search Response: ${response.body}');
 
     StatusCode statusCode = getStatusCode(response.statusCode);
 

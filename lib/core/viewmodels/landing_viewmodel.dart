@@ -1,4 +1,5 @@
 import 'package:sounds_good/core/models/local.dart';
+import 'package:sounds_good/core/models/my_band.dart';
 import 'package:sounds_good/core/models/profile.dart';
 import 'package:sounds_good/core/models/search_request.dart';
 import 'package:sounds_good/core/models/search_response.dart';
@@ -25,15 +26,15 @@ class LandingViewModel extends BaseViewModel {
   Future<List<Profile>> fetchMembers(pageIndex) async {
     setState(ViewState.Busy);
     profilesRequest.offset = pageIndex * profilesRequest.limit;
-    SearchResponse searchResponse =
-        await _api.getSearchItems(profilesRequest, SearchType.Members);
+    MyBand myBand =
+        await _api.getMyBand(profilesRequest.limit, profilesRequest.offset);
 
-    members += searchResponse.items;
+    members += myBand.profiles;
     ++profilesRequest.offset;
-    profilesRequest.total = searchResponse.total;
+    profilesRequest.total = myBand.total;
     setState(ViewState.Idle);
 
-    return searchResponse.items;
+    return myBand.profiles;
   }
 
   Future<List<Local>> fetchLocals(pageIndex) async {
@@ -49,5 +50,4 @@ class LandingViewModel extends BaseViewModel {
 
     return localsResponse.items;
   }
-
 }
