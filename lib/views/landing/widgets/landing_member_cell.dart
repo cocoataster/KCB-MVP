@@ -41,7 +41,7 @@ class LandingMemberCell extends StatelessWidget {
             Container(
               child: Image.network(imageUrl,
                   fit: BoxFit.cover,
-                  width: (MediaQuery.of(context).size.height - 200) / 2),
+                  width: (MediaQuery.of(context).size.height - 220) / 2),
             ),
             Positioned(
                 child: LandingCellMemberData(

@@ -47,10 +47,13 @@ class _LandingViewState extends State<LandingView> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 130),
-                child: Image.asset(
-                  'assets/images/logo.png',
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 5),
+                height: 40,
+                child: Center(
+                  child: Image.asset(
+                    'assets/images/logo.png',
+                  ),
                 ),
               ),
               Padding(
@@ -61,7 +64,7 @@ class _LandingViewState extends State<LandingView> {
                 ),
               ),
               Container(
-                height: (MediaQuery.of(context).size.height - 185) / 2,
+                height: (MediaQuery.of(context).size.height - 190) / 2,
                 child: LandingLocalsView(),
               ),
               Padding(
@@ -72,7 +75,7 @@ class _LandingViewState extends State<LandingView> {
                 ),
               ),
               Container(
-                height: (MediaQuery.of(context).size.height - 185) / 2,
+                height: (MediaQuery.of(context).size.height - 190) / 2,
                 child: LandingMembersView(),
               ),
             ],

@@ -1,21 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:sounds_good/core/utils/text_strings.dart';
+import 'package:sounds_good/core/utils/text_styles.dart';
 import 'package:sounds_good/views/shared_resources/closing_header_button.dart';
-import 'package:sounds_good/views/shared_resources/section_title.dart';
+
 
 class FiltersHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Stack(
+    return Row(
       children: <Widget>[
-        Positioned(
-          top: 0,
-          right: 0,
+        Expanded(
+          flex: 8,
+          child: Text(
+            TextStrings.search_filters_section_title,
+            style: TextStyles.section_header,
+          ),
+        ),
+        Expanded(
+          flex: 2,
           child: ClosingHeaderButton(),
         ),
-        SectionTitle(
-              sectionTitle: TextStrings.search_filters_section_title,
-            ),
       ],
     );
   }

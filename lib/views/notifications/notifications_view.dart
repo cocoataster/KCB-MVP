@@ -51,7 +51,7 @@ class _NotificationsViewState extends State<NotificationsView> {
                           ? TextStrings.notifications_actions_todo
                           : TextStrings.notifications_actions_done;
 
-                  print(notification.info.senderName);
+                  //print(notification.info.senderName);
 
                   return NotificationsRow(
                     asset: image,

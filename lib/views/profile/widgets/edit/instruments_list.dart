@@ -14,6 +14,7 @@ class EditInstrumentsList extends StatefulWidget {
 
 class _EditInstrumentsListState extends State<EditInstrumentsList> {
   Set<String> _instrumentsSelected = Set<String>();
+  List<String> availableInstrumentsList = List<String>();
 
   void _handleInstrumentChanged(String instrument, bool isSelected) {
     setState(() {
@@ -23,49 +24,60 @@ class _EditInstrumentsListState extends State<EditInstrumentsList> {
     });
     Provider.of<ProfileViewModel>(context, listen: false)
         .instrumentsToRemove(instrumentsSelected: _instrumentsSelected);
+    Provider.of<AvailableInstrumentsViewModel>(context, listen: false)
+        .instrumentsToDisable(_instrumentsSelected);
   }
 
   void _addInstrument(String newInstrument) {
     Provider.of<ProfileViewModel>(context, listen: false)
         .addInstrument(instrument: newInstrument);
+    Provider.of<AvailableInstrumentsViewModel>(context, listen: false)
+        .disableAvailableInstrument(newInstrument);
   }
 
   @override
   void initState() {
-    Provider.of<ProfileViewModel>(context, listen: false)
-        .disableInstrementsSelectedOnProfile();
-
+    List<String> instrumentsOnProfile =
+        Provider.of<ProfileViewModel>(context, listen: false)
+            .getInstrumentsOnProfile();
+  
+    Provider.of<AvailableInstrumentsViewModel>(context, listen: false)
+        .disableInstrumentsFromProfile(instrumentsOnProfile);
+  
+    availableInstrumentsList =
+        Provider.of<AvailableInstrumentsViewModel>(context, listen: false)
+            .getAvailableInstruments();
     super.initState();
+
+    print('Instruments on Profile: $instrumentsOnProfile');
+    print('Available instruments: $availableInstrumentsList');
   }
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<AvailableInstrumentsViewModel>(
-      builder: (context, availableInstruments, child) {
-        List<String> instrumentsList = availableInstruments.getAvailableInstruments();
-        return Consumer<ProfileViewModel>(
-          builder: (context, data, child) {
-            List<Widget> _instrumentsWidgetsList =
-                data.profile.instruments.map((String instrument) {
-              return EditInstrumentItem(
-                instrument: instrument,
-                isSelected: _instrumentsSelected.contains(instrument),
-                onListChanged: _handleInstrumentChanged,
-              );
-            }).toList();
+    return Consumer<ProfileViewModel>(
+      builder: (context, data, child) {
+        List<Widget> _instrumentsWidgetsList =
+            data.profile.instruments.map((String instrument) {
+          return EditInstrumentItem(
+            instrument: instrument,
+            isSelected: _instrumentsSelected.contains(instrument),
+            onListChanged: _handleInstrumentChanged,
+          );
+        }).toList();
 
-            List<Widget> _editableInstrumentsList = [
-              AddInstrument(onSelectedInstrument: _addInstrument, availableInstruments: instrumentsList),
-            ];
+        List<Widget> _editableInstrumentsList = [
+          AddInstrument(
+              onSelectedInstrument: _addInstrument,
+              availableInstruments: availableInstrumentsList),
+        ];
 
-            _editableInstrumentsList.addAll(_instrumentsWidgetsList);
+        _editableInstrumentsList.addAll(_instrumentsWidgetsList);
 
-            return Wrap(
-              spacing: 8.0,
-              runSpacing: 4.0,
-              children: _editableInstrumentsList,
-            );
-          },
+        return Wrap(
+          spacing: 8.0,
+          runSpacing: 4.0,
+          children: _editableInstrumentsList,
         );
       },
     );

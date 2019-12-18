@@ -271,7 +271,7 @@ class Api {
     switch (statusCode) {
       case StatusCode.success:
         var json = jsonDecode(response.body);
-        print(json);
+        //print(json);
         return SearchResponse.fromJson(json, type);
       case StatusCode.clientError:
         var json = jsonDecode(response.body);
@@ -299,14 +299,14 @@ class Api {
     final response =
         await client.get('$endpoint/notification$parameters', headers: headers);
 
-    print('Notification Response: ${response.body}');
+    //print('Notification Response: ${response.body}');
 
     StatusCode statusCode = getStatusCode(response.statusCode);
 
     switch (statusCode) {
       case StatusCode.success:
         var json = jsonDecode(response.body);
-        print(json);
+        //print(json);
         return NotificationResponse.fromJson(json);
       case StatusCode.clientError:
       case StatusCode.serverError:

@@ -54,7 +54,7 @@ class _SearchViewState extends State<SearchView> {
 Widget searchList(SearchViewModel searchViewModel) {
   switch (searchViewModel.type) {
     case SearchType.Members:
-      print('Case search members');
+      //print('Case search members');
       return PagewiseListView(
           pageSize: searchViewModel.profileSearchRequest.limit,
           padding: EdgeInsets.all(15.0),

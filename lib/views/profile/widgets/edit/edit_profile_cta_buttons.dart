@@ -22,10 +22,9 @@ class EditProfileCTAButtons extends StatelessWidget {
                   onPressed: () {
                     model.updateInstrumentsList();
                     model.updateVideosList();
-                    model.updateLocation(long: 0.0, lat: 0.0);
-                    model.setMode(ProfileMode.Own);
                     model.updateAvatar();
                     model.updateProfile();
+                    model.setMode(ProfileMode.Own);
                   },
                   color: AppColors.firstLevelCTAColor,
                   child: Text(

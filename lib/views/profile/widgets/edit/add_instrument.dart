@@ -54,7 +54,7 @@ void _popUpInstrumentsPicker(context, instrumentsList, onSelectedInstrument) {
           backgroundColor: Colors.blueGrey,
           actions: <Widget>[
             IconButton(
-              icon: Icon(Icons.add),
+              icon: Icon(Icons.add_circle),
               onPressed: () {
                 onSelectedInstrument(instrumentsList[selectedItem]);
                 Navigator.pop(context);

@@ -18,8 +18,6 @@ class AppTabBar extends StatefulWidget {
 class _AppTabBarState extends State<AppTabBar> {
   bool isLoggedIn = false;
   int _selectedIndex = 0;
-  AvailableInstrumentsViewModel instrumentsViewModel =
-      AvailableInstrumentsViewModel();
 
   void _onItemTapped(int index) {
     setState(() {
@@ -37,14 +35,12 @@ class _AppTabBarState extends State<AppTabBar> {
   @override
   void initState() {
     super.initState();
-    instrumentsViewModel.fetchAvailableInstruments();
+    Provider.of<AvailableInstrumentsViewModel>(context, listen: false).fetchAvailableInstruments();
   }
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<AvailableInstrumentsViewModel>(
-      builder: (context) => instrumentsViewModel,
-      child: Scaffold(
+    return Scaffold(
         body: Center(
           child: _widgetOptions.elementAt(_selectedIndex),
         ),
@@ -67,7 +63,7 @@ class _AppTabBarState extends State<AppTabBar> {
           currentIndex: _selectedIndex,
           onTap: _onItemTapped,
         ),
-      ),
+      
     );
   }
 }
