@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sounds_good/core/utils/enums.dart';
 import 'package:sounds_good/core/utils/text_strings.dart';
-import 'package:sounds_good/core/viewmodels/available_instruments_viewmodel.dart';
 import 'package:sounds_good/core/viewmodels/profile_viewmodel.dart';
 import 'package:sounds_good/views/profile/widgets/edit/instruments_list.dart';
 import 'package:sounds_good/views/profile/widgets/shared/instruments_list.dart';

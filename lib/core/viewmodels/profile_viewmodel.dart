@@ -20,7 +20,7 @@ class ProfileViewModel extends BaseViewModel {
   File profileAvatarToUpdate;
   Instruments availableInstruments;
   Set<String> disabledAvailableInstruments = {};
-  bool _profileEdited = false;
+  
 
   /*
   *   Profile Data
@@ -40,11 +40,9 @@ class ProfileViewModel extends BaseViewModel {
 
   void updateProfile() async {
     await _api.updateProfile(profile);
-    _profileEdited = true;
   }
 
-  bool checkProfileHasBeenEdited() => _profileEdited;
-  
+    
   /*
   *   Profile Mode
   *   Own | Edit | User
@@ -90,9 +88,10 @@ class ProfileViewModel extends BaseViewModel {
 
   /* Edit Instruments */
 
+  List<String> getInstrumentsOnProfile() => profile.instruments;
+
   void addInstrument({instrument}) {
     profile.instruments.add(instrument);
-    disableAvailableInstrument(instrument);
     notifyListeners();
   }
 
@@ -103,42 +102,8 @@ class ProfileViewModel extends BaseViewModel {
   void updateInstrumentsList() {
     instrumentsToRemoveList.map((String instrument) {
       profile.instruments.remove(instrument);
-      enableAvailableInstrument(instrument);
     }).toList();
     notifyListeners();
-  }
-
-  /* Available Instruments */
-
-  List<String> getAvailableInstruments() {
-    List<String> finalList = [];
-
-    availableInstruments.items.map((instrument) {
-      if (!disabledAvailableInstruments.contains(instrument)) {
-        finalList.add(instrument);
-      }
-    }).toList();
-
-    return finalList;
-  }
-
-  Future fetchAvailableInstruments() async {
-    setState(ViewState.Busy);
-    availableInstruments = await _api.getInstruments();
-    setState(ViewState.Idle);
-  }
-
-  void disableInstrementsSelectedOnProfile() {
-    profile.instruments.map((instrument) {
-      disableAvailableInstrument(instrument);
-    }).toList();
-  }
-
-  void enableAvailableInstrument(instrument) =>
-      disabledAvailableInstruments.remove(instrument);
-
-  void disableAvailableInstrument(instrument) {
-    disabledAvailableInstruments.add(instrument);
   }
 
   /*

@@ -3,10 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sounds_good/core/utils/enums.dart';
 import 'package:sounds_good/core/utils/text_strings.dart';
-import 'package:sounds_good/core/viewmodels/available_instruments_viewmodel.dart';
 import 'package:sounds_good/core/viewmodels/search_viewmodel.dart';
-import 'package:sounds_good/views/search/widgets/instruments_filters.dart';
-import 'package:sounds_good/views/search/widgets/search_filters_header.dart';
+
+import 'package:sounds_good/views/search/sections/filters.dart';
 
 class SearchFilters extends StatefulWidget {
   SearchFilters({Key key}) : super(key: key);
@@ -86,45 +85,37 @@ class _SearchFiltersState extends State<SearchFilters> {
 class FiltersButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Consumer<AvailableInstrumentsViewModel>(
-        builder: (context, instrumentsViewModel, child) {
-      List<String> instruments = instrumentsViewModel.getAvailableInstruments();
-      return Container(
-        width: 45.0,
-        height: 45.0,
-        child: FloatingActionButton(
-          backgroundColor: Colors.white,
-          elevation: 4,
-          shape: CircleBorder(),
-          child: Icon(Icons.format_list_bulleted, color: Colors.black),
-          onPressed: () => _settingModalBottomSheet(context, instruments),
-        ),
-      );
-    });
+    return Container(
+      width: 45.0,
+      height: 45.0,
+      child: FloatingActionButton(
+        backgroundColor: Colors.white,
+        elevation: 4,
+        shape: CircleBorder(),
+        child: Icon(Icons.format_list_bulleted, color: Colors.black),
+        onPressed: () => _settingModalBottomSheet(context),
+      ),
+    );
   }
 }
 
-void _settingModalBottomSheet(context, instruments) {
-  showModalBottomSheet(
+void _settingModalBottomSheet(context) {
+  showBottomSheet(
     context: context,
-    builder: (BuildContext bc) {
-      return ChangeNotifierProvider<SearchViewModel>(
-        builder: (context) => SearchViewModel(),
-        child: Consumer<SearchViewModel>(
-          builder: (context, search, child) {
-            search.initAvailableInstruments(instruments);
-            return Padding(
-              padding: const EdgeInsets.all(24),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  FiltersHeader(),
-                  InstrumentsFilter(),
-                ],
-              ),
-            );
-          },
+    builder: (context) {
+      return Container(
+        height: MediaQuery.of(context).size.height -200,
+        width: MediaQuery.of(context).size.width,
+        color: Colors.transparent,
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: const Radius.circular(20.0),
+              topRight: const Radius.circular(20.0),
+            ),
+          ),
+          child: Filters(),
         ),
       );
     },

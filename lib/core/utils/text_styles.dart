@@ -21,6 +21,12 @@ class TextStyles {
     fontWeight: FontWeight.w700,
     color: Colors.black87,
   );
+  
+  static const TextStyle section_header_snd_level = TextStyle(
+    fontSize: 18.0,
+    fontWeight: FontWeight.w700,
+    color: Colors.black87,
+  );
 
   static const TextStyle section_subHeader = TextStyle(
     fontSize: 14.0,
