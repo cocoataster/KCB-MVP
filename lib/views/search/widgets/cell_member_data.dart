@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sounds_good/core/utils/text_styles.dart';
-import 'package:sounds_good/views/profile/widgets/shared/instrument_item.dart';
+import 'package:sounds_good/views/shared_resources/instrument_pill.dart';
 
 class CellMemberData extends StatelessWidget {
   final String name;
@@ -89,9 +89,9 @@ class CellMemberInstruments extends StatelessWidget {
   Widget build(BuildContext context) {
     return Wrap(
       children: <Widget>[
-        if (instruments.length > 0) InstrumentItem(instrument: instruments[0]),
-        if (instruments.length > 1) InstrumentItem(instrument: instruments[1]),
-        if (instruments.length > 2) InstrumentItem(instrument: '+'),
+        if (instruments.length > 0) InstrumentPill(instrumentName: instruments[0], editable: false),
+        if (instruments.length > 1) InstrumentPill(instrumentName: instruments[1], editable: false),
+        if (instruments.length > 2) InstrumentPill(instrumentName: '+', editable: false),
       ],
     );
   }

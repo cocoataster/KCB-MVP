@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:sounds_good/core/utils/text_strings.dart';
-import 'package:sounds_good/core/viewmodels/available_instruments_viewmodel.dart';
 
 class AddInstrument extends StatefulWidget {
   final onSelectedInstrument;
@@ -15,35 +13,34 @@ class AddInstrument extends StatefulWidget {
 
 class _AddInstrumentState extends State<AddInstrument> {
   @override
-   Widget build(BuildContext context) {
+  Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () =>
-          _popUp(context, widget.availableInstruments, widget.onSelectedInstrument),
-      child: _pill(context),
+      onTap: () => _popUpInstrumentsPicker(
+          context, widget.availableInstruments, widget.onSelectedInstrument),
+      child: AddInstrumentPill(),
     );
   }
 }
 
-Container _pill(context) {
-  return Container(
-    margin: EdgeInsets.only(right: 3.0, top: 3.0),
-    decoration: _getPillBoxDecoration(context),
-    child: Padding(
-      padding: const EdgeInsets.fromLTRB(16.0, 3.0, 16.0, 3.0),
-      child: Icon(Icons.add, size: 18.0, color: Colors.blueGrey.shade400),
-    ),
-  );
+class AddInstrumentPill extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(right: 3.0, top: 3.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(const Radius.circular(15.0)),
+        border: Border.all(color: Colors.blueGrey.shade200),
+        color: Colors.white,
+      ),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(16.0, 3.0, 16.0, 3.0),
+        child: Icon(Icons.add, size: 18.0, color: Colors.blueGrey.shade400),
+      ),
+    );
+  }
 }
 
-BoxDecoration _getPillBoxDecoration(BuildContext context) {
-  return BoxDecoration(
-    borderRadius: BorderRadius.all(const Radius.circular(15.0)),
-    border: Border.all(color: Colors.blueGrey.shade200),
-    color: Colors.white,
-  );
-}
-
-void _popUp(context, instrumentsList, onSelectedInstrument) {
+void _popUpInstrumentsPicker(context, instrumentsList, onSelectedInstrument) {
   int selectedItem = 1;
   showModalBottomSheet(
     context: context,
