@@ -43,6 +43,7 @@ class _AuthFormViewState extends State<AuthFormView> {
   Widget build(BuildContext context) {
     return Consumer<AuthenticationViewModel>(
       builder: (context, authViewModel, child) => Scaffold(
+        resizeToAvoidBottomInset: false,
         body: Builder(
           builder: (context) {
             String email = authViewModel.getEmail() ?? '';

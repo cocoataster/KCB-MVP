@@ -48,8 +48,9 @@ class ProfileViewModel extends BaseViewModel {
   *   Own | Edit | User
   */
 
+  
   ProfileMode get getMode {
-    if (profile.photo.isEmpty) _profileMode = ProfileMode.Edit;
+    if ((profile.photo.isEmpty) && (_profileMode == ProfileMode.Own)) _profileMode = ProfileMode.Edit;
     return _profileMode;
   }
 
