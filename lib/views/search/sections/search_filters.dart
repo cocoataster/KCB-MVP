@@ -104,7 +104,7 @@ void _settingModalBottomSheet(context) {
     context: context,
     builder: (context) {
       return Container(
-        height: MediaQuery.of(context).size.height -200,
+        height: MediaQuery.of(context).size.height -150,
         width: MediaQuery.of(context).size.width,
         color: Colors.transparent,
         child: Container(

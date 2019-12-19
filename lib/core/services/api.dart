@@ -291,10 +291,10 @@ class Api {
     }
 
     var request = '$endpoint/search$endpointSearch' + parameters;
-    // print('Search Request: $request');
+    print('Search Request: $request');
 
     var response = await client.get(request, headers: headers);
-    // print('Search Response: ${response.body}');
+    print('Search Response: ${response.body}');
 
     StatusCode statusCode = getStatusCode(response.statusCode);
 
