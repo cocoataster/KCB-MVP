@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_pagewise/flutter_pagewise.dart';
+import 'package:sounds_good/core/services/api.dart';
 import 'package:sounds_good/core/utils/enums.dart';
 import 'package:sounds_good/core/utils/text_strings.dart';
 import 'package:sounds_good/core/utils/text_styles.dart';
@@ -14,7 +15,6 @@ class NotificationsView extends StatefulWidget {
 
 class _NotificationsViewState extends State<NotificationsView> {
   NotificationsViewModel notificationsViewModel = NotificationsViewModel();
-
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +39,7 @@ class _NotificationsViewState extends State<NotificationsView> {
                       notificationsViewModel.notifications[index];
 
                   var image = notification.info.image != ''
-                      ? notification.info.image
+                      ? '${Api.endpoint}/${notification.info.image}'
                       : 'assets/images/profile.png';
 
                   var sender = notification.info.senderName != ''
@@ -87,12 +87,19 @@ class NotificationsRow extends StatelessWidget {
         child: ListTile(
           leading: ClipRRect(
             borderRadius: BorderRadius.circular(10.0),
-            child: Image.asset(
-              asset,
-              height: 110,
-              alignment: Alignment(0.0, -1.0),
-              fit: BoxFit.fitHeight,
-            ),
+            child: asset.contains('http')
+                ? Image.network(
+                    asset,
+                    height: 110,
+                    alignment: Alignment(0.0, -1.0),
+                    fit: BoxFit.fitHeight,
+                  )
+                : Image.asset(
+                    asset,
+                    height: 110,
+                    alignment: Alignment(0.0, -1.0),
+                    fit: BoxFit.fitHeight,
+                  ),
           ),
           title: Text(notification),
           trailing: RaisedButton(
