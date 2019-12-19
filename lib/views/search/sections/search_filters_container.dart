@@ -62,6 +62,10 @@ class _SearchFiltersContainerState extends State<SearchFiltersContainer> {
                       setState(() {
                         searchViewModel.updateName(name);
                       });
+                    } else if (name.length == 0) {
+                      setState(() {
+                        searchViewModel.updateName("");
+                      });
                     }
                   },
                 ),
