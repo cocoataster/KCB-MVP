@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sounds_good/core/models/profile.dart';
 import 'package:sounds_good/core/services/api.dart';
 import 'package:sounds_good/core/utils/enums.dart';
 import 'package:sounds_good/core/viewmodels/search_viewmodel.dart';
@@ -11,6 +12,7 @@ class MemberResults extends StatefulWidget {
 }
 
 class _MemberResultsState extends State<MemberResults> {
+  List<Profile> profiles = List();
   ScrollController _scrollController = ScrollController();
 
   int index;
@@ -22,6 +24,7 @@ class _MemberResultsState extends State<MemberResults> {
     index = 0;
 
     setState(() {
+      profiles = Provider.of<SearchViewModel>(context, listen: false).profiles;
       type = Provider.of<SearchViewModel>(context, listen: false).type;
     });
 

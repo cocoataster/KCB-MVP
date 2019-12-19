@@ -36,66 +36,62 @@ class _SearchFiltersContainerState extends State<SearchFiltersContainer> {
 
   @override
   Widget build(BuildContext context) {
-    final bottom = MediaQuery.of(context).viewInsets.bottom;
-
     return Consumer<SearchViewModel>(
       builder: (context, searchViewModel, child) => Scaffold(
-        resizeToAvoidBottomInset: false,
-        resizeToAvoidBottomPadding: false,
         body: SafeArea(
           child: SingleChildScrollView(
-            
-            child: Padding(
-              padding: EdgeInsets.only(bottom: bottom),
-              child: Column(
-                children: <Widget>[
-                  ListTile(
-                    leading: FiltersButton(),
-                    title: TextFormField(
-                      decoration: InputDecoration(
-                        suffixIcon: Icon(Icons.search),
-                        contentPadding: EdgeInsets.symmetric(
-                            horizontal: 15.0, vertical: 15.0),
-                        labelStyle: TextStyle(fontSize: 16),
-                        border: new OutlineInputBorder(
-                          borderRadius: const BorderRadius.all(
-                            const Radius.circular(24.0),
-                          ),
+            child: Column(
+              children: <Widget>[
+                ListTile(
+                  leading: FiltersButton(),
+                  title: TextFormField(
+                    decoration: InputDecoration(
+                      suffixIcon: Icon(Icons.search),
+                      contentPadding: EdgeInsets.symmetric(
+                          horizontal: 15.0, vertical: 15.0),
+                      labelStyle: TextStyle(fontSize: 16),
+                      border: new OutlineInputBorder(
+                        borderRadius: const BorderRadius.all(
+                          const Radius.circular(24.0),
                         ),
-                        hintText: TextStrings.search_filter_search_hint,
-                        labelText: TextStrings.search_filter_search_label,
                       ),
-                      onChanged: (name) {
-                        if (name.length > 3) {
-                          setState(() {
-                            searchViewModel.updateName(name);
-                          });
-                        }
-                      },
+                      hintText: TextStrings.search_filter_search_hint,
+                      labelText: TextStrings.search_filter_search_label,
                     ),
-                  ),
-                  SizedBox(
-                    height: 50.0,
-                    width: 180.0,
-                    child: CupertinoSegmentedControl<SearchType>(
-                      padding: EdgeInsets.all(0.0),
-                      borderColor: Colors.blueGrey,
-                      selectedColor: Colors.blueGrey,
-                      children: searchWidgets,
-                      onValueChanged: (selection) {
+                    onChanged: (name) {
+                      if (name.length > 3) {
                         setState(() {
-                          typeSelected = selection;
-                          searchViewModel.setType(selection);
+                          searchViewModel.updateName(name);
                         });
-                      },
-                      groupValue: typeSelected,
-                    ),
+                      } else if (name.length == 0) {
+                        setState(() {
+                          searchViewModel.updateName("");
+                        });
+                      }
+                    },
                   ),
-                  typeSelected == SearchType.Members
-                      ? MemberResults()
-                      : LocalResults(),
-                ],
-              ),
+                ),
+                SizedBox(
+                  height: 50.0,
+                  width: 180.0,
+                  child: CupertinoSegmentedControl<SearchType>(
+                    padding: EdgeInsets.all(0.0),
+                    borderColor: Colors.blueGrey,
+                    selectedColor: Colors.blueGrey,
+                    children: searchWidgets,
+                    onValueChanged: (selection) {
+                      setState(() {
+                        typeSelected = selection;
+                        searchViewModel.setType(selection);
+                      });
+                    },
+                    groupValue: typeSelected,
+                  ),
+                ),
+                typeSelected == SearchType.Members
+                    ? MemberResults()
+                    : LocalResults(),
+              ],
             ),
           ),
         ),
