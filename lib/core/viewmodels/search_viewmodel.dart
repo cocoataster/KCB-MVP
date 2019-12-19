@@ -1,5 +1,4 @@
 import 'package:sounds_good/core/models/local.dart';
-import 'package:sounds_good/core/models/profile.dart';
 import 'package:sounds_good/core/models/search_request.dart';
 import 'package:sounds_good/core/models/search_response.dart';
 import 'package:sounds_good/core/services/api.dart';
@@ -23,47 +22,46 @@ class SearchViewModel extends BaseViewModel {
   SearchType type;
   String name;
 
-  List<Profile> profiles = [];
+  List<dynamic> profiles = [];
   List<Local> locals = [];
 
-  Future<List<Profile>> fetchProfilePage(pageIndex) async {
-    setState(ViewState.Busy);
-    profileSearchRequest.offset = pageIndex * profileSearchRequest.limit;
-    SearchResponse searchResponse =
-        await _api.getSearchItems(profileSearchRequest, SearchType.Members);
+  void setType(SearchType searchType) => type = searchType;
+  
 
-    profiles += searchResponse.items;
+  Future fetchMembersSearch(index) async {
+    
+    setState(ViewState.Busy);
+    profileSearchRequest.offset = index * profileSearchRequest.limit;
+    SearchResponse searchResponse =
+        await _api.getSearchItems(profileSearchRequest, type);
+
+    searchResponse.items.map((item) => profiles.add(item)).toList();
     ++profileSearchRequest.offset;
     profileSearchRequest.total = searchResponse.total;
     profileSearchRequest.name = name;
     setState(ViewState.Idle);
-
-    return searchResponse.items;
   }
 
-  Future<List<Local>> fetchLocalPage(pageIndex) async {
+  Future fetchLocalsSearch(index) async {
     setState(ViewState.Busy);
-    localSearchRequest.offset = pageIndex * localSearchRequest.limit;
+    localSearchRequest.offset = index * localSearchRequest.limit;
     SearchResponse searchResponse =
         await _api.getSearchItems(localSearchRequest, SearchType.Locals);
-    locals += searchResponse.items;
+    
+    searchResponse.items.map((item) => locals.add(item)).toList();
+    
     ++localSearchRequest.offset;
     localSearchRequest.total = searchResponse.total;
     setState(ViewState.Idle);
 
-    return searchResponse.items;
-  }
-
-  void setType(SearchType searchType) {
-    type = searchType;
-    name = "";
-    notifyListeners();
   }
 
   void updateName(String newName) {
     name = newName;
     notifyListeners();
   }
+
+  // Instruments
 
   Set<String> disabledAvailableInstruments = {};
   List<String> availableInstruments = [];
@@ -94,6 +92,8 @@ class SearchViewModel extends BaseViewModel {
 
   List<String> getAvailableInstruments() => availableInstruments;
   Set<String> getSelectedInstruments() => instrumentsFilterRequest;
+
+  // Distance
 
   double distanceFilter;
 

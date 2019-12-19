@@ -71,6 +71,7 @@ class _SearchFiltersState extends State<SearchFilters> {
                 setState(() {
                   typeSelected = selection;
                   search.setType(selection);
+                  
                 });
               },
               groupValue: typeSelected,

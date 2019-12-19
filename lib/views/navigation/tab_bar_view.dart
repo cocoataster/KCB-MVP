@@ -36,6 +36,7 @@ class _AppTabBarState extends State<AppTabBar> {
   void initState() {
     super.initState();
     Provider.of<AvailableInstrumentsViewModel>(context, listen: false).fetchAvailableInstruments();
+    _selectedIndex = 1;
   }
 
   @override
