@@ -1,7 +1,7 @@
 import 'package:sounds_good/core/models/notification_info.dart';
 import 'package:sounds_good/core/utils/enums.dart';
 
-class Notification {
+class MemberNotification {
   final String id;
   NotificationType type;
   String receiverId;
@@ -9,7 +9,7 @@ class Notification {
   NotificationState state;
   NotificationInfo info;
 
-  Notification({
+  MemberNotification({
     this.id,
     this.type,
     this.receiverId,
@@ -18,7 +18,7 @@ class Notification {
     this.info,
   });
 
-  factory Notification.fromJson(Map<String, dynamic> json) {
+  factory MemberNotification.fromJson(Map<String, dynamic> json) {
     NotificationType notificationType = json['notificationType'] == 'follow'
         ? NotificationType.Follow
         : NotificationType.Other;
@@ -33,7 +33,7 @@ class Notification {
         ? NotificationInfo.fromJson(json['data'])
         : NotificationInfo();
 
-    return Notification(
+    return MemberNotification(
       id: json['cuid'],
       type: notificationType,
       receiverId: json['destination'],

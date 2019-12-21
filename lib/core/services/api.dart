@@ -4,6 +4,8 @@ import 'package:http_parser/http_parser.dart';
 import 'package:http/http.dart' as http;
 import 'package:sounds_good/core/models/local.dart';
 import 'package:sounds_good/core/models/my_band.dart';
+import 'package:sounds_good/core/models/notification.dart' as prefix0;
+import 'package:sounds_good/core/models/notification.dart';
 import 'package:sounds_good/core/models/notification_response.dart';
 import 'package:sounds_good/core/models/instruments.dart';
 import 'package:sounds_good/core/models/profile.dart';
@@ -342,6 +344,27 @@ class Api {
       case StatusCode.serverError:
       default:
         return NotificationResponse();
+    }
+  }
+
+  Future<MemberNotification> redeemNotification(String id) async {
+    String token = await Storage.getToken();
+
+    var headers = {"Authorization": token};
+
+    final response = await client.get('$endpoint/notification/redeem/$id');
+
+    StatusCode statusCode = getStatusCode(response.statusCode);
+
+    switch (statusCode) {
+      case StatusCode.success:
+        var json = jsonDecode(response.body);
+        //print(json);
+        return MemberNotification.fromJson(json);
+      case StatusCode.clientError:
+      case StatusCode.serverError:
+      default:
+        return MemberNotification();
     }
   }
 }
