@@ -32,6 +32,7 @@ class Filters extends StatelessWidget {
                   value: 'Apply Filters',
                   color: AppColors.firstLevelCTAColor,
                   onPressed: () {
+                    search.resetProfileSearch();
                     search.updateFilters();
                     Navigator.pop(context);
                   },

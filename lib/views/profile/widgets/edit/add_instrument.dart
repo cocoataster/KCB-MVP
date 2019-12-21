@@ -1,28 +1,55 @@
+import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:sounds_good/core/services/storage.dart';
 import 'package:sounds_good/core/utils/text_strings.dart';
-import 'package:sounds_good/core/viewmodels/available_instruments_viewmodel.dart';
 
 class AddInstrument extends StatefulWidget {
   final onSelectedInstrument;
-  AddInstrument({this.onSelectedInstrument});
+  final provider;
+  final bool profile; 
+  AddInstrument({this.onSelectedInstrument, this.provider, this.profile});
 
   @override
   _AddInstrumentState createState() => _AddInstrumentState();
 }
 
 class _AddInstrumentState extends State<AddInstrument> {
+  List<String> availableInstruments = [];
+
+  @override
+  void initState() {
+    super.initState();
+
+    if (widget.profile == true) widget.provider.disableInstrumentsFromProfile();
+
+    _availableIntruments();
+  }
+
+  Future _availableIntruments() async {
+    var instrumentsFromStorage = await Storage.getAvailableInstruments();
+    var instrumentsDecoded = jsonDecode(instrumentsFromStorage);
+    instrumentsDecoded['items']
+        .map((item) => availableInstruments.add(item))
+        .toList();
+  }
+
+  List<String> getAvailableInstruments() {
+    List<String> instrumentsToDisableFromPicker =
+        widget.provider.getInstrumentsToDisableFromPicker();
+    instrumentsToDisableFromPicker
+        .map((instrument) => availableInstruments.remove(instrument))
+        .toList();
+
+    return availableInstruments;
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Consumer<AvailableInstrumentsViewModel>(
-      builder: (context, availableInstruments, child) => GestureDetector(
-        onTap: () => _popUpInstrumentsPicker(
-            context,
-            availableInstruments.getAvailableInstruments(),
-            widget.onSelectedInstrument),
-        child: AddInstrumentPill(),
-      ),
+    return GestureDetector(
+      onTap: () => _popUpInstrumentsPicker(
+          context, getAvailableInstruments(), widget.onSelectedInstrument),
+      child: AddInstrumentPill(),
     );
   }
 }

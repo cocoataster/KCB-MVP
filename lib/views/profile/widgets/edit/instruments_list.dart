@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sounds_good/core/viewmodels/available_instruments_viewmodel.dart';
 import 'package:sounds_good/core/viewmodels/profile_viewmodel.dart';
 import 'package:sounds_good/views/profile/widgets/edit/add_instrument.dart';
 import 'package:sounds_good/views/profile/widgets/edit/instrument_item.dart';
@@ -14,7 +13,6 @@ class EditInstrumentsList extends StatefulWidget {
 
 class _EditInstrumentsListState extends State<EditInstrumentsList> {
   Set<String> _instrumentsSelected = Set<String>();
-  List<String> availableInstrumentsList = List<String>();
 
   void _handleInstrumentChanged(String instrument, bool isSelected) {
     setState(() {
@@ -24,33 +22,15 @@ class _EditInstrumentsListState extends State<EditInstrumentsList> {
     });
     Provider.of<ProfileViewModel>(context, listen: false)
         .instrumentsToRemove(instrumentsSelected: _instrumentsSelected);
-    Provider.of<AvailableInstrumentsViewModel>(context, listen: false)
-        .instrumentsToDisable(_instrumentsSelected);
+    Provider.of<ProfileViewModel>(context, listen: false)
+        .enableAvailableInstrument(instrument);
   }
 
   void _addInstrument(String newInstrument) {
     Provider.of<ProfileViewModel>(context, listen: false)
         .addInstrument(instrument: newInstrument);
-    Provider.of<AvailableInstrumentsViewModel>(context, listen: false)
+    Provider.of<ProfileViewModel>(context, listen: false)
         .disableAvailableInstrument(newInstrument);
-  }
-
-  @override
-  void initState() {
-    List<String> instrumentsOnProfile =
-        Provider.of<ProfileViewModel>(context, listen: false)
-            .getInstrumentsOnProfile();
-
-    Provider.of<AvailableInstrumentsViewModel>(context, listen: false)
-        .disableInstrumentsFromProfile(instrumentsOnProfile);
-
-    availableInstrumentsList =
-        Provider.of<AvailableInstrumentsViewModel>(context, listen: false)
-            .getAvailableInstruments();
-    super.initState();
-
-    print('Instruments on Profile: $instrumentsOnProfile');
-    print('Available instruments: $availableInstrumentsList');
   }
 
   @override
@@ -69,6 +49,8 @@ class _EditInstrumentsListState extends State<EditInstrumentsList> {
         List<Widget> _editableInstrumentsList = [
           AddInstrument(
             onSelectedInstrument: _addInstrument,
+            provider: Provider.of<ProfileViewModel>(context, listen: false),
+            profile: true,
           ),
         ];
 

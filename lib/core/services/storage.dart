@@ -18,6 +18,19 @@ class Storage {
     await manager.write(key: "Token", value: token);
   }
 
+  // Save Available Instruments
+  static void saveAvailableInstruments(String instrumentsList) async {
+    await manager.write(key: "Available_Instruments", value: instrumentsList);
+  }
+
+  // Get Available Instruments
+  static Future<String> getAvailableInstruments() async {
+    String availableInstruments =
+        await manager.read(key: "Available_Instruments");
+
+    return availableInstruments;
+  }
+
   // Get user ID
 
   static Future<String> getUserId() async {
@@ -33,6 +46,7 @@ class Storage {
     return token;
   }
 
+  // LogOut
   static void logOut() async {
     await manager.deleteAll();
   }

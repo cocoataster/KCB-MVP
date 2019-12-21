@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sounds_good/core/utils/text_strings.dart';
 import 'package:sounds_good/core/utils/text_styles.dart';
-import 'package:sounds_good/core/viewmodels/available_instruments_viewmodel.dart';
 import 'package:sounds_good/core/viewmodels/search_viewmodel.dart';
 import 'package:sounds_good/views/profile/widgets/edit/add_instrument.dart';
 import 'package:sounds_good/views/profile/widgets/edit/instrument_item.dart';
@@ -19,6 +18,8 @@ class _InstrumentsFilterState extends State<InstrumentsFilter> {
     setState(() {
       Provider.of<SearchViewModel>(context, listen: false)
           .addInstrument(instrument);
+      Provider.of<SearchViewModel>(context, listen: false)
+          .disableAvailableInstrument(instrument);
     });
     setState(() {
       availableInstrumentsList.remove(instrument);
@@ -29,6 +30,8 @@ class _InstrumentsFilterState extends State<InstrumentsFilter> {
     setState(() {
       Provider.of<SearchViewModel>(context, listen: false)
           .removeInstrument(instrument);
+      Provider.of<SearchViewModel>(context, listen: false)
+          .enableAvailableInstrument(instrument);
     });
     setState(() {
       availableInstrumentsList.add(instrument);
@@ -67,7 +70,9 @@ class _InstrumentsFilterState extends State<InstrumentsFilter> {
               ),
             ),
             AddInstrument(
-              onSelectedInstrument: _addInstrument
+              onSelectedInstrument: _addInstrument,
+              provider: Provider.of<SearchViewModel>(context, listen: false),
+              profile: false,
             ),
           ],
         ),

@@ -19,7 +19,7 @@ class ProfileViewModel extends BaseViewModel {
   ImageProvider<dynamic> profileAvatar;
   File profileAvatarToUpdate;
   Instruments availableInstruments;
-  Set<String> disabledAvailableInstruments = {};
+  List<String> instrumentsToDisableFromPicker = [];
   
 
   /*
@@ -38,7 +38,7 @@ class ProfileViewModel extends BaseViewModel {
     setState(ViewState.Idle);
   }
 
-  void updateProfile() async {
+  Future updateProfile() async {
     await _api.updateProfile(profile);
   }
 
@@ -67,7 +67,11 @@ class ProfileViewModel extends BaseViewModel {
   void initializeAvatar() {
     if(profile.photo.isNotEmpty){
       profileAvatar = NetworkImage('${Api.endpoint}/${profile.photo}?v=${DateTime.now().millisecondsSinceEpoch}');
-    } 
+    } else {
+      if(_profileMode != ProfileMode.Member){
+        setMode(ProfileMode.Edit);
+      }
+    }
   }
 
   void avatarToUpdate({File imageFile}) {
@@ -105,6 +109,22 @@ class ProfileViewModel extends BaseViewModel {
     }).toList();
     notifyListeners();
   }
+
+  // For avoid duplicates on Instruments Picker
+  void disableInstrumentsFromProfile() =>
+      profile.instruments
+          .map((instrument) => disableAvailableInstrument(instrument))
+          .toList();
+
+  void enableAvailableInstrument(instrument) =>
+      instrumentsToDisableFromPicker.remove(instrument);
+
+  void disableAvailableInstrument(instrument) =>
+      instrumentsToDisableFromPicker.add(instrument);
+
+  List<String> getInstrumentsToDisableFromPicker() => instrumentsToDisableFromPicker; 
+     
+    
 
   /*
   *   Videos

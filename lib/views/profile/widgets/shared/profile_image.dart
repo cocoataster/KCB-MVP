@@ -30,8 +30,9 @@ class _ProfileImageState extends State<ProfileImage> {
       _profileHasAvatar = true;
     } else {
       if (profileViewModel.getMode != ProfileMode.Member){
-        _avatarImageProvider = AssetImage('assets/images/avatarPlaceholder.png');
         profileViewModel.setMode(ProfileMode.Edit);
+        _avatarImageProvider = AssetImage('assets/images/avatarPlaceholder.png');
+        
       } else {
         _avatarImageProvider = NetworkImage('https://cdn3.iconfinder.com/data/icons/black-easy/512/538642-user_512x512.png');
       }

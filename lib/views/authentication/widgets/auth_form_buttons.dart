@@ -6,7 +6,6 @@ import 'package:sounds_good/core/utils/enums.dart';
 import 'package:sounds_good/core/utils/text_strings.dart';
 import 'package:sounds_good/core/utils/text_styles.dart';
 import 'package:sounds_good/core/viewmodels/authentication_viewmodel.dart';
-import 'package:sounds_good/core/viewmodels/available_instruments_viewmodel.dart';
 import 'package:sounds_good/views/shared_resources/full_width_button.dart';
 
 class AccessFormButtons extends StatefulWidget {

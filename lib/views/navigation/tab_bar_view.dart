@@ -1,7 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:sounds_good/core/viewmodels/available_instruments_viewmodel.dart';
+import 'package:sounds_good/core/services/api.dart';
+import 'package:sounds_good/core/services/storage.dart';
 import 'package:sounds_good/views/navigation/app_icons.dart';
 import 'package:sounds_good/views/landing/landing_view.dart';
 import 'package:sounds_good/views/notifications/notifications_view.dart';
@@ -35,36 +37,43 @@ class _AppTabBarState extends State<AppTabBar> {
   @override
   void initState() {
     super.initState();
-    Provider.of<AvailableInstrumentsViewModel>(context, listen: false).fetchAvailableInstruments();
+    // Save on Storage Available Instruments for later use on profile and filters
+    Api().getInstruments()
+        .then((res) {
+          print('Res TabBar: $res');
+      var availableInstruments = jsonEncode(res);
+      print('Encoded: $availableInstruments');
+      Storage.saveAvailableInstruments(availableInstruments);
+    });
+
     _selectedIndex = 1;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Center(
-          child: _widgetOptions.elementAt(_selectedIndex),
-        ),
-        bottomNavigationBar: CupertinoTabBar(
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(CustomIcons.home),
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(CustomIcons.search),
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.chat_bubble_outline),
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(CustomIcons.profile),
-            ),
-          ],
-          activeColor: Color.fromRGBO(131, 142, 222, 1.0),
-          currentIndex: _selectedIndex,
-          onTap: _onItemTapped,
-        ),
-      
+      body: Center(
+        child: _widgetOptions.elementAt(_selectedIndex),
+      ),
+      bottomNavigationBar: CupertinoTabBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(CustomIcons.home),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(CustomIcons.search),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.chat_bubble_outline),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(CustomIcons.profile),
+          ),
+        ],
+        activeColor: Color.fromRGBO(131, 142, 222, 1.0),
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
+      ),
     );
   }
 }

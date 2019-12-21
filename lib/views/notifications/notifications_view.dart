@@ -23,6 +23,7 @@ class _NotificationsViewState extends State<NotificationsView> {
         builder: (context) => notificationsViewModel,
         child: Consumer<NotificationsViewModel>(
           builder: (context, notificationsViewModel, child) => WillPopScope(
+            onWillPop: () =>  Future(() => false),
             child: Scaffold(
               body: SafeArea(
                 child: Column(

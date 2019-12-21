@@ -1,10 +1,8 @@
 import 'dart:convert';
-import 'package:flutter/material.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:http/http.dart' as http;
 import 'package:sounds_good/core/models/local.dart';
 import 'package:sounds_good/core/models/my_band.dart';
-import 'package:sounds_good/core/models/notification.dart' as prefix0;
 import 'package:sounds_good/core/models/notification.dart';
 import 'package:sounds_good/core/models/notification_response.dart';
 import 'package:sounds_good/core/models/instruments.dart';

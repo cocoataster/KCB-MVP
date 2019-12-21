@@ -11,10 +11,6 @@ class AuthenticationViewModel extends BaseViewModel {
     user = User.initial();
   } 
 
-  String test() {
-    return ('From AuthViewmodel');
-  }
-
   AuthFormMode _authMode = AuthFormMode.Login;
 
   Future<bool> signin({String email, String password}) async {
@@ -26,8 +22,7 @@ class AuthenticationViewModel extends BaseViewModel {
 
 
   Future<bool> login({String email, String password}) async {
-    setState(ViewState.Busy);
-    
+    setState(ViewState.Busy);    
     var success = await _api.login(user.email, user.password);
     setState(ViewState.Idle);
     return success;

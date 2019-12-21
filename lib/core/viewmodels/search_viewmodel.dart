@@ -19,11 +19,10 @@ class SearchViewModel extends BaseViewModel {
 
   SearchRequest localSearchRequest =
       SearchRequest(name: "", limit: 2, offset: 0, total: 0);
-
   SearchType type;
-
   List<Profile> profiles = [];
   List<Local> locals = [];
+  List<String> instrumentsToDisableFromPicker = [];
 
   void setType(SearchType searchType) {
     type = searchType;
@@ -77,6 +76,7 @@ class SearchViewModel extends BaseViewModel {
     profileSearchRequest.name = "";
     profileSearchRequest.offset = 0;
     profileSearchRequest.total = 0;
+    profileSearchRequest.instruments = [];
     profiles = [];
     fetchMembersSearch(0);
   }
@@ -88,23 +88,10 @@ class SearchViewModel extends BaseViewModel {
     locals = [];
     fetchLocalsSearch(0);
   }
-
-  void resetProfileInstruments(instruments) {
-    profileSearchRequest.name = "";
-    profileSearchRequest.offset = 0;
-    profileSearchRequest.total = 0;
-    profileSearchRequest.instruments = instruments;
-    profiles = [];
-    fetchMembersSearch(0);
-  }
-
   
   void updateFilters(){
     profileSearchRequest.instruments.addAll(instrumentsFilterRequest);
-    print('Instruments!: $instrumentsFilterRequest');
-    print('REQ: ${profileSearchRequest.instruments}');
-    resetProfileInstruments(instrumentsFilterRequest);
-    //fetchMembersSearch(0);
+    fetchMembersSearch(0);
   }
 
   // Instruments
@@ -129,12 +116,16 @@ class SearchViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  void availableInstrumentsList() {
-    disabledAvailableInstruments.map((String instrument) {
-      availableInstruments.remove(instrument);
-    }).toList();
-    notifyListeners();
-  }
+  // For avoid duplicates on Instruments Picker
+
+  void enableAvailableInstrument(instrument) =>
+      instrumentsToDisableFromPicker.remove(instrument);
+
+  void disableAvailableInstrument(instrument) =>
+      instrumentsToDisableFromPicker.add(instrument);
+
+  List<String> getInstrumentsToDisableFromPicker() => instrumentsToDisableFromPicker; 
+     
 
   List<String> getAvailableInstruments() => availableInstruments;
   List<String> getSelectedInstruments() => instrumentsFilterRequest;

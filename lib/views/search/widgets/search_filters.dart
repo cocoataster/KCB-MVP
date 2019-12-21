@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sounds_good/core/utils/text_strings.dart';
@@ -12,6 +14,20 @@ class SearchFilters extends StatefulWidget {
 }
 
 class _SearchFiltersState extends State<SearchFilters> {
+  _search(String name) {
+    var searchViewModel = Provider.of<SearchViewModel>(context, listen: false);
+    if (name.length > 3) {
+      setState(() {
+        searchViewModel.updateName(name);
+      });
+    } else if (name.length == 0) {
+      setState(() {
+        searchViewModel.updateName("");
+      });
+    }
+  }
+
+  final TextEditingController _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -19,8 +35,20 @@ class _SearchFiltersState extends State<SearchFilters> {
         builder: (context, searchViewModel, child) => ListTile(
           leading: FiltersButton(),
           title: TextFormField(
+            controller: _controller,
             decoration: InputDecoration(
-              suffixIcon: Icon(Icons.search),
+              prefixIcon: IconButton(
+                icon: Icon(Icons.cancel),
+                onPressed: () {
+                  searchViewModel.resetProfileSearch();
+                  FocusScope.of(context).requestFocus(FocusNode());
+                  _controller.clear();
+                },
+              ),
+              suffixIcon: IconButton(
+                  icon: Icon(Icons.search),
+                  onPressed: () =>
+                      FocusScope.of(context).requestFocus(FocusNode())),
               contentPadding:
                   EdgeInsets.symmetric(horizontal: 15.0, vertical: 15.0),
               labelStyle: TextStyle(fontSize: 16),
@@ -33,15 +61,7 @@ class _SearchFiltersState extends State<SearchFilters> {
               labelText: TextStrings.search_filter_search_label,
             ),
             onChanged: (name) {
-              if (name.length > 3) {
-                setState(() {
-                  searchViewModel.updateName(name);
-                });
-              } else if (name.length == 0) {
-                setState(() {
-                  searchViewModel.updateName("");
-                });
-              }
+              _search(name);
             },
             onFieldSubmitted: (saved) => FocusScope.of(context).requestFocus(
               FocusNode(),
