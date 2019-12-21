@@ -352,14 +352,16 @@ class Api {
 
     var headers = {"Authorization": token};
 
-    final response = await client.get('$endpoint/notification/redeem/$id');
+    final response =
+        await client.get('$endpoint/notification/redeem/$id', headers: headers);
+
+    print('Redeem Response: ${response.body}');
 
     StatusCode statusCode = getStatusCode(response.statusCode);
 
     switch (statusCode) {
       case StatusCode.success:
         var json = jsonDecode(response.body);
-        //print(json);
         return MemberNotification.fromJson(json);
       case StatusCode.clientError:
       case StatusCode.serverError:
