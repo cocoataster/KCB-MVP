@@ -40,10 +40,10 @@ class _EditInstrumentsListState extends State<EditInstrumentsList> {
     List<String> instrumentsOnProfile =
         Provider.of<ProfileViewModel>(context, listen: false)
             .getInstrumentsOnProfile();
-  
+
     Provider.of<AvailableInstrumentsViewModel>(context, listen: false)
         .disableInstrumentsFromProfile(instrumentsOnProfile);
-  
+
     availableInstrumentsList =
         Provider.of<AvailableInstrumentsViewModel>(context, listen: false)
             .getAvailableInstruments();
@@ -68,8 +68,8 @@ class _EditInstrumentsListState extends State<EditInstrumentsList> {
 
         List<Widget> _editableInstrumentsList = [
           AddInstrument(
-              onSelectedInstrument: _addInstrument,
-              availableInstruments: availableInstrumentsList),
+            onSelectedInstrument: _addInstrument,
+          ),
         ];
 
         _editableInstrumentsList.addAll(_instrumentsWidgetsList);

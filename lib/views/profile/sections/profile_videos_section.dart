@@ -13,7 +13,6 @@ class ProfileVideosSection extends StatelessWidget {
     return Consumer<ProfileViewModel>(builder: (context, model, child) {
       List<String> thumbnails =
           model.getVideos().map<String>((video) => video['thumbnail']).toList();
-      List<String> urls = model.getVideos().map<String>((video) => video['video']).toList();
 
       return Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -22,7 +21,7 @@ class ProfileVideosSection extends StatelessWidget {
             SectionTitle(sectionTitle: TextStrings.profile_videos_section_title),
             model.getMode == ProfileMode.Edit
                 ? EditProfileVideos(videos: thumbnails)
-                : ProfileVideos(thumbnails: thumbnails, urls: urls),
+                : ProfileVideos(videos: model.getVideos()),
           ]);
     });
   }

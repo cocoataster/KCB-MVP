@@ -36,16 +36,6 @@ class _InstrumentsFilterState extends State<InstrumentsFilter> {
   }
 
   @override
-  void initState() {
-    super.initState();
-    availableInstrumentsList =
-        Provider.of<AvailableInstrumentsViewModel>(context, listen: false)
-            .getAvailableInstruments();
-
-    print('Available instruments: $availableInstrumentsList');
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Consumer<SearchViewModel>(
       builder: (context, search, child) => Container(
@@ -77,8 +67,7 @@ class _InstrumentsFilterState extends State<InstrumentsFilter> {
               ),
             ),
             AddInstrument(
-              onSelectedInstrument: _addInstrument,
-              availableInstruments: availableInstrumentsList,
+              onSelectedInstrument: _addInstrument
             ),
           ],
         ),

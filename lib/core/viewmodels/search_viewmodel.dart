@@ -115,6 +115,8 @@ class SearchViewModel extends BaseViewModel {
   List<String> getAvailableInstruments() => availableInstruments;
   Set<String> getSelectedInstruments() => instrumentsFilterRequest;
 
+  // 
+
   // Distance
 
   double distanceFilter;
