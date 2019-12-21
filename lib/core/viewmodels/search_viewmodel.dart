@@ -40,9 +40,7 @@ class SearchViewModel extends BaseViewModel {
         await _api.getSearchItems(profileSearchRequest, type);
 
     searchResponse.items.map((item) => profiles.add(item)).toList();
-    if (profileSearchRequest.offset < profileSearchRequest.total) {
-      ++profileSearchRequest.offset;
-    }
+
     profileSearchRequest.total = searchResponse.total;
     setState(ViewState.Idle);
   }
@@ -54,9 +52,6 @@ class SearchViewModel extends BaseViewModel {
         await _api.getSearchItems(localSearchRequest, type);
 
     searchResponse.items.map((item) => locals.add(item)).toList();
-    if (localSearchRequest.offset < localSearchRequest.total) {
-      ++localSearchRequest.offset;
-    }
 
     localSearchRequest.total = searchResponse.total;
     setState(ViewState.Idle);
@@ -88,8 +83,17 @@ class SearchViewModel extends BaseViewModel {
     locals = [];
     fetchLocalsSearch(0);
   }
-  
-  void updateFilters(){
+
+  void resetProfileInstruments(instruments) {
+    profileSearchRequest.name = "";
+    profileSearchRequest.offset = 0;
+    profileSearchRequest.total = 0;
+    profileSearchRequest.instruments = instruments;
+    profiles = [];
+    fetchMembersSearch(0);
+  }
+
+  void updateFilters() {
     profileSearchRequest.instruments.addAll(instrumentsFilterRequest);
     fetchMembersSearch(0);
   }

@@ -21,19 +21,21 @@ class _LocalResultsState extends State<LocalResults> {
     super.initState();
     index = 0;
 
+    SearchViewModel searchViewModel =
+        Provider.of<SearchViewModel>(context, listen: false);
+
     setState(() {
-      type = Provider.of<SearchViewModel>(context, listen: false).type;
+      type = searchViewModel.type;
     });
 
-    Provider.of<SearchViewModel>(context, listen: false)
-        .fetchLocalsSearch(index);
+    searchViewModel.fetchLocalsSearch(index);
 
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
-          _scrollController.position.maxScrollExtent) {
+              _scrollController.position.maxScrollExtent &&
+          searchViewModel.localSearchRequest.hasMorePages()) {
         index++;
-        Provider.of<SearchViewModel>(context, listen: false)
-            .fetchLocalsSearch(index);
+        searchViewModel.fetchLocalsSearch(index);
       }
     });
   }
@@ -48,7 +50,7 @@ class _LocalResultsState extends State<LocalResults> {
   Widget build(BuildContext context) {
     return Consumer<SearchViewModel>(
       builder: (context, searchViewModel, child) => Container(
-        height: 400,
+        height: MediaQuery.of(context).size.height - 184,
         child: ListView.builder(
           controller: _scrollController,
           itemCount: searchViewModel.locals.length,

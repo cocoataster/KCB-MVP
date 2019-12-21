@@ -53,4 +53,8 @@ class SearchRequest {
   List<dynamic> getFollowers() {
     return this.followers;
   }
+
+  bool hasMorePages() {
+    return offset < total;
+  }
 }
