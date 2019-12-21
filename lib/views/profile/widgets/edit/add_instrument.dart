@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sounds_good/core/utils/text_strings.dart';
+import 'package:sounds_good/core/viewmodels/available_instruments_viewmodel.dart';
 
 class AddInstrument extends StatefulWidget {
   final onSelectedInstrument;
-  final List<String> availableInstruments;
-  AddInstrument({this.onSelectedInstrument, this.availableInstruments});
+  AddInstrument({this.onSelectedInstrument});
 
   @override
   _AddInstrumentState createState() => _AddInstrumentState();
@@ -14,10 +15,14 @@ class AddInstrument extends StatefulWidget {
 class _AddInstrumentState extends State<AddInstrument> {
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => _popUpInstrumentsPicker(
-          context, widget.availableInstruments, widget.onSelectedInstrument),
-      child: AddInstrumentPill(),
+    return Consumer<AvailableInstrumentsViewModel>(
+      builder: (context, availableInstruments, child) => GestureDetector(
+        onTap: () => _popUpInstrumentsPicker(
+            context,
+            availableInstruments.getAvailableInstruments(),
+            widget.onSelectedInstrument),
+        child: AddInstrumentPill(),
+      ),
     );
   }
 }

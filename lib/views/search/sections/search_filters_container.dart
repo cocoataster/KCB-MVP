@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:sounds_good/core/utils/enums.dart';
 import 'package:sounds_good/core/utils/text_strings.dart';
 import 'package:sounds_good/core/viewmodels/search_viewmodel.dart';
-import 'package:sounds_good/views/search/sections/search_filters.dart';
+import 'package:sounds_good/views/search/sections/button_modal_filters.dart';
 import 'package:sounds_good/views/search/sections/search_locals_results.dart';
 import 'package:sounds_good/views/search/sections/search_member_results.dart';
 
@@ -39,7 +39,6 @@ class _SearchFiltersContainerState extends State<SearchFiltersContainer> {
     return Consumer<SearchViewModel>(
       builder: (context, searchViewModel, child) => Scaffold(
         body: SafeArea(
-          child: SingleChildScrollView(
             child: Column(
               children: <Widget>[
                 ListTile(
@@ -95,7 +94,7 @@ class _SearchFiltersContainerState extends State<SearchFiltersContainer> {
             ),
           ),
         ),
-      ),
+      
     );
   }
 }

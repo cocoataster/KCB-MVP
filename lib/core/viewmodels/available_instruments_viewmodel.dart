@@ -9,9 +9,7 @@ class AvailableInstrumentsViewModel extends BaseViewModel {
   Set<String> _instrumentsToDisable = {};
 
   Future fetchAvailableInstruments() async {
-    setState(ViewState.Busy);
     availableInstruments = await _api.getInstruments();
-    setState(ViewState.Idle);
   }
 
   ///

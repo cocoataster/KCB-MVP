@@ -22,12 +22,19 @@ class _ProfileImageState extends State<ProfileImage> {
 
   @override
   initState() {
-    if (Provider.of<ProfileViewModel>(context, listen: false).profile.photo.isNotEmpty) {
+    var profileViewModel = Provider.of<ProfileViewModel>(context, listen: false);
+    
+    if (profileViewModel.profile.photo.isNotEmpty) {
       _avatarImageProvider =
-          Provider.of<ProfileViewModel>(context, listen: false).getAvatar();
+          profileViewModel.getAvatar();
       _profileHasAvatar = true;
     } else {
-      _avatarImageProvider = AssetImage('assets/images/avatarPlaceholder.png');
+      if (profileViewModel.getMode != ProfileMode.Member){
+        _avatarImageProvider = AssetImage('assets/images/avatarPlaceholder.png');
+        profileViewModel.setMode(ProfileMode.Edit);
+      } else {
+        _avatarImageProvider = NetworkImage('https://cdn3.iconfinder.com/data/icons/black-easy/512/538642-user_512x512.png');
+      }
     }
     super.initState();
   }

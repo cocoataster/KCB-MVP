@@ -50,7 +50,6 @@ class ProfileViewModel extends BaseViewModel {
 
   
   ProfileMode get getMode {
-    if ((profile.photo.isEmpty) && (_profileMode == ProfileMode.Own)) _profileMode = ProfileMode.Edit;
     return _profileMode;
   }
 
@@ -63,13 +62,13 @@ class ProfileViewModel extends BaseViewModel {
   *   Avatar
   */
 
-  ImageProvider<dynamic> getAvatar() {
-    if (profile.photo.isEmpty) _profileMode = ProfileMode.Edit;
-    return profileAvatar;
-  }
+  ImageProvider<dynamic> getAvatar() => profileAvatar;
 
-  void initializeAvatar() =>
+  void initializeAvatar() {
+    if(profile.photo.isNotEmpty){
       profileAvatar = NetworkImage('${Api.endpoint}/${profile.photo}?v=${DateTime.now().millisecondsSinceEpoch}');
+    } 
+  }
 
   void avatarToUpdate({File imageFile}) {
     profileAvatarToUpdate = imageFile;
