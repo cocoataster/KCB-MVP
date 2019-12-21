@@ -91,9 +91,10 @@ class Api {
 
     parameters += 'limit=$limit&offset=$offset';
 
-    final response = await client.get('$endpoint/profile/my-band$parameters',
-        headers: headers);
+    final request = '$endpoint/profile/my-band' + parameters;
+    print('Search Request: $request');
 
+    final response = await client.get(request, headers: headers);
     print('My-Band Response: ${response.body}');
 
     StatusCode statusCode = getStatusCode(response.statusCode);

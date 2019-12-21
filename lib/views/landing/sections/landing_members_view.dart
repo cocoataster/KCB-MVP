@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_pagewise/flutter_pagewise.dart';
 import 'package:provider/provider.dart';
+import 'package:sounds_good/core/models/search_request.dart';
 import 'package:sounds_good/core/services/api.dart';
 import 'package:sounds_good/core/utils/enums.dart';
 import 'package:sounds_good/core/viewmodels/landing_viewmodel.dart';
@@ -14,44 +15,65 @@ class LandingMembersView extends StatefulWidget {
 }
 
 class _LandingMembersViewState extends State<LandingMembersView> {
+  ScrollController _scrollController = ScrollController();
+  int index = 0;
+
+  @override
+  void initState() {
+    super.initState();
+
+    LandingViewModel landingViewModel =
+        Provider.of<LandingViewModel>(context, listen: false);
+    landingViewModel.fetchBand(index);
+
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+              _scrollController.position.maxScrollExtent &&
+          landingViewModel.profilesRequest.hasMorePages()) {
+        ++index;
+        landingViewModel.fetchBand(index);
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _scrollController.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<LandingViewModel>(
       builder: (context, landingViewModel, child) => Scaffold(
-        body: landingViewModel.state == ViewState.Idle
-            ? SafeArea(
-                child: Stack(
-                  children: <Widget>[
-                    PagewiseListView(
-                        scrollDirection: Axis.horizontal,
-                        pageSize: landingViewModel.profilesRequest.limit,
-                        padding: EdgeInsets.fromLTRB(12.0, 3.0, 12.0, 6.0),
-                        itemBuilder: (context, entry, index) {
-                          var placeholder = 'https://picsum.photos/250?image=9';
-                          var profile = landingViewModel.members[index];
+        body: SafeArea(
+          child: Stack(
+            children: <Widget>[
+              ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  controller: _scrollController,
+                  itemCount: landingViewModel.members.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    var placeholder = 'https://picsum.photos/250?image=9';
+                    var profile = landingViewModel.members[index];
 
-                          var url = profile.photo != ""
-                              ? '${Api.endpoint}/${profile.photo}'
-                              : placeholder;
+                    var url = profile.photo != ""
+                        ? '${Api.endpoint}/${profile.photo}'
+                        : placeholder;
 
-                          return LandingMemberCell(
-                            imageUrl: url,
-                            id: profile.id,
-                            name: profile.name,
-                            friendlyLocation: profile.friendlyLocation,
-                            instruments: profile.instruments,
-                            followers: profile.followers,
-                          );
-                        },
-                        pageFuture: (pageIndex) {
-                          return landingViewModel.fetchMembers(pageIndex);
-                        }),
-                  ],
-                ),
-              )
-            : Center(
-                child: CircularProgressIndicator(),
-              ),
+                    return LandingMemberCell(
+                      imageUrl: url,
+                      id: profile.id,
+                      name: profile.name,
+                      friendlyLocation: profile.friendlyLocation,
+                      instruments: profile.instruments,
+                      followers: profile.followers,
+                    );
+                  }),
+            ],
+          ),
+        ),
       ),
     );
   }

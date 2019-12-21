@@ -23,20 +23,21 @@ class _MemberResultsState extends State<MemberResults> {
     super.initState();
     index = 0;
 
+    SearchViewModel searchViewModel =
+        Provider.of<SearchViewModel>(context, listen: false);
+
     setState(() {
-      profiles = Provider.of<SearchViewModel>(context, listen: false).profiles;
-      type = Provider.of<SearchViewModel>(context, listen: false).type;
+      type = searchViewModel.type;
     });
 
-    Provider.of<SearchViewModel>(context, listen: false)
-        .fetchMembersSearch(index);
+    searchViewModel.fetchMembersSearch(index);
 
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
-          _scrollController.position.maxScrollExtent) {
+              _scrollController.position.maxScrollExtent &&
+          searchViewModel.profileSearchRequest.hasMorePages()) {
         index++;
-        Provider.of<SearchViewModel>(context, listen: false)
-            .fetchMembersSearch(index);
+        searchViewModel.fetchMembersSearch(index);
       }
     });
   }

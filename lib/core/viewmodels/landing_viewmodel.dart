@@ -10,44 +10,34 @@ import 'package:sounds_good/core/viewmodels/base_viewmodel.dart';
 class LandingViewModel extends BaseViewModel {
   Api _api = Api();
 
-  SearchRequest profilesRequest = SearchRequest(
-    name: "",
-    instruments: List<String>(),
-    maxDistance: 0.0,
-    limit: 2,
-    offset: 0,
-  );
+  SearchRequest profilesRequest = SearchRequest(limit: 2, offset: 0, total: 0);
 
-  SearchRequest localsRequest = SearchRequest(name: "", limit: 2, offset: 0);
+  SearchRequest localsRequest = SearchRequest(limit: 2, offset: 0, total: 0);
 
   List<Profile> members = [];
   List<Local> locals = [];
 
-  Future<List<Profile>> fetchMembers(pageIndex) async {
+  fetchBand(pageIndex) async {
     setState(ViewState.Busy);
     profilesRequest.offset = pageIndex * profilesRequest.limit;
     MyBand myBand =
         await _api.getMyBand(profilesRequest.limit, profilesRequest.offset);
 
-    members += myBand.profiles;
-    ++profilesRequest.offset;
+    myBand.profiles.map((profile) => members.add(profile)).toList();
+
     profilesRequest.total = myBand.total;
     setState(ViewState.Idle);
-
-    return myBand.profiles;
   }
 
-  Future<List<Local>> fetchLocals(pageIndex) async {
+  fetchLocals(pageIndex) async {
     setState(ViewState.Busy);
     localsRequest.offset = pageIndex * localsRequest.limit;
     SearchResponse localsResponse =
         await _api.getSearchItems(localsRequest, SearchType.Locals);
 
-    locals += localsResponse.items;
-    ++localsRequest.offset;
+    localsResponse.items.map((item) => locals.add(item)).toList();
+
     localsRequest.total = localsResponse.total;
     setState(ViewState.Idle);
-
-    return localsResponse.items;
   }
 }
