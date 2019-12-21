@@ -10,9 +10,9 @@ class NotificationsViewModel extends BaseViewModel {
   final limit = 10;
   int offset = 0;
 
-  List<Notification> notifications = [];
+  List<MemberNotification> notifications = [];
 
-  Future<List<Notification>> fetchNotificationPage(pageIndex) async {
+  Future<List<MemberNotification>> fetchNotificationPage(pageIndex) async {
     setState(ViewState.Busy);
     offset = pageIndex * limit;
     NotificationResponse notificationResponse =
@@ -23,5 +23,17 @@ class NotificationsViewModel extends BaseViewModel {
     setState(ViewState.Idle);
 
     return notificationResponse.notifications;
+  }
+
+  Future<bool> readNotification(String id) async {
+    setState(ViewState.Busy);
+
+    MemberNotification notification = await _api.redeemNotification(id);
+
+    if (notification.state == NotificationState.Redeemed) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

@@ -48,11 +48,13 @@ class SearchViewModel extends BaseViewModel {
     setState(ViewState.Busy);
     localSearchRequest.offset = index * localSearchRequest.limit;
     SearchResponse searchResponse =
-        await _api.getSearchItems(localSearchRequest, SearchType.Locals);
+        await _api.getSearchItems(localSearchRequest, type);
 
     searchResponse.items.map((item) => locals.add(item)).toList();
+    if (localSearchRequest.offset < localSearchRequest.total) {
+      ++localSearchRequest.offset;
+    }
 
-    ++localSearchRequest.offset;
     localSearchRequest.total = searchResponse.total;
     setState(ViewState.Idle);
   }
