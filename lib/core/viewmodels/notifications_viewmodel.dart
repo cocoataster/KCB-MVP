@@ -31,9 +31,18 @@ class NotificationsViewModel extends BaseViewModel {
     MemberNotification notification = await _api.redeemNotification(id);
 
     if (notification.state == NotificationState.Redeemed) {
+      resetNotificationList();
+      setState(ViewState.Idle);
       return true;
     } else {
+      setState(ViewState.Idle);
       return false;
     }
+  }
+
+  void resetNotificationList() {
+    offset = 0;
+    notifications = [];
+    fetchNotificationPage(offset);
   }
 }
