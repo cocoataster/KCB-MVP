@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:sounds_good/views/search/sections/filters.dart';
+import 'package:provider/provider.dart';
+import 'package:sounds_good/core/viewmodels/search_viewmodel.dart';
+
+import 'filters.dart';
 
 class FiltersButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 45.0,
-      height: 45.0,
-      child: FloatingActionButton(
-        backgroundColor: Colors.white,
-        elevation: 4,
-        shape: CircleBorder(),
-        child: Icon(Icons.format_list_bulleted, color: Colors.black),
-        onPressed: () => _settingModalBottomSheet(context),
+    return Consumer<SearchViewModel>(
+      builder: (context, searchViewModel, child) => Container(
+        width: 45.0,
+        height: 45.0,
+        child: FloatingActionButton(
+          backgroundColor: Colors.white,
+          elevation: 4,
+          shape: CircleBorder(),
+          child: Icon(Icons.format_list_bulleted, color: Colors.black),
+          onPressed: () => _settingModalBottomSheet(context),
+        ),
       ),
     );
   }
@@ -23,7 +28,7 @@ void _settingModalBottomSheet(context) {
     context: context,
     builder: (context) {
       return Container(
-        height: MediaQuery.of(context).size.height -150,
+        height: MediaQuery.of(context).size.height - 150,
         width: MediaQuery.of(context).size.width,
         color: Colors.transparent,
         child: Container(

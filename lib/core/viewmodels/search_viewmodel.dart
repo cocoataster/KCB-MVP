@@ -11,7 +11,7 @@ class SearchViewModel extends BaseViewModel {
 
   SearchRequest profileSearchRequest = SearchRequest(
       name: "",
-      instruments: List<String>(),
+      instruments: [],
       maxDistance: 0.0,
       limit: 2,
       offset: 0,
@@ -29,6 +29,10 @@ class SearchViewModel extends BaseViewModel {
     type = searchType;
     notifyListeners();
   }
+
+  SearchType getType() => type;
+
+  SearchRequest getReq() => profileSearchRequest;
 
   Future fetchMembersSearch(index) async {
     setState(ViewState.Busy);
@@ -85,11 +89,29 @@ class SearchViewModel extends BaseViewModel {
     fetchLocalsSearch(0);
   }
 
+  void resetProfileInstruments(instruments) {
+    profileSearchRequest.name = "";
+    profileSearchRequest.offset = 0;
+    profileSearchRequest.total = 0;
+    profileSearchRequest.instruments = instruments;
+    profiles = [];
+    fetchMembersSearch(0);
+  }
+
+  
+  void updateFilters(){
+    profileSearchRequest.instruments.addAll(instrumentsFilterRequest);
+    print('Instruments!: $instrumentsFilterRequest');
+    print('REQ: ${profileSearchRequest.instruments}');
+    resetProfileInstruments(instrumentsFilterRequest);
+    //fetchMembersSearch(0);
+  }
+
   // Instruments
 
   Set<String> disabledAvailableInstruments = {};
   List<String> availableInstruments = [];
-  Set<String> instrumentsFilterRequest = {};
+  List<String> instrumentsFilterRequest = [];
 
   void initAvailableInstruments(List<String> instrumentsList) {
     availableInstruments.addAll(instrumentsList);
@@ -115,9 +137,9 @@ class SearchViewModel extends BaseViewModel {
   }
 
   List<String> getAvailableInstruments() => availableInstruments;
-  Set<String> getSelectedInstruments() => instrumentsFilterRequest;
+  List<String> getSelectedInstruments() => instrumentsFilterRequest;
 
-  // 
+  //
 
   // Distance
 
