@@ -48,7 +48,7 @@ class _LocalResultsState extends State<LocalResults> {
   Widget build(BuildContext context) {
     return Consumer<SearchViewModel>(
       builder: (context, searchViewModel, child) => Container(
-        height: 400,
+        height: MediaQuery.of(context).size.height - 184,
         child: ListView.builder(
           controller: _scrollController,
           itemCount: searchViewModel.locals.length,
