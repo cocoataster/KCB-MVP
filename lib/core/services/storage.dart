@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class Storage {
@@ -46,6 +47,14 @@ class Storage {
     String followers = await manager.read(key: "Followers");
 
     return followers;
+  }
+
+  static void updateInvitations(memberId) async {
+    String currentStoredInvitations = await manager.read(key: "Invitations");
+    var decodedInvitations = jsonDecode(currentStoredInvitations);
+    decodedInvitations.add(memberId);
+    String updatedInvitationsEncoded = jsonEncode(decodedInvitations);
+    await manager.write(key: "Invitations", value: updatedInvitationsEncoded);
   }
 
   static Future<String> getInvitations() async {

@@ -40,7 +40,7 @@ class Api {
     var body = {"email": email, "password": password};
     var response = await client.post('$endpoint/users/login', body: body);
 
-    print('Login Response: ${response.body}');
+    //print('Login Response: ${response.body}');
 
     Profile profile = Profile();
 
@@ -65,7 +65,7 @@ class Api {
 
         return true;
       default:
-        print('Login failed: ${response.reasonPhrase}');
+        //print('Login failed: ${response.reasonPhrase}');
         return false;
     }
   }
@@ -107,17 +107,17 @@ class Api {
     parameters += 'limit=$limit&offset=$offset';
 
     final request = '$endpoint/profile/my-band' + parameters;
-    print('Search Request: $request');
+    //print('Search Request: $request');
 
     final response = await client.get(request, headers: headers);
-    print('My-Band Response: ${response.body}');
+    //print('My-Band Response: ${response.body}');
 
     StatusCode statusCode = getStatusCode(response.statusCode);
 
     switch (statusCode) {
       case StatusCode.success:
         var json = jsonDecode(response.body);
-        print(json);
+        //print(json);
         return MyBand.fromJson(json);
       case StatusCode.clientError:
       case StatusCode.serverError:
@@ -139,7 +139,7 @@ class Api {
 
     var response = await client.get('$endpoint/profile/$id', headers: headers);
 
-    print('Profile ID Response: ${response.body}');
+    //print('Profile ID Response: ${response.body}');
 
     switch (response.statusCode) {
       case 200:
@@ -315,10 +315,10 @@ class Api {
     }
 
     var request = '$endpoint/search$endpointSearch' + parameters;
-    print('Search Request: $request');
+    //print('Search Request: $request');
 
     var response = await client.get(request, headers: headers);
-    print('Search Response: ${response.body}');
+    //print('Search Response: ${response.body}');
 
     StatusCode statusCode = getStatusCode(response.statusCode);
 
@@ -379,7 +379,7 @@ class Api {
     final response =
         await client.get('$endpoint/notification/redeem/$id', headers: headers);
 
-    print('Redeem Response: ${response.body}');
+    //print('Redeem Response: ${response.body}');
 
     StatusCode statusCode = getStatusCode(response.statusCode);
 
@@ -403,10 +403,33 @@ class Api {
     final body = {"userId": memberId};
 
     final request = '$endpoint/profile/follow';
-    print('Follow Request: $request');
 
     final response = await client.post(request, headers: headers, body: body);
-    print('Follow Response: ${response.body}');
+
+    StatusCode statusCode = getStatusCode(response.statusCode);
+
+    switch (statusCode) {
+      case StatusCode.success:
+        Storage.updateInvitations(memberId);
+        return true;
+      case StatusCode.clientError:
+        return false;
+      case StatusCode.serverError:
+        return false;
+      default:
+        return false;
+    }
+  }
+
+  Future<bool> unfollowMember(String memberId) async {
+    String token = await Storage.getToken();
+
+    final headers = {"Authorization": token};
+    final body = {"userId": memberId};
+
+    final request = '$endpoint/profile/unfollow';
+
+    final response = await client.post(request, headers: headers, body: body);
 
     StatusCode statusCode = getStatusCode(response.statusCode);
 
@@ -419,28 +442,6 @@ class Api {
         return false;
       default:
         return false;
-    }
-  }
-
-  Future unfollowMember(String memberId) async {
-    String token = await Storage.getToken();
-
-    Map<String, String> headers = {
-      'Content-type': 'application/json',
-      'Accept': 'application/json',
-      'Authorization': token
-    };
-
-    final response = await client
-        .post('$endpoint/profile/unfollow?userId=$memberId', headers: headers);
-    switch (response.statusCode) {
-      case 200:
-        var json = jsonDecode(response.body);
-        print('UnFollow Response: $json');
-        return Profile.fromJson(json);
-      default:
-        print('Unfollow Error: ${response.reasonPhrase}');
-        return Profile();
     }
   }
 }

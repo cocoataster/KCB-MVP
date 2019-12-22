@@ -46,7 +46,6 @@ class _ProfileVideosState extends State<ProfileVideos> {
         future: _checkVideos(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
-            print('Snapshot: ${snapshot.data}');
             return Container(
               padding: EdgeInsets.symmetric(horizontal: 0.0, vertical: 0.0),
               height: MediaQuery.of(context).size.height * 0.23,
