@@ -9,8 +9,9 @@ class SearchView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<SearchViewModel>(
-      builder: (context) => SearchViewModel(),
-      child: SearchFiltersContainer()
-    );
+        builder: (context) => SearchViewModel(),
+        child: WillPopScope(
+            onWillPop: () => Future(() => false),
+            child: SearchFiltersContainer()));
   }
 }

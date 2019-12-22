@@ -19,16 +19,18 @@ class ProfileView extends StatefulWidget {
 
 class _ProfileViewState extends State<ProfileView> {
   ProfileViewModel profileViewModel = ProfileViewModel();
-  
 
-  Future<bool> _captureAndroidBackButton(profileMode) {
-    if (profileMode == ProfileMode.Edit) {
-      setState(() {
-        profileMode = ProfileMode.Own;
-      });
-      return Future(() => false);
-    } else {
-      return Future(() => true);
+  Future<bool> _captureAndroidBackButton(ProfileViewModel profileViewModel) {
+    switch (profileViewModel.getMode) {
+      case ProfileMode.Edit:
+        profileViewModel.setMode(ProfileMode.Own);
+        return Future(() => false);
+      case ProfileMode.Own:
+        return Future(() => false);
+      case ProfileMode.Member:
+        return Future(() => true);
+      default:
+        return Future(() => false);
     }
   }
 
@@ -48,30 +50,30 @@ class _ProfileViewState extends State<ProfileView> {
     return ChangeNotifierProvider<ProfileViewModel>(
       builder: (context) => profileViewModel,
       child: Consumer<ProfileViewModel>(
-          builder: (context, profileViewModel, child) => WillPopScope(
-            child: Scaffold(
-              body: profileViewModel.state == ViewState.Idle
-                  ? SafeArea(
-                      child: ListView(
-                        padding: const EdgeInsets.all(24),
-                        children: <Widget>[
-                          ProfileHeaderSection(),
-                          if(profileViewModel.getMode == ProfileMode.Member) FollowMembersSection(memberId: widget.cuid),
-                          InstrumentsSection(),          
-                          ProfileVideosSection(),
-                          ProfileDescriptionSection(),
-                          ProfileCTAButtons(),
-                        ],
-                      ),
-                    )
-                  : Center(
-                      child: CircularProgressIndicator(),
+        builder: (context, profileViewModel, child) => WillPopScope(
+          child: Scaffold(
+            body: profileViewModel.state == ViewState.Idle
+                ? SafeArea(
+                    child: ListView(
+                      padding: const EdgeInsets.all(24),
+                      children: <Widget>[
+                        ProfileHeaderSection(),
+                        if (profileViewModel.getMode == ProfileMode.Member)
+                          FollowMembersSection(memberId: widget.cuid),
+                        InstrumentsSection(),
+                        ProfileVideosSection(),
+                        ProfileDescriptionSection(),
+                        ProfileCTAButtons(),
+                      ],
                     ),
-            ),
-            onWillPop: () =>
-                _captureAndroidBackButton(profileViewModel.getMode),
+                  )
+                : Center(
+                    child: CircularProgressIndicator(),
+                  ),
           ),
+          onWillPop: () => _captureAndroidBackButton(profileViewModel),
         ),
+      ),
     );
   }
 }

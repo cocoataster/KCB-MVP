@@ -401,9 +401,7 @@ class Api {
 
     final headers = {"Authorization": token};
     final body = {"userId": memberId};
-
     final request = '$endpoint/profile/follow';
-
     final response = await client.post(request, headers: headers, body: body);
 
     StatusCode statusCode = getStatusCode(response.statusCode);
@@ -421,14 +419,14 @@ class Api {
     }
   }
 
+  /* Unfollow User */
+
   Future<bool> unfollowMember(String memberId) async {
     String token = await Storage.getToken();
 
     final headers = {"Authorization": token};
     final body = {"userId": memberId};
-
     final request = '$endpoint/profile/unfollow';
-
     final response = await client.post(request, headers: headers, body: body);
 
     StatusCode statusCode = getStatusCode(response.statusCode);
