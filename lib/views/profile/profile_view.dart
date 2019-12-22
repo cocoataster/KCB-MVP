@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sounds_good/core/utils/enums.dart';
 import 'package:sounds_good/core/viewmodels/profile_viewmodel.dart';
+import 'package:sounds_good/views/profile/sections/follows_section.dart';
 import 'package:sounds_good/views/profile/sections/instruments_section.dart';
 import 'package:sounds_good/views/profile/sections/profile_bottom_buttons_section.dart';
 import 'package:sounds_good/views/profile/sections/profile_description_section.dart';
@@ -55,7 +56,8 @@ class _ProfileViewState extends State<ProfileView> {
                         padding: const EdgeInsets.all(24),
                         children: <Widget>[
                           ProfileHeaderSection(),
-                          InstrumentsSection(),
+                          if(profileViewModel.getMode == ProfileMode.Member) FollowMembersSection(memberId: widget.cuid),
+                          InstrumentsSection(),          
                           ProfileVideosSection(),
                           ProfileDescriptionSection(),
                           ProfileCTAButtons(),

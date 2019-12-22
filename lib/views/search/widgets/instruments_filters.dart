@@ -3,8 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:sounds_good/core/utils/text_strings.dart';
 import 'package:sounds_good/core/utils/text_styles.dart';
 import 'package:sounds_good/core/viewmodels/search_viewmodel.dart';
-import 'package:sounds_good/views/profile/widgets/edit/add_instrument.dart';
 import 'package:sounds_good/views/profile/widgets/edit/instrument_item.dart';
+import 'package:sounds_good/views/shared_resources/add_instrument.dart';
 
 class InstrumentsFilter extends StatefulWidget {
   @override

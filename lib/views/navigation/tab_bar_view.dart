@@ -40,9 +40,7 @@ class _AppTabBarState extends State<AppTabBar> {
     // Save on Storage Available Instruments for later use on profile and filters
     Api().getInstruments()
         .then((res) {
-          print('Res TabBar: $res');
       var availableInstruments = jsonEncode(res);
-      print('Encoded: $availableInstruments');
       Storage.saveAvailableInstruments(availableInstruments);
     });
 

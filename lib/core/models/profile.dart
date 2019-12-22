@@ -13,6 +13,7 @@ class Profile {
   String description;
   String photo;
   List<String> followers;
+  List<String> invitations;
 
   Profile(
       {this.id,
@@ -24,7 +25,8 @@ class Profile {
       this.videos,
       this.description,
       this.photo,
-      this.followers});
+      this.followers,
+      this.invitations });
 
   factory Profile.fromJson(Map<String, dynamic> json) {
     List<String> instrumentsList = List<String>();
@@ -41,6 +43,14 @@ class Profile {
       followersList = List<String>.from(followers);
     } else {
       followersList = [];
+    }
+
+    List<String> invitationsList = List<String>();
+    if (json['invitations'] != []) {
+      var invitations = json['invitations'];
+      invitationsList = List<String>.from(invitations);
+    } else {
+      invitationsList = [];
     }
 
     // Location and Contact Method can be null
@@ -76,7 +86,8 @@ class Profile {
         videos: videosList,
         description: json['description'] != null ? json['description'] : '',
         photo: json['photo'] != null ? json['photo'] : '',
-        followers: followersList);
+        followers: followersList,
+        invitations: invitationsList);
   }
 
   Map<String, dynamic> toJson() {
@@ -91,6 +102,7 @@ class Profile {
         this.videos.map<String>((video) => video['id'].toString()).toList();
     data['description'] = this.description;
     data['followers'] = this.followers;
+    data['invitations'] = this.invitations;
 
     return data;
   }

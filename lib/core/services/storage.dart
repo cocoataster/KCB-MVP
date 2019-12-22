@@ -31,6 +31,29 @@ class Storage {
     return availableInstruments;
   }
 
+  // Save Followers and Invitations
+  static void saveFollowers(String followersList) async {
+    await manager.write(key: "Followers", value: followersList);
+  }
+
+  static void saveInvitations(String invitationsList) async {
+    await manager.write(key: "Invitations", value: invitationsList);
+  }
+
+  // Get Followers and Invitations
+
+  static Future<String> getFollowers() async {
+    String followers = await manager.read(key: "Followers");
+
+    return followers;
+  }
+
+  static Future<String> getInvitations() async {
+    String invitations = await manager.read(key: "Invitations");
+
+    return invitations;
+  }
+
   // Get user ID
 
   static Future<String> getUserId() async {

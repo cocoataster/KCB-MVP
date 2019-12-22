@@ -40,12 +40,29 @@ class Api {
     var body = {"email": email, "password": password};
     var response = await client.post('$endpoint/users/login', body: body);
 
-    //print('Login Response: ${response.body}');
+    print('Login Response: ${response.body}');
+
+    Profile profile = Profile();
 
     switch (response.statusCode) {
       case 200:
         Storage.saveUserId(response.headers["id"]);
         Storage.saveToken(response.headers["authorization"]);
+        
+        // We need to store invitations and followers from own profile
+        // to be able to Follow or Unfollow a member, 
+        // or to know if a invitation sent is still pending;
+
+        getProfile().then((res){
+          profile = res;
+          
+        var ownProfileFolllowres = jsonEncode(profile.followers);
+        var ownProfileInvitations =  jsonEncode(profile.invitations);
+          
+        Storage.saveFollowers(ownProfileFolllowres);
+        Storage.saveInvitations(ownProfileInvitations);
+        });
+        
         return true;
       default:
         print('Login failed: ${response.reasonPhrase}');
@@ -122,7 +139,7 @@ class Api {
 
     var response = await client.get('$endpoint/profile/$id', headers: headers);
 
-    //print('Profile ID Response: ${response.body}');
+    print('Profile ID Response: ${response.body}');
 
     switch (response.statusCode) {
       case 200:
