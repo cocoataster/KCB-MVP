@@ -9,20 +9,22 @@ class NotificationsViewModel extends BaseViewModel {
 
   final limit = 10;
   int offset = 0;
+  int total = 0;
 
   List<MemberNotification> notifications = [];
 
-  Future<List<MemberNotification>> fetchNotificationPage(pageIndex) async {
+  void fetchNotificationPage(pageIndex) async {
     setState(ViewState.Busy);
     offset = pageIndex * limit;
     NotificationResponse notificationResponse =
         await _api.getNotifications(limit, offset);
 
-    notifications += notificationResponse.notifications;
-    ++offset;
-    setState(ViewState.Idle);
+    notificationResponse.notifications
+        .map((notification) => notifications.add(notification))
+        .toList();
 
-    return notificationResponse.notifications;
+    total = notificationResponse.total;
+    setState(ViewState.Idle);
   }
 
   Future<bool> readNotification(String id) async {
@@ -44,5 +46,9 @@ class NotificationsViewModel extends BaseViewModel {
     offset = 0;
     notifications = [];
     fetchNotificationPage(offset);
+  }
+
+  bool hasMorePages() {
+    return offset + limit < total;
   }
 }

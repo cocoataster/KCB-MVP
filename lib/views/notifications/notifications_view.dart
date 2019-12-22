@@ -16,6 +16,26 @@ class NotificationsView extends StatefulWidget {
 
 class _NotificationsViewState extends State<NotificationsView> {
   NotificationsViewModel notificationsViewModel = NotificationsViewModel();
+  ScrollController _scrollController = ScrollController();
+
+  int index;
+
+  @override
+  void initState() {
+    super.initState();
+    index = 0;
+
+    notificationsViewModel.fetchNotificationPage(index);
+
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+              _scrollController.position.maxScrollExtent &&
+          notificationsViewModel.hasMorePages()) {
+        ++index;
+        notificationsViewModel.fetchNotificationPage(index);
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,58 +43,60 @@ class _NotificationsViewState extends State<NotificationsView> {
         builder: (context) => notificationsViewModel,
         child: Consumer<NotificationsViewModel>(
           builder: (context, notificationsViewModel, child) => WillPopScope(
-            onWillPop: () =>  Future(() => false),
+            onWillPop: () => Future(() => false),
             child: Scaffold(
-              body: SafeArea(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.all(15),
-                      child: Text(
-                        TextStrings.notifications_screen_title,
-                        style: TextStyles.section_header,
+              body: notificationsViewModel.state == ViewState.Idle
+                  ? SafeArea(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Padding(
+                            padding: EdgeInsets.all(15),
+                            child: Text(
+                              TextStrings.notifications_screen_title,
+                              style: TextStyles.section_header,
+                            ),
+                          ),
+                          Container(
+                            height: MediaQuery.of(context).size.height - 140,
+                            child: ListView.builder(
+                                controller: _scrollController,
+                                itemCount:
+                                    notificationsViewModel.notifications.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  var notification = notificationsViewModel
+                                      .notifications[index];
+
+                                  var image = notification.info.image != ''
+                                      ? '${Api.endpoint}/${notification.info.image}'
+                                      : 'assets/images/profile.png';
+
+                                  var sender = notification.info.senderName !=
+                                          ''
+                                      ? notification.info.senderName
+                                      : TextStrings.notifications_sender_empty;
+
+                                  var buttonText = notification.state ==
+                                          NotificationState.Pending
+                                      ? TextStrings.notifications_actions_todo
+                                      : TextStrings.notifications_actions_done;
+
+                                  //print(notification.info.senderName);
+
+                                  return NotificationsRow(
+                                      id: notification.id,
+                                      asset: image,
+                                      notification: sender,
+                                      button: buttonText,
+                                      state: notification.state);
+                                }),
+                          ),
+                        ],
                       ),
+                    )
+                  : Center(
+                      child: CircularProgressIndicator(),
                     ),
-                    Container(
-                      height: MediaQuery.of(context).size.height - 140,
-                      child: PagewiseListView(
-                        pageSize: notificationsViewModel.limit,
-                        itemBuilder: (context, entry, index) {
-                          var notification =
-                              notificationsViewModel.notifications[index];
-
-                          var image = notification.info.image != ''
-                              ? '${Api.endpoint}/${notification.info.image}'
-                              : 'assets/images/profile.png';
-
-                          var sender = notification.info.senderName != ''
-                              ? notification.info.senderName
-                              : TextStrings.notifications_sender_empty;
-
-                          var buttonText =
-                              notification.state == NotificationState.Pending
-                                  ? TextStrings.notifications_actions_todo
-                                  : TextStrings.notifications_actions_done;
-
-                          //print(notification.info.senderName);
-
-                          return NotificationsRow(
-                              id: notification.id,
-                              asset: image,
-                              notification: sender,
-                              button: buttonText,
-                              state: notification.state);
-                        },
-                        pageFuture: (pageIndex) {
-                          return notificationsViewModel
-                              .fetchNotificationPage(pageIndex);
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-              ),
             ),
           ),
         ));
