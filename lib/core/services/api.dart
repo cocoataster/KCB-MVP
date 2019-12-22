@@ -48,21 +48,21 @@ class Api {
       case 200:
         Storage.saveUserId(response.headers["id"]);
         Storage.saveToken(response.headers["authorization"]);
-        
+
         // We need to store invitations and followers from own profile
-        // to be able to Follow or Unfollow a member, 
+        // to be able to Follow or Unfollow a member,
         // or to know if a invitation sent is still pending;
 
-        getProfile().then((res){
+        getProfile().then((res) {
           profile = res;
-          
-        var ownProfileFolllowres = jsonEncode(profile.followers);
-        var ownProfileInvitations =  jsonEncode(profile.invitations);
-          
-        Storage.saveFollowers(ownProfileFolllowres);
-        Storage.saveInvitations(ownProfileInvitations);
+
+          var ownProfileFolllowres = jsonEncode(profile.followers);
+          var ownProfileInvitations = jsonEncode(profile.invitations);
+
+          Storage.saveFollowers(ownProfileFolllowres);
+          Storage.saveInvitations(ownProfileInvitations);
         });
-        
+
         return true;
       default:
         print('Login failed: ${response.reasonPhrase}');
@@ -391,6 +391,54 @@ class Api {
       case StatusCode.serverError:
       default:
         return MemberNotification();
+    }
+  }
+
+  Future followMember(String memberId) async {
+    String token = await Storage.getToken();
+
+    Map<String, String> headers = {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': token
+    };
+
+  
+  
+    final response = 
+        await client.post('$endpoint/profile/follow?userId=$memberId', headers: headers);
+    switch (response.statusCode) {
+      case 200:
+        var json = jsonDecode(response.body);
+        print('Follow Response: $json');
+        return Profile.fromJson(json);
+      default:
+        print('Follow Error: ${response.reasonPhrase}');
+        return Profile();
+    }
+  }
+
+  Future unfollowMember(String memberId) async {
+    String token = await Storage.getToken();
+
+    Map<String, String> headers = {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': token
+    };
+
+
+
+    final response =
+        await client.post('$endpoint/profile/unfollow?userId=$memberId', headers: headers);
+    switch (response.statusCode) {
+      case 200:
+        var json = jsonDecode(response.body);
+        print('UnFollow Response: $json');
+        return Profile.fromJson(json);
+      default:
+        print('Unfollow Error: ${response.reasonPhrase}');
+        return Profile();
     }
   }
 }
