@@ -1,3 +1,5 @@
+import 'package:sounds_good/core/services/locator.dart';
+
 class SearchRequest {
   String name;
   double price;
@@ -7,6 +9,8 @@ class SearchRequest {
   int limit;
   int offset;
   int total;
+  double lat;
+  double lon;
 
   SearchRequest(
       {this.name,
@@ -16,7 +20,9 @@ class SearchRequest {
       this.limit,
       this.offset,
       this.total,
-      this.followers});
+      this.followers,
+      this.lat,
+      this.lon});
 
   String getName() {
     return name != null ? name : "";
@@ -36,6 +42,16 @@ class SearchRequest {
     }
 
     return instrumentsString;
+  }
+
+  String getLat() {
+    double lat = Locator.getLatitude();
+    return lat != null ? lat.toStringAsFixed(2) : "";
+  }
+
+  String getLon() {
+    double lon = Locator.getLongitude();
+    return lon != null ? lon.toStringAsFixed(2) : "";
   }
 
   String getMaxDistance() {

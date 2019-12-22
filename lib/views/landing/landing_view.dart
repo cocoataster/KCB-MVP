@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
+import 'package:sounds_good/core/services/locator.dart';
 import 'package:sounds_good/core/utils/text_strings.dart';
 import 'package:sounds_good/core/utils/text_styles.dart';
 import 'package:sounds_good/core/viewmodels/landing_viewmodel.dart';
@@ -21,6 +22,8 @@ class _LandingViewState extends State<LandingView> {
 
   Position _getCurrentLocation() {
     final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
+
+    Locator.getCurrentLocation();
 
     geolocator
         .getCurrentPosition(desiredAccuracy: LocationAccuracy.best)

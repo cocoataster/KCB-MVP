@@ -272,6 +272,12 @@ class Api {
       parameters += '&maxDistance=$maxDistance';
     }
 
+    var lat = searchRequest.getLat();
+    var lon = searchRequest.getLon();
+    if (lat != "" && lon != "") {
+      parameters += '&lat=$lat&lon=$lon';
+    }
+
     var endpointSearch = "";
 
     switch (type) {

@@ -7,7 +7,7 @@ import 'package:sounds_good/core/utils/text_strings.dart';
 class AddInstrument extends StatefulWidget {
   final onSelectedInstrument;
   final provider;
-  final bool profile; 
+  final bool profile;
   AddInstrument({this.onSelectedInstrument, this.provider, this.profile});
 
   @override
