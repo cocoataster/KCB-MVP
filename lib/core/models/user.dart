@@ -7,9 +7,6 @@ class User {
 
   User.initial()
       : name = '',
-        email = 'alb.garciam@gmail.com',
-        password = '1234567';
-// TODO Clean on production
-
-
+        email = '',
+        password = '';
 }
