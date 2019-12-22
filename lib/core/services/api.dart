@@ -350,8 +350,10 @@ class Api {
 
     parameters += 'limit=$limit&offset=$offset';
 
-    final response =
-        await client.get('$endpoint/notification$parameters', headers: headers);
+    var request = '$endpoint/notification' + parameters;
+    print('Search Request: $request');
+
+    final response = await client.get(request, headers: headers);
 
     //print('Notification Response: ${response.body}');
 
