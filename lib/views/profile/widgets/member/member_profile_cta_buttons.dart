@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_email_sender/flutter_email_sender.dart';
+import 'package:flutter_open_whatsapp/flutter_open_whatsapp.dart';
 import 'package:provider/provider.dart';
 import 'package:sounds_good/core/utils/enums.dart';
 import 'package:sounds_good/core/utils/text_strings.dart';
@@ -6,6 +8,21 @@ import 'package:sounds_good/core/viewmodels/profile_viewmodel.dart';
 
 class MemberProfileCTAButtons extends StatelessWidget {
   const MemberProfileCTAButtons({Key key}) : super(key: key);
+
+ Future _sendEmail(emailAddress) async{
+    
+
+final Email email = Email(
+  body: 'Email body',
+  subject: 'Email subject',
+  recipients: [emailAddress],
+  isHTML: false,
+);
+
+await FlutterEmailSender.send(email);
+
+}
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -26,10 +43,21 @@ class MemberProfileCTAButtons extends StatelessWidget {
                     semanticLabel: TextStrings.profile_contact_action_mail)
                 : Image.asset('assets/images/whatsapp.png',
                     semanticLabel: TextStrings.profile_contact_action_whatsapp),
-            onPressed: () => {},
+            onPressed: () => {
+              if (profileViewModel.profile.contactMethod.type ==
+                  ContactMethodType.Email)
+                {_sendEmail(profileViewModel.profile.contactMethod.data)}
+              else
+                {
+                  FlutterOpenWhatsapp.sendSingleMessage(
+                      profileViewModel.profile.contactMethod.data,
+                      "Greetings from Tuned")
+                }
+            },
           ),
         );
       },
     );
   }
 }
+
