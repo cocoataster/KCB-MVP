@@ -81,6 +81,7 @@ class SearchViewModel extends BaseViewModel {
     localSearchRequest.name = "";
     localSearchRequest.offset = 0;
     localSearchRequest.total = 0;
+    localSearchRequest.maxDistance = 0.0;
     locals = [];
     fetchLocalsSearch(0);
   }
@@ -96,11 +97,13 @@ class SearchViewModel extends BaseViewModel {
 
   void updateProfileFilters() {
     profileSearchRequest.instruments.addAll(instrumentsFilterRequest);
+    profiles = [];
     fetchMembersSearch(0);
   }
 
   void updateLocalFilters() {
     print('MaxDistance: ${profileSearchRequest.maxDistance}');
+    locals = [];
     fetchLocalsSearch(0);
   }
 
