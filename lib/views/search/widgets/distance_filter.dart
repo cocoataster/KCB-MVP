@@ -39,9 +39,9 @@ class _DistanceFilterState extends State<DistanceFilter> {
             Row(
               children: <Widget>[
                 Semantics(
-                  label: 'Distance Filter',
+                  label: TextStrings.search_filters_distance_filter_title,
                   child: Container(
-                    width: 40,
+                    width: 50,
                     height: 48,
                     child: TextField(
                       decoration: InputDecoration(border: InputBorder.none),
@@ -72,7 +72,7 @@ class _DistanceFilterState extends State<DistanceFilter> {
             Slider.adaptive(
               value: _continuousValue,
               min: 0.0,
-              max: 100.0,
+              max: 2500.0,
               onChanged: (double value) => _handleDistance(value),
             ),
           ],

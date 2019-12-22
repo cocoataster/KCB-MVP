@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sounds_good/core/utils/colors.dart';
+import 'package:sounds_good/core/utils/enums.dart';
+import 'package:sounds_good/core/utils/text_strings.dart';
 import 'package:sounds_good/core/viewmodels/search_viewmodel.dart';
 import 'package:sounds_good/views/search/widgets/distance_filter.dart';
 import 'package:sounds_good/views/search/widgets/instruments_filters.dart';
@@ -14,7 +16,6 @@ class Filters extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<SearchViewModel>(
       builder: (context, search, child) {
-        print("Search Request: ${search.getReq()}");
         return SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(24),
@@ -23,17 +24,18 @@ class Filters extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 FiltersHeader(),
-                InstrumentsFilter(),
+                if (search.getType() == SearchType.Members) InstrumentsFilter(),
                 Padding(
                   padding: EdgeInsets.only(bottom: 100),
                   child: DistanceFilter(),
                 ),
                 FullWidthButton(
-                  value: 'Apply Filters',
+                  value: TextStrings.search_filters_apply_filters_title,
                   color: AppColors.firstLevelCTAColor,
                   onPressed: () {
-                    search.resetProfileSearch();
-                    search.updateFilters();
+                    search.getType() == SearchType.Members 
+                        ? search.updateProfileFilters()
+                        : search.updateLocalFilters();
                     Navigator.pop(context);
                   },
                 ),

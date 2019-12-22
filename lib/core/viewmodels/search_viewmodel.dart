@@ -9,11 +9,16 @@ import 'package:sounds_good/core/viewmodels/base_viewmodel.dart';
 class SearchViewModel extends BaseViewModel {
   Api _api = Api();
 
-  SearchRequest profileSearchRequest =
-      SearchRequest(name: "", instruments: [], limit: 2, offset: 0, total: 0);
+  SearchRequest profileSearchRequest = SearchRequest(
+      name: "",
+      instruments: [],
+      limit: 2,
+      offset: 0,
+      total: 0,
+      maxDistance: 0.0);
 
   SearchRequest localSearchRequest =
-      SearchRequest(name: "", limit: 2, offset: 0, total: 0);
+      SearchRequest(name: "", limit: 2, offset: 0, total: 0, maxDistance: 0.0);
   SearchType type;
   List<Profile> profiles = [];
   List<Local> locals = [];
@@ -67,6 +72,7 @@ class SearchViewModel extends BaseViewModel {
     profileSearchRequest.offset = 0;
     profileSearchRequest.total = 0;
     profileSearchRequest.instruments = [];
+    profileSearchRequest.maxDistance = 0.0;
     profiles = [];
     fetchMembersSearch(0);
   }
@@ -88,9 +94,14 @@ class SearchViewModel extends BaseViewModel {
     fetchMembersSearch(0);
   }
 
-  void updateFilters() {
+  void updateProfileFilters() {
     profileSearchRequest.instruments.addAll(instrumentsFilterRequest);
     fetchMembersSearch(0);
+  }
+
+  void updateLocalFilters() {
+    print('MaxDistance: ${profileSearchRequest.maxDistance}');
+    fetchLocalsSearch(0);
   }
 
   // Instruments
@@ -129,11 +140,11 @@ class SearchViewModel extends BaseViewModel {
   List<String> getAvailableInstruments() => availableInstruments;
   List<String> getSelectedInstruments() => instrumentsFilterRequest;
 
-  //
-
   // Distance
 
-  double distanceFilter;
-
-  void setDistanceFilter(double distance) => distanceFilter = distance;
+  void setDistanceFilter(double distance) {
+    type == SearchType.Members
+        ? profileSearchRequest.maxDistance = distance
+        : localSearchRequest.maxDistance = distance;
+  }
 }

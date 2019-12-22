@@ -52,12 +52,14 @@ class TextStrings{
   static const String search_filter_search_hint = 'Insert your search term';
   static const String search_filter_instruments_section_title = 'Instruments';
   static const String search_filter_distance_section_title = 'Distance';
-
+  static const String search_filters_apply_filters_title = 'Apply Filters';
+  static const String search_filters_distance_filter_title = 'Distance Filter';
   // Notifications
   static const String notifications_screen_title = 'Notifications';
   static const String notifications_sender_empty = 'Sender is empty';
   static const String notifications_actions_todo = 'Accept';
   static const String notifications_actions_done = 'Accepted';
+
   //Paterns
    static const Pattern youTubePattern = r'^(https?\:\/\/)?((www\.)?youtube\.com|youtu\.?be)\/.+$';
 }

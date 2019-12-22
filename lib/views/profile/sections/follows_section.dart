@@ -43,6 +43,7 @@ class _FollowMembersSectionState extends State<FollowMembersSection> {
   Widget build(BuildContext context) {
     String _value;
     VoidCallback _action;
+    Color _color;
 
     return FutureBuilder(
       future: _getFollowersAndInvitations(),
@@ -51,18 +52,21 @@ class _FollowMembersSectionState extends State<FollowMembersSection> {
           if (followers.contains(widget.memberId)) {
             _value = 'Unfollow';
             _action = () => Api().unfollowMember(widget.memberId);
+            _color = AppColors.secondLevelCTAColor;
           } else if (invitations.contains(widget.memberId)) {
             _value = 'Pending';
             _action = () => {};
+            _color = AppColors.secondLevelCTAColor;
           } else {
             _value = 'Follow';
             _action = () => _follow();
+            _color = AppColors.firstLevelCTAColor;
           }
           return Padding(
             padding: EdgeInsets.fromLTRB(14, 16, 14, 0),
             child: FullWidthButton(
               value: _value,
-              color: AppColors.secondLevelCTAColor,
+              color: _color,
               onPressed: _action,
             ),
           );
