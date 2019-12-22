@@ -422,25 +422,31 @@ class Api {
     }
   }
 
-  Future unfollowMember(String memberId) async {
+  /* Unfollow User */
+
+  Future<bool> unfollowMember(String memberId) async {
     String token = await Storage.getToken();
 
-    Map<String, String> headers = {
-      'Content-type': 'application/json',
-      'Accept': 'application/json',
-      'Authorization': token
-    };
+    final headers = {"Authorization": token};
+    final body = {"userId": memberId};
 
-    final response = await client
-        .post('$endpoint/profile/unfollow?userId=$memberId', headers: headers);
-    switch (response.statusCode) {
-      case 200:
-        var json = jsonDecode(response.body);
-        print('UnFollow Response: $json');
-        return Profile.fromJson(json);
+    final request = '$endpoint/profile/unfollow';
+    print('Follow Request: $request');
+
+    final response = await client.post(request, headers: headers, body: body);
+    print('Follow Response: ${response.body}');
+
+    StatusCode statusCode = getStatusCode(response.statusCode);
+
+    switch (statusCode) {
+      case StatusCode.success:
+        return true;
+      case StatusCode.clientError:
+        return false;
+      case StatusCode.serverError:
+        return false;
       default:
-        print('Unfollow Error: ${response.reasonPhrase}');
-        return Profile();
+        return false;
     }
   }
 }

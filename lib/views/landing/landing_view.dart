@@ -45,43 +45,46 @@ class _LandingViewState extends State<LandingView> {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<LandingViewModel>(
       builder: (context) => landingViewModel,
-      child: Scaffold(
-        body: SafeArea(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 5),
-                height: 40,
-                child: Center(
-                  child: Image.asset(
-                    'assets/images/logo.png',
+      child: WillPopScope(
+        onWillPop: () => Future(() => false),
+        child: Scaffold(
+          body: SafeArea(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 5),
+                  height: 40,
+                  child: Center(
+                    child: Image.asset(
+                      'assets/images/logo.png',
+                    ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 5.0, left: 14),
-                child: Text(
-                  TextStrings.landing_first_headline,
-                  style: TextStyles.landing_headline,
+                Padding(
+                  padding: EdgeInsets.only(top: 5.0, left: 14),
+                  child: Text(
+                    TextStrings.landing_first_headline,
+                    style: TextStyles.landing_headline,
+                  ),
                 ),
-              ),
-              Container(
-                height: (MediaQuery.of(context).size.height - 190) / 2,
-                child: LandingLocalsView(),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 5.0, left: 14),
-                child: Text(
-                  TextStrings.landing_second_headline,
-                  style: TextStyles.landing_headline,
+                Container(
+                  height: (MediaQuery.of(context).size.height - 190) / 2,
+                  child: LandingLocalsView(),
                 ),
-              ),
-              Container(
-                height: (MediaQuery.of(context).size.height - 190) / 2,
-                child: LandingMembersView(),
-              ),
-            ],
+                Padding(
+                  padding: EdgeInsets.only(top: 5.0, left: 14),
+                  child: Text(
+                    TextStrings.landing_second_headline,
+                    style: TextStyles.landing_headline,
+                  ),
+                ),
+                Container(
+                  height: (MediaQuery.of(context).size.height - 190) / 2,
+                  child: LandingMembersView(),
+                ),
+              ],
+            ),
           ),
         ),
       ),
