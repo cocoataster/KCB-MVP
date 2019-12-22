@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_pagewise/flutter_pagewise.dart';
 import 'package:provider/provider.dart';
-import 'package:sounds_good/core/models/search_request.dart';
 import 'package:sounds_good/core/services/api.dart';
-import 'package:sounds_good/core/utils/enums.dart';
 import 'package:sounds_good/core/viewmodels/landing_viewmodel.dart';
 import 'package:sounds_good/views/landing/widgets/landing_member_cell.dart';
 
@@ -38,7 +35,6 @@ class _LandingMembersViewState extends State<LandingMembersView> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     _scrollController.dispose();
   }

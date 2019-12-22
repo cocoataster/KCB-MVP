@@ -1,8 +1,11 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:sounds_good/core/models/instruments.dart';
 import 'package:sounds_good/core/models/location.dart';
+import 'package:sounds_good/core/models/my_band.dart';
+import 'package:sounds_good/core/services/storage.dart';
 import 'package:sounds_good/core/utils/enums.dart';
 import 'package:sounds_good/core/models/profile.dart';
 import 'package:sounds_good/core/models/contact_method.dart';
@@ -208,5 +211,22 @@ class ProfileViewModel extends BaseViewModel {
 
   void updateLocation({double lat, double long}) {
     profile.location = Location(lat: lat, long: long);
+  }
+
+  /*
+  * Update Followers List on Storage
+  */
+
+  getMyFollowers() async {
+    MyBand allTheBand = await _api.getMyBand(0, 0);
+    List<String> followers = List<String>();
+
+    allTheBand.profiles
+        .map((element) => followers.add('${element.id}'))
+        .toList();
+
+    var ownProfileEncodedFollowers = jsonEncode(followers);
+
+    Storage.saveFollowers(ownProfileEncodedFollowers);
   }
 }

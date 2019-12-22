@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sounds_good/core/services/api.dart';
 import 'package:sounds_good/core/services/storage.dart';
+import 'package:sounds_good/core/viewmodels/profile_viewmodel.dart';
 import 'package:sounds_good/views/navigation/app_icons.dart';
 import 'package:sounds_good/views/landing/landing_view.dart';
 import 'package:sounds_good/views/notifications/notifications_view.dart';
@@ -43,7 +44,7 @@ class _AppTabBarState extends State<AppTabBar> {
       var availableInstruments = jsonEncode(res);
       Storage.saveAvailableInstruments(availableInstruments);
     });
-
+    ProfileViewModel().getMyFollowers();
   }
 
   @override

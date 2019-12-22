@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sounds_good/core/utils/enums.dart';
 import 'package:sounds_good/core/viewmodels/profile_viewmodel.dart';
-import 'package:sounds_good/views/profile/sections/follows_section.dart';
-import 'package:sounds_good/views/profile/sections/instruments_section.dart';
 import 'package:sounds_good/views/profile/sections/profile_bottom_buttons_section.dart';
 import 'package:sounds_good/views/profile/sections/profile_description_section.dart';
+import 'package:sounds_good/views/profile/sections/profile_follow_section.dart';
 import 'package:sounds_good/views/profile/sections/profile_header_section.dart';
+import 'package:sounds_good/views/profile/sections/profile_instruments_section.dart';
 import 'package:sounds_good/views/profile/sections/profile_videos_section.dart';
 
 class ProfileView extends StatefulWidget {

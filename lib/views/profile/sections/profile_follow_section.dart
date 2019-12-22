@@ -1,9 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sounds_good/core/services/api.dart';
 import 'package:sounds_good/core/services/storage.dart';
 import 'package:sounds_good/core/utils/colors.dart';
+import 'package:sounds_good/core/viewmodels/profile_viewmodel.dart';
 import 'package:sounds_good/views/shared_resources/full_width_button.dart';
 
 class FollowMembersSection extends StatefulWidget {
@@ -37,6 +39,7 @@ class _FollowMembersSectionState extends State<FollowMembersSection> {
 
   _follow(){
      Api().followMember(widget.memberId);
+     Provider.of<ProfileViewModel>(context, listen: false).getMyFollowers();
      Navigator.pop(context); 
   }
   @override

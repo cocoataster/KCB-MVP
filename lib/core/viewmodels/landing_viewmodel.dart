@@ -28,7 +28,7 @@ class LandingViewModel extends BaseViewModel {
     profilesRequest.total = myBand.total;
     setState(ViewState.Idle);
   }
-
+  
   fetchLocals(pageIndex) async {
     setState(ViewState.Busy);
     localsRequest.offset = pageIndex * localsRequest.limit;

@@ -55,11 +55,7 @@ class Api {
 
         getProfile().then((res) {
           profile = res;
-
-          var ownProfileFolllowres = jsonEncode(profile.followers);
           var ownProfileInvitations = jsonEncode(profile.invitations);
-
-          Storage.saveFollowers(ownProfileFolllowres);
           Storage.saveInvitations(ownProfileInvitations);
         });
 
