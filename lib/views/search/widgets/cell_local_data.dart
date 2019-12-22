@@ -4,9 +4,9 @@ import 'package:sounds_good/core/utils/text_styles.dart';
 class CellLocalData extends StatelessWidget {
   final String name;
   final double price;
-  final description;
+  final shortDescription;
 
-  CellLocalData({this.name, this.price, this.description});
+  CellLocalData({this.name, this.price, this.shortDescription});
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +39,7 @@ class CellLocalData extends StatelessWidget {
                 Expanded(
                   flex: 8,
                   child: MemberDescription(
-                    description: description,
+                    shortDescription: shortDescription,
                   ),
                 ),
               ],
@@ -77,12 +77,12 @@ class MemberPrice extends StatelessWidget {
 }
 
 class MemberDescription extends StatelessWidget {
-  final String description;
+  final String shortDescription;
 
-  MemberDescription({this.description});
+  MemberDescription({this.shortDescription});
 
   @override
   Widget build(BuildContext context) {
-    return Wrap(children: [Text('${description.substring(0, 160)}...')]);
+    return Wrap(children: [Text('$shortDescription')]);
   }
 }

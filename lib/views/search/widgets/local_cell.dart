@@ -7,10 +7,10 @@ class LocalCell extends StatelessWidget {
   final String localId;
   final String name;
   final double price;
-  final String description;
+  final String shortDescription;
 
   LocalCell(
-      {this.imageUrl, this.localId, this.name, this.price, this.description});
+      {this.imageUrl, this.localId, this.name, this.price, this.shortDescription});
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +52,7 @@ class LocalCell extends StatelessWidget {
                 child: CellLocalData(
                   name: name,
                   price: price,
-                  description: description,
+                  shortDescription: shortDescription,
                 ),
                 bottom: 0,
                 left: 0,

@@ -32,16 +32,17 @@ class LandingMemberCell extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(
-                builder: (context) => ProfileView(id)),
+            MaterialPageRoute(builder: (context) => ProfileView(id)),
           );
         },
         child: Stack(
           children: <Widget>[
             Container(
-              child: Image.network(imageUrl,
-                  fit: BoxFit.cover,
-                  width: (MediaQuery.of(context).size.height - 220) / 2),
+              width: (MediaQuery.of(context).size.height - 220) / 2,
+              child: Image.network(
+                imageUrl,
+                fit: BoxFit.cover,
+              ),
             ),
             Positioned(
                 child: LandingCellMemberData(

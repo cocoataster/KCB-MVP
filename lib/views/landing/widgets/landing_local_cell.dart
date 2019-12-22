@@ -10,7 +10,7 @@ class LandingLocalCell extends StatelessWidget {
   final String friendlyLocation;
   final String price;
   final ContactMethod contactMethod;
-  final String description;
+  final String shortDescription;
 
   LandingLocalCell(
       {this.id,
@@ -19,7 +19,7 @@ class LandingLocalCell extends StatelessWidget {
       this.friendlyLocation,
       this.price,
       this.contactMethod,
-      this.description});
+      this.shortDescription});
 
   @override
   Widget build(BuildContext context) {
@@ -43,16 +43,17 @@ class LandingLocalCell extends StatelessWidget {
         child: Stack(
           children: <Widget>[
             Container(
+              width: (MediaQuery.of(context).size.height - 220) / 2,
               child: Image.network(photos[0],
-                  fit: BoxFit.cover,
-                  width: (MediaQuery.of(context).size.height - 220) / 2),
+                  fit: BoxFit.fitHeight,
+                  ),
             ),
             Positioned(
                 child: LandingCellLocalData(
                     name: name,
                     friendlyLocation: friendlyLocation,
                     price: price,
-                    description: description),
+                    shortDescription: shortDescription),
                 bottom: 0,
                 left: 0,
                 right: 0)

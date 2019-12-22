@@ -81,22 +81,32 @@ class _AccessFormButtonsState extends State<AccessFormButtons> {
             child: SizedBox(
               width: MediaQuery.of(context).size.width - 48.0,
               child: RaisedButton(
-                  color: AppColors.firstLevelCTAColor,
-                  child: authViewModel.getMode == AuthFormMode.Login
-                      ? Text(
-                          TextStrings.authentication_login_button_value,
-                          style: TextStyles.buttons_value,
-                        )
-                      : Text(
-                          TextStrings.authentication_signin_button_value,
-                          style: TextStyles.buttons_value,
-                        ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  onPressed: () => authViewModel.getMode == AuthFormMode.Login
-                      ? _handleLogin()
-                      : _handleSignin()),
+                color: AppColors.firstLevelCTAColor,
+                child: authViewModel.getMode == AuthFormMode.Login
+                    ? Text(
+                        TextStrings.authentication_login_button_value,
+                        style: TextStyles.buttons_value,
+                      )
+                    : Text(
+                        TextStrings.authentication_signin_button_value,
+                        style: TextStyles.buttons_value,
+                      ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                onPressed: () => {
+                  if (authViewModel.getMode == AuthFormMode.Login)
+                    {
+                      if (widget.formKey.currentState.validate())
+                        {_handleLogin()}
+                    }
+                  else
+                    {
+                      if (widget.formKey.currentState.validate())
+                        {_handleSignin()}
+                    }
+                },
+              ),
             ),
           ),
           FullWidthButton(

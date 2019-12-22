@@ -4,10 +4,10 @@ class LandingCellLocalData extends StatelessWidget {
   final String name;
   final String friendlyLocation;
   final String price;
-  final String description;
+  final String shortDescription;
 
   LandingCellLocalData(
-      {this.name, this.friendlyLocation, this.price, this.description});
+      {this.name, this.friendlyLocation, this.price, this.shortDescription});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -19,7 +19,7 @@ class LandingCellLocalData extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           LandingMemberDataFirstRow(name: name, price: price),
-          LandingMemberDataSndRow(description: description),
+          LandingMemberDataSndRow(shortDescription: shortDescription),
         ],
       ),
     );
@@ -62,19 +62,19 @@ class LandingMemberDataFirstRow extends StatelessWidget {
 }
 
 class LandingMemberDataSndRow extends StatelessWidget {
-  final String description;
+  final String shortDescription;
 
-  const LandingMemberDataSndRow({this.description});
+  const LandingMemberDataSndRow({this.shortDescription});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 12.0),
+      padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 12.0),
       child: Row(
         children: <Widget>[
           Expanded(
             flex: 12,
-            child: Text('${description.substring(0, 80)}...'),
+            child: Text('$shortDescription'),
           )
         ],
       ),

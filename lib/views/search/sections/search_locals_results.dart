@@ -67,7 +67,7 @@ class _LocalResultsState extends State<LocalResults> {
                 localId: local.id,
                 name: local.name,
                 price: local.price,
-                description: local.description,
+                shortDescription: local.shortDescription,
               ),
             );
           },

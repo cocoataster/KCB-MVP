@@ -22,13 +22,6 @@ class _AuthFormViewState extends State<AuthFormView> {
     authViewModel.authInit();
   }
 
-  void _updateName(String value) {
-    setState(() {
-      Provider.of<AuthenticationViewModel>(context, listen: false)
-          .updateName(value);
-    });
-  }
-
   void _updateEmail(String value) {
     Provider.of<AuthenticationViewModel>(context, listen: false)
         .updateEmail(value);
@@ -68,15 +61,7 @@ class _AuthFormViewState extends State<AuthFormView> {
                           ),
                         ),
                         if (authViewModel.getMode == AuthFormMode.Signin)
-                          AuthFormField(
-                            initialValue: '',
-                            label: TextStrings.authentication_name_label,
-                            hintText: TextStrings.authentication_name_hint,
-                            isSensitive: false,
-                            validator: notEmptyValidator,
-                            errorMessage: TextStrings.authentication_name_error,
-                            action: _updateName,
-                          ),
+                          SigninFields(),
                         AuthFormField(
                           initialValue: email,
                           label: TextStrings.authentication_email_label,
@@ -127,6 +112,37 @@ class _AuthFormViewState extends State<AuthFormView> {
           },
         ),
       ),
+    );
+  }
+}
+
+class SigninFields extends StatefulWidget {
+  @override
+  _SigninFieldsState createState() => _SigninFieldsState();
+}
+
+class _SigninFieldsState extends State<SigninFields> {
+  void _updateName(String value) {
+    setState(() {
+      Provider.of<AuthenticationViewModel>(context, listen: false)
+          .updateName(value);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        AuthFormField(
+          initialValue: '',
+          label: TextStrings.authentication_name_label,
+          hintText: TextStrings.authentication_name_hint,
+          isSensitive: false,
+          validator: notEmptyValidator,
+          errorMessage: TextStrings.authentication_name_error,
+          action: _updateName,
+        ),
+      ],
     );
   }
 }

@@ -11,6 +11,7 @@ class Local {
   ContactMethod contactMethod;
   List<String> photos;
   String description;
+  String shortDescription;
 
   Local(
       {this.id,
@@ -20,7 +21,8 @@ class Local {
       this.price,
       this.contactMethod,
       this.photos,
-      this.description});
+      this.description,
+      this.shortDescription});
 
   factory Local.fromJson(Map<String, dynamic> json) {
     // Location and Contact Method can be null
@@ -63,6 +65,7 @@ class Local {
       contactMethod: contactMethod,
       photos: photosList,
       description: json['description'] != null ? json['description'] : '',
+      shortDescription: json['shortDescription'] != null ? json['shortDescription'] : '',
     );
   }
 
@@ -76,6 +79,8 @@ class Local {
     data['contact'] = this.contactMethod.toJson();
     data['photos'] = this.photos;
     data['description'] = this.description;
+    data['shortDescription'] = this.shortDescription;
+    
 
     return data;
   }
