@@ -9,13 +9,8 @@ import 'package:sounds_good/core/viewmodels/base_viewmodel.dart';
 class SearchViewModel extends BaseViewModel {
   Api _api = Api();
 
-  SearchRequest profileSearchRequest = SearchRequest(
-      name: "",
-      instruments: [],
-      maxDistance: 0.0,
-      limit: 2,
-      offset: 0,
-      total: 0);
+  SearchRequest profileSearchRequest =
+      SearchRequest(name: "", instruments: [], limit: 2, offset: 0, total: 0);
 
   SearchRequest localSearchRequest =
       SearchRequest(name: "", limit: 2, offset: 0, total: 0);
@@ -128,8 +123,8 @@ class SearchViewModel extends BaseViewModel {
   void disableAvailableInstrument(instrument) =>
       instrumentsToDisableFromPicker.add(instrument);
 
-  List<String> getInstrumentsToDisableFromPicker() => instrumentsToDisableFromPicker; 
-     
+  List<String> getInstrumentsToDisableFromPicker() =>
+      instrumentsToDisableFromPicker;
 
   List<String> getAvailableInstruments() => availableInstruments;
   List<String> getSelectedInstruments() => instrumentsFilterRequest;

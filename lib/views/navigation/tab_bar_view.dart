@@ -44,7 +44,6 @@ class _AppTabBarState extends State<AppTabBar> {
       Storage.saveAvailableInstruments(availableInstruments);
     });
 
-    _selectedIndex = 1;
   }
 
   @override
