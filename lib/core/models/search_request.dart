@@ -71,6 +71,6 @@ class SearchRequest {
   }
 
   bool hasMorePages() {
-    return offset < total;
+    return offset + limit < total;
   }
 }
