@@ -394,27 +394,31 @@ class Api {
     }
   }
 
-  Future followMember(String memberId) async {
+  /* Follow User */
+
+  Future<bool> followMember(String memberId) async {
     String token = await Storage.getToken();
 
-    Map<String, String> headers = {
-      'Content-type': 'application/json',
-      'Accept': 'application/json',
-      'Authorization': token
-    };
+    final headers = {"Authorization": token};
+    final body = {"userId": memberId};
 
-  
-  
-    final response = 
-        await client.post('$endpoint/profile/follow?userId=$memberId', headers: headers);
-    switch (response.statusCode) {
-      case 200:
-        var json = jsonDecode(response.body);
-        print('Follow Response: $json');
-        return Profile.fromJson(json);
+    final request = '$endpoint/profile/follow';
+    print('Follow Request: $request');
+
+    final response = await client.post(request, headers: headers, body: body);
+    print('Follow Response: ${response.body}');
+
+    StatusCode statusCode = getStatusCode(response.statusCode);
+
+    switch (statusCode) {
+      case StatusCode.success:
+        return true;
+      case StatusCode.clientError:
+        return false;
+      case StatusCode.serverError:
+        return false;
       default:
-        print('Follow Error: ${response.reasonPhrase}');
-        return Profile();
+        return false;
     }
   }
 
@@ -427,10 +431,8 @@ class Api {
       'Authorization': token
     };
 
-
-
-    final response =
-        await client.post('$endpoint/profile/unfollow?userId=$memberId', headers: headers);
+    final response = await client
+        .post('$endpoint/profile/unfollow?userId=$memberId', headers: headers);
     switch (response.statusCode) {
       case 200:
         var json = jsonDecode(response.body);
