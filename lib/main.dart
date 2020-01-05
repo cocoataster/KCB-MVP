@@ -18,6 +18,7 @@ class MyApp extends StatelessWidget {
         return authentication;
       },
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Tuned',
         initialRoute: '/',
         onGenerateRoute: Router.generateRouter,

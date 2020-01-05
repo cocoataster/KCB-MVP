@@ -26,6 +26,8 @@ class SearchViewModel extends BaseViewModel {
 
   void setType(SearchType searchType) {
     type = searchType;
+    profiles = [];
+    locals = [];
     notifyListeners();
   }
 

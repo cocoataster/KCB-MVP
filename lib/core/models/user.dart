@@ -7,6 +7,6 @@ class User {
 
   User.initial()
       : name = '',
-        email = '',
-        password = '';
+        email = 'gabriel@lagoblasco.es',
+        password = '123456';
 }
