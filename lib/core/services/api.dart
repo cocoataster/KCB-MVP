@@ -14,7 +14,7 @@ import 'package:sounds_good/core/utils/enums.dart';
 import 'package:sounds_good/core/utils/status_code.dart';
 
 class Api {
-  static const endpoint = 'http://ec2-52-87-34-66.compute-1.amazonaws.com';
+  static const endpoint = 'http://piedpipers.kontoru.com';
 
   var client = http.Client();
 
